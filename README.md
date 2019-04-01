@@ -1,2 +1,2 @@
-# seng201project
+# Space Explorers
 
