@@ -39,15 +39,49 @@ public class CrewMember {
 		this.health = health;
 	}
 	
-	//TODO
+	public void increaseHealth(int amount) {
+		this.health = (this.health + amount) % 100;
+	}
+	
+	public boolean decreaseHealth(int amount) {
+		this.health -= amount;
+		if (this.health >= 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public void decreaseHunger(int amount) {
+		this.hunger = (this.hunger + amount) % 100;
+	}
+	
+	public boolean increaseHunger(int amount) {
+		this.hunger -= amount;
+		if (this.hunger >= 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public void giveSpacePlague() {
+		//TODO
+	}
+	
+	public void removeSpacePlague() {
+		//TODO
+	}
+	
 	public void sleep() {
+		//TODO
 	}
 	
-	//TODO
 	public void repairShields() {
+		//TODO
 	}
 	
-	//TODO
 	public void searchPlanet() {
+		//TODO
 	}
 }

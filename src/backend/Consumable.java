@@ -1,12 +1,18 @@
 package backend;
 
 public abstract class Consumable {
-	private String name;
-	private int price;
-	private int held;
-	private int effectivness;
+	protected String name;
+	protected int price;
+	protected int held;
+	protected int effectivness;
 	
-	public abstract void use(CrewMember user);
+	public Consumable(String name, int price, int effectivness) {
+		this.name = name;
+		this.price = price;
+		this.effectivness = effectivness;
+		this.held = 0;
+	}
+	public abstract boolean use(CrewMember user);
 	
 	public String getName() {
 		return this.name;
