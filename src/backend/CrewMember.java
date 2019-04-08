@@ -5,15 +5,17 @@ public class CrewMember {
 	private int actionPoints;
 	private int health;
 	private int hunger;
+	private int tiredness;
 	private CrewClass memberClass;
 	private boolean spacePlague;
 	
 	public CrewMember(String name, CrewClass memberClass) {
 		this.name = name;
 		this.memberClass = memberClass;
-		this.actionPoints = 5;
+		this.actionPoints = 2;
 		this.health = 100;
 		this.hunger = 0;
+		this.tiredness = 0;
 		this.spacePlague = false;
 	}
 	
@@ -73,6 +75,24 @@ public class CrewMember {
 		}
 	}
 	
+	public int getTiredness() {
+		return this.tiredness;
+	}
+	
+	public void addTiredness(int amount) {
+		this.tiredness += amount;
+		if (this.tiredness >= 100) {
+			this.tiredness = 100;
+		}
+	}
+	
+	public void reduceTiredness(int amount) {
+		this.tiredness -= amount;
+		if (this.tiredness < 0) {
+			this.tiredness = 0;
+		}
+	}
+	
 	public void giveSpacePlague() {
 		this.spacePlague = true;
 	}
@@ -86,11 +106,17 @@ public class CrewMember {
 	}
 	
 	public void sleep() {
-		//TODO
+		this.actionPoints -= 1;
+		this.reduceTiredness(100);
 	}
 	
 	public void repairShields() {
-		//TODO
+		this.actionPoints -= 1;
+		if (this.memberClass == CrewClass.ENGINEER) {
+			Ship.repairShields(50);
+		} else {
+			Ship.repairShields(25);
+		}
 	}
 	
 	public void searchPlanet() {

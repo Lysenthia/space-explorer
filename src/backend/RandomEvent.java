@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class RandomEvent {
 	
 	public static void asteroidBelt() {
-		Ship.damageShields();
+		Ship.damageShields(50);
 	}
 	
 	public static CrewMember spacePlague(Random rng) {

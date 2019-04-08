@@ -77,8 +77,23 @@ public final class Ship {
 		}
 	}
 	
+	public static void repairShields(int amount) {
+		shipShields += amount;
+		if (shipShields > 100) {
+			shipShields = 100;
+		}
+		
+	}
+	
+	public static boolean damageShields(int amount) {
+		Ship.shipShields -= amount;
+		if (Ship.shipShields > 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 	//TODO
 	public static void pilot(CrewMember pilotOne, CrewMember pilotTwo) {}
-	public static void damageShields() {}
 	
 }
