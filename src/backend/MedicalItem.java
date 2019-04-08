@@ -14,6 +14,7 @@ public class MedicalItem extends Consumable {
 			return true;
 		} else {
 			return false;
+		}
 	}
 
 }
