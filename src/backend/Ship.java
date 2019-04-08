@@ -93,7 +93,9 @@ public final class Ship {
 			return true;
 		}
 	}
-	//TODO
-	public static void pilot(CrewMember pilotOne, CrewMember pilotTwo) {}
+	
+	public static void pilot(CrewMember pilotOne, CrewMember pilotTwo) {
+		//TODO
+	}
 	
 }

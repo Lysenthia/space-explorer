@@ -122,4 +122,9 @@ public class CrewMember {
 	public void searchPlanet() {
 		//TODO
 	}
+	
+	public boolean transitionDay() {
+		//TODO
+		return false;
+	}
 }

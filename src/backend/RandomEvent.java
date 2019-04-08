@@ -18,18 +18,27 @@ public class RandomEvent {
 	
 	public static CrewMember spacePirate(Random rng) {
 		boolean spotted = rng.nextBoolean();
+		ArrayList<Consumable> inventory = Ship.getInventory();
 		if (spotted) {
 			ArrayList<CrewMember> crew = Ship.getShipCrew();
 			int index = rng.nextInt(crew.size());
 			CrewMember spotter = crew.get(index);
-			if (spotter.getMemberClass() == CrewClass.GUARD) {
-				//TODO
-			} else {
-				//TODO
+			if (spotter.getMemberClass() != CrewClass.GUARD) {
+				if (inventory.size() >= 1) {
+					int stolen = rng.nextInt(inventory.size());
+					inventory.get(stolen).decreaseHeld(1);
+				}
 			}
 			return spotter;
 		} else {
-			//TODO
+			if (inventory.size() >= 1) {
+				int stolen = rng.nextInt(inventory.size());
+				inventory.get(stolen).decreaseHeld(1);
+			}
+			if (inventory.size() >= 1) {
+				int stolen = rng.nextInt(inventory.size());
+				inventory.get(stolen).decreaseHeld(1);
+			}
 			return null;
 		}
 	}
