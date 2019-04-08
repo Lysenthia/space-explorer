@@ -5,12 +5,12 @@ public class CrewMember {
 	private int actionPoints;
 	private int health;
 	private int hunger;
-	private String crewClass;
+	private CrewClass memberClass;
 	private boolean spacePlague;
 	
-	public CrewMember(String name, String crewClass) {
+	public CrewMember(String name, CrewClass memberClass) {
 		this.name = name;
-		this.crewClass = crewClass;
+		this.memberClass = memberClass;
 		this.actionPoints = 5;
 		this.health = 100;
 		this.hunger = 0;
@@ -21,8 +21,8 @@ public class CrewMember {
 		return this.name;
 	}
 	
-	public String getCrewClass() {
-		return this.crewClass;
+	public CrewClass getMemberClass() {
+		return this.memberClass;
 	}
 	
 	public int getActionPoints() {

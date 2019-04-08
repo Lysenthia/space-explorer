@@ -2,9 +2,10 @@ package backend;
 import java.util.ArrayList;
 
 public final class Ship {
+	
 	private static String name = "White Whale";
 	private static ArrayList<CrewMember> shipCrew = new ArrayList<CrewMember>();
-	/** private ArrayList<Consumable> inventory; // may be unneeded depending on implementation, leave commented out unless needed **/
+	private static ArrayList<Consumable> inventory;
 	private static int shipShields = 100;
 	private static int money = 0;
 	
@@ -56,9 +57,28 @@ public final class Ship {
 		name = newName;
 	}
 	
+	public static ArrayList<Consumable> getInventory() {
+		return inventory;
+	}
+	
+	public static boolean inInventory(Consumable item) {
+		return inventory.contains(item);
+	}
+	
+	public static void addToInventory(Consumable item) {
+		if (!(inInventory(item)) && item.getHeld() > 0) {
+			inventory.add(item);
+		}
+	}
+	
+	public static void removeFromInventory(Consumable item) {
+		if (inInventory(item) && item.getHeld() == 0) {
+			inventory.remove(item);
+		}
+	}
+	
 	//TODO
 	public static void pilot(CrewMember pilotOne, CrewMember pilotTwo) {}
 	public static void damageShields() {}
-	
 	
 }

@@ -28,10 +28,12 @@ public abstract class Consumable {
 	
 	public void increaseHeld(int amount) {
 		this.held += amount;
+		Ship.addToInventory(this);
 	}
 	
 	public void decreaseHeld(int amount) {
 		this.held -= amount;
+		Ship.removeFromInventory(this);
 	}
 
 }
