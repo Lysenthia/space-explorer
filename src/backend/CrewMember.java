@@ -81,7 +81,7 @@ public class CrewMember {
 	
 	public void addTiredness(int amount) {
 		this.tiredness += amount;
-		if (this.tiredness >= 100) {
+		if (this.tiredness > 100) {
 			this.tiredness = 100;
 		}
 	}
@@ -125,6 +125,20 @@ public class CrewMember {
 	
 	public boolean transitionDay() {
 		//TODO
-		return false;
+		this.addTiredness(50);
+		this.increaseHunger(50);
+		if (this.tiredness == 0) {
+			this.actionPoints = 1;
+		} else {
+			this.actionPoints = 2;
+		}
+		if (this.hasSpacePlague()) {
+			this.decreaseHealth(25);
+		}
+		if (this.health <= 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
