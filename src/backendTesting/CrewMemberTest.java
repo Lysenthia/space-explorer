@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import backend.CrewMember;
+import backend.CrewClass;
 
 
 class CrewMemberTest {
@@ -14,7 +15,7 @@ class CrewMemberTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		alice = new CrewMember("Alice", "pilot");
+		alice = new CrewMember("Alice", CrewClass.PILOT);
 	}
 
 	@Test
@@ -24,7 +25,7 @@ class CrewMemberTest {
 
 	@Test
 	void testGetCrewClass() {
-		assertEquals(alice.getCrewClass(), "pilot");
+		assertEquals(alice.getMemberClass(), CrewClass.PILOT);
 	}
 
 	@Test
