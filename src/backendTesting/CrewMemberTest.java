@@ -81,13 +81,10 @@ class CrewMemberTest {
 
 	@Test
 	void testIncreaseHunger() {
-		boolean var;
-		var = alice.increaseHunger(30);
+		alice.increaseHunger(30);
 		assertEquals(alice.getHunger(), 30);
-		assertEquals(var, false);
-		var = alice.increaseHunger(100);
+		alice.increaseHunger(100);
 		assertEquals(alice.getHunger(), 130);
-		assertEquals(var, true);
 	}
 
 	@Test

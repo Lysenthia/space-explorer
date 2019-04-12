@@ -1,4 +1,6 @@
 package backend;
+
+import java.util.Random;
 /**
  * Stores information regarding a single crew member including their name,
  * class, current health, hunger, tiredness and action points, and whether or
@@ -119,15 +121,11 @@ public class CrewMember {
 	/**
 	 * Increases the crew members hunger by a given amount
 	 * @param amount the amount to increase the crew members hunger by
-	 * @return true if the crew members hunger has exceeded 100;
-	 * 		   false otherwise
 	 */
-	public boolean increaseHunger(int amount) {
+	public void increaseHunger(int amount) {
 		this.hunger += amount;
-		if (this.hunger >= 100) {
-			return true;
-		} else {
-			return false;
+		if (this.hunger > 100) {
+			this.hunger = 100;
 		}
 	}
 	
@@ -206,11 +204,52 @@ public class CrewMember {
 	}
 	
 	/**
-	 * Searches a planet for an item
-	 * TODO
+	 * Searches a planet for items
+	 * @param planet the planet to search for an item
+	 * @return a special output type containing the type of item found (money, consumable, part, nothing), and details regarding this item
 	 */
-	public void searchPlanet() {
-		//TODO
+	public PlanetSearchOutput searchPlanet(Planet planet) {
+		//TODO Implement when a part has already been found
+		this.actionPoints -= 1;
+		Consumable item = null;
+		int amount = 0;
+		PlanetFindableObjects event = null;
+		Random rng = new Random();
+		if (this.memberClass == CrewClass.SCOUT) {
+			event = PlanetFindableObjects.selectRandom(true);
+			switch(event) {
+				case MONEY:
+					amount = rng.nextInt(100) + 1;
+					break;
+				case ITEM:
+					item = GameState.getAllConsumable().get(rng.nextInt(GameState.getAllConsumable().size()));
+					item.increaseHeld(1);
+					break;
+				case PART:
+					planet.findPart();
+					break;
+				case NOTHING:
+					break;
+			}
+		} else {
+			event = PlanetFindableObjects.selectRandom(false);
+			switch(event) {
+			case MONEY:
+				amount = rng.nextInt(100) + 1;
+				break;
+			case ITEM:
+				item = GameState.getAllConsumable().get(rng.nextInt(GameState.getAllConsumable().size()));
+				item.increaseHeld(1);
+				break;
+			case PART:
+				planet.findPart();
+				break;
+			case NOTHING:
+				break;
+			}
+		}
+		PlanetSearchOutput out = new PlanetSearchOutput(event, item, amount);
+		return out;
 	}
 	
 	/**
@@ -220,16 +259,22 @@ public class CrewMember {
 	 * 		   false otherwise
 	 */
 	public boolean transitionDay() {
-		//TODO
-		this.addTiredness(50);
-		this.increaseHunger(50);
-		if (this.tiredness == 100) {
-			this.actionPoints = 1;
+		if (this.memberClass != CrewClass.CYBORG) {
+			this.addTiredness(50);
+			this.increaseHunger(25);
+			if (this.tiredness == 100) {
+				this.actionPoints = 1;
+			} else {
+				this.actionPoints = 2;
+			}
+			if (this.getHunger() == 100) {
+				this.decreaseHealth(15);
+			}
 		} else {
 			this.actionPoints = 2;
 		}
 		if (this.hasSpacePlague()) {
-			this.decreaseHealth(25);
+			this.decreaseHealth(35);
 		}
 		if (this.health <= 0) {
 			return true;

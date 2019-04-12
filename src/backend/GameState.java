@@ -1,5 +1,6 @@
 package backend;
 
+import java.util.ArrayList;
 /**
  * Stores information regarding the current state of the game such as the current and end day,
  * and the number of parts that are needed and have been found.
@@ -11,6 +12,7 @@ public class GameState {
 	private static int endDay;
 	private static int partsFound;
 	private static int partsNeeded;
+	private static ArrayList<Consumable> allConsumables = new ArrayList<Consumable>();
 	
 	/**
 	 * Causes a runtime error if someone tries to create an instance of this class
@@ -23,7 +25,7 @@ public class GameState {
 	 */
 	public static void setEndDay(int day) {
 		endDay = day;
-		partsNeeded = day/3;
+		partsNeeded = (day * 2) / 3;
 	}
 	
 	/**
@@ -56,6 +58,10 @@ public class GameState {
 	 */
 	public static int getPartsFound() {
 		return partsFound;
+	}
+	
+	public static ArrayList<Consumable> getAllConsumable() {
+		return allConsumables;
 	}
 
 	/**

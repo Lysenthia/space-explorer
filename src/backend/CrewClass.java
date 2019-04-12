@@ -23,9 +23,9 @@ public enum CrewClass {
 	 */
 	ENGINEER("Shields Engineer"),
 	/**
-	 * Merchant archetype
+	 * Cyborg archetype
 	 */
-	MERCHANT("Merchant"),
+	CYBORG("Cyborg"),
 	/**
 	 * Medic archetype
 	 */

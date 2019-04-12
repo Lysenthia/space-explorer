@@ -7,9 +7,7 @@ package backend;
  *
  */
 public class Planet {
-	private boolean hasPart;
 	private boolean partFound;
-	private boolean searched;
 	private String name;
 	private String description;
 	
@@ -21,10 +19,7 @@ public class Planet {
 	public Planet(String name, String description) {
 		this.name = name;
 		this.description = description;
-		//TODO: Implement part randomiser
-		this.hasPart = false;
 		this.partFound = false;
-		this.searched = false;
 	}
 	
 	/**
@@ -42,16 +37,7 @@ public class Planet {
 	public String getDescription() {
 		return this.description;
 	}
-	
-	/**
-	 * Returns whether or no the planet has a drive part on it
-	 * @return true if the planet has a part;
-	 * 		   false otherwise
-	 */
-	public boolean getHasPart() {
-		return this.hasPart;
-	}
-	
+
 	/**
 	 * Returns whether or not the planets part has been found
 	 * @return true if the part has been found;
@@ -62,29 +48,9 @@ public class Planet {
 	}
 	
 	/**
-	 * Returns whether or not the planet has been searched for a part
-	 * @return true if the planet has been searched before;
-	 * 		   false otherwise
+	 * Sets the part found flag to true
 	 */
-	public boolean getSearched() {
-		return this.searched;
+	public void findPart() {
+		this.partFound = true;
 	}
-	
-	/**
-	 * Checks the planet for a part, and sets the searched flag to true
-	 * If the planet has a part, sets the part found flag to true
-	 * @return true if the planet has a part;
-	 * 		   false otherwise
-	 */
-	public boolean checkForPart() {
-		if (this.hasPart) {
-			this.partFound = true;
-			this.searched = true;
-			return true;
-		} else {
-			this.searched = true;
-			return false;
-		}
-	}
-
 }
