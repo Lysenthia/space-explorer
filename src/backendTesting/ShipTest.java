@@ -15,6 +15,7 @@ class ShipTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
+		Ship.clearInventory();
 	}
 
 	@Test
@@ -108,7 +109,14 @@ class ShipTest {
 
 	@Test
 	void testInInventory() {
-		fail("Not yet implemented");
+		MedicalItem elixir = new MedicalItem("Elixir", 50, 50);
+		MedicalItem potion = new MedicalItem("Potion", 20, 20);
+		assertEquals(Ship.inInventory(potion), false);
+		assertEquals(Ship.inInventory(elixir), false);
+		elixir.increaseHeld(1);
+		assertEquals(Ship.inInventory(elixir), true);
+		Ship.addToInventory(potion);
+		assertEquals(Ship.inInventory(potion), false);
 	}
 
 	@Test
@@ -118,7 +126,19 @@ class ShipTest {
 
 	@Test
 	void testRemoveFromInventory() {
-		fail("Not yet implemented");
+		MedicalItem elixir = new MedicalItem("Elixir", 50, 50);
+		MedicalItem potion = new MedicalItem("Potion", 20, 20);
+		assertEquals(Ship.getInventory().size(), 0);
+		elixir.increaseHeld(5);
+		assertEquals(Ship.getInventory().size(), 1);
+		potion.increaseHeld(0);
+		assertEquals(Ship.getInventory().size(), 1);
+		potion.increaseHeld(5);
+		assertEquals(Ship.getInventory().size(), 2);
+		elixir.decreaseHeld(5);
+		assertEquals(Ship.getInventory().size(), 1);
+		Ship.removeFromInventory(potion);
+		assertEquals(Ship.getInventory().size(), 1);
 	}
 
 	@Test
@@ -128,7 +148,13 @@ class ShipTest {
 
 	@Test
 	void testDamageShields() {
-		fail("Not yet implemented");
+		assertEquals(Ship.getShields(), 100);
+		boolean var = Ship.damageShields(25);
+		assertEquals(Ship.getShields(), 75);
+		assertEquals(var, false);
+		var = Ship.damageShields(75);
+		assertEquals(Ship.getShields(), 0);
+		assertEquals(var, true);
 	}
 
 	@Test

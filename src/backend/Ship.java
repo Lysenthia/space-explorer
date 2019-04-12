@@ -5,11 +5,13 @@ public final class Ship {
 	
 	private static String name = "White Whale";
 	private static ArrayList<CrewMember> shipCrew = new ArrayList<CrewMember>();
-	private static ArrayList<Consumable> inventory;
+	private static ArrayList<Consumable> inventory = new ArrayList<Consumable>();
 	private static int shipShields = 100;
 	private static int money = 0;
+	private static Planet orbiting;
 	
 	private Ship() {} //Intended to throw an error if someone tries to make an instance of this class
+	
 	/**
 	 * Gets the value of the ship's shields at the current time
 	 * @return the value of the ship's shields
@@ -92,7 +94,7 @@ public final class Ship {
 	 * @return
 	 */
 	public static ArrayList<Consumable> getInventory() {
-		return inventory;
+		return Ship.inventory;
 	}
 	/**
 	 * Method to check if the inventory contains an item
@@ -103,6 +105,7 @@ public final class Ship {
 	public static boolean inInventory(Consumable item) {
 		return inventory.contains(item);
 	}
+	
 	/**
 	 * Method to add an item to the ship's inventory
 	 * @param item the item to be added to the ships inventory
@@ -152,6 +155,18 @@ public final class Ship {
 	 */
 	public static void pilot(CrewMember pilotOne, CrewMember pilotTwo) {
 		//TODO
+	}
+	
+	public static Planet getOrbiting() {
+		return orbiting;
+	}
+	
+	/**
+	 * Clears the inventory of all items
+	 * Not for using during games, as it bypasses checks
+	 */
+	public static void clearInventory() {
+		Ship.inventory.clear();
 	}
 	
 }
