@@ -2,13 +2,26 @@ package backend;
 import java.util.Random;
 import java.util.ArrayList;
 
+/**
+ * Implements random events that occur when a day is transitioned
+ * @author hoo42
+ *
+ */
 public class RandomEvent {
 	
-	public static void asteroidBelt() {
+	/**
+	 * Ship flies through a comically unrealistic asteroid belt, damaging the shields by 50%
+	 */
+	private static void asteroidBelt() {
 		Ship.damageShields(50);
 	}
 	
-	public static CrewMember spacePlague(Random rng) {
+	/**
+	 * A crew member catches the space plague
+	 * @param rng random number generator
+	 * @return crew member that caught the space plague
+	 */
+	private static CrewMember spacePlague(Random rng) {
 		ArrayList<CrewMember> crew = Ship.getShipCrew();
 		int index = rng.nextInt(crew.size());
 		CrewMember infectee = crew.get(index);
@@ -16,7 +29,14 @@ public class RandomEvent {
 		return infectee;
 	}
 	
-	public static CrewMember spacePirate(Random rng) {
+	/**
+	 * Space pirates sneak aboard the ship, stealing 2 items
+	 * They have a 50% chance of being caught by a crew member, and if so only 1 item is stolen
+	 * If the pirates are caught by a crew member of the GUARD archetype, no items are stolen
+	 * @param rng random number generator
+	 * @return crew member that caught the space pirates (null if they were not caught)
+	 */
+	private static CrewMember spacePirate(Random rng) {
 		boolean spotted = rng.nextBoolean();
 		ArrayList<Consumable> inventory = Ship.getInventory();
 		if (spotted) {
@@ -43,20 +63,25 @@ public class RandomEvent {
 		}
 	}
 	
+	/**
+	 * Has a 1/2 chance of activating one of the random events, with each event having a 1/3 chance of occurring
+	 * if a random event occurs
+	 * @return a special output type containing the crew member involved in the random event and the event that occurred 
+	 */
 	public static RandomEventOutput activateRandomEvent() {
 		CrewMember member = null;
 		int event = 0;
 		Random rng = new Random();
 		if (rng.nextBoolean()) {
-			event = rng.nextInt(3);
-			switch (event) {
-				case 0:
+			event = rng.nextInt(RandomEventTypes.values().length);
+			switch (RandomEventTypes.values()[event]) {
+				case ASTEROID_BELT:
 					asteroidBelt();
 					break;
-				case 1:
+				case SPACE_PLAGUE:
 					member = spacePlague(rng);
 					break;
-				case 2:
+				case SPACE_PIRATES:
 					member = spacePirate(rng);
 					break;
 			}
