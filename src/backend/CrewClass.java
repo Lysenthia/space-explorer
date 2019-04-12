@@ -11,9 +11,9 @@ public enum CrewClass {
 	 */
 	GUARD("Guard"),
 	/**
-	 * Pilot archetype
+	 * Cook archetype
 	 */
-	PILOT("Pilot"),
+	COOK("Cook"),
 	/**
 	 * Scout archetype
 	 */

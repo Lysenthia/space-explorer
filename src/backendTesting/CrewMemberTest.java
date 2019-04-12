@@ -15,7 +15,7 @@ class CrewMemberTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		alice = new CrewMember("Alice", CrewClass.PILOT);
+		alice = new CrewMember("Alice", CrewClass.SCOUT);
 	}
 
 	@Test
@@ -25,7 +25,7 @@ class CrewMemberTest {
 
 	@Test
 	void testGetCrewClass() {
-		assertEquals(alice.getMemberClass(), CrewClass.PILOT);
+		assertEquals(alice.getMemberClass(), CrewClass.SCOUT);
 	}
 
 	@Test

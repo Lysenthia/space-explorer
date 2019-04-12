@@ -45,7 +45,7 @@ class ShipTest {
 
 	@Test
 	void testGetShipCrew() {
-		CrewMember alice = new CrewMember("Alice", CrewClass.PILOT);
+		CrewMember alice = new CrewMember("Alice", CrewClass.SCOUT);
 		CrewMember bob = new CrewMember("Bob", CrewClass.ENGINEER);
 		ArrayList<CrewMember> crew = new ArrayList<CrewMember>();
 		crew.add(alice);
@@ -58,7 +58,7 @@ class ShipTest {
 
 	@Test
 	void testAddCrewMember() {
-		CrewMember alice = new CrewMember("Alice", CrewClass.PILOT);
+		CrewMember alice = new CrewMember("Alice", CrewClass.SCOUT);
 		ArrayList<CrewMember> crew = new ArrayList<CrewMember>();
 		crew.add(alice);
 		Ship.addCrewMember(alice);
@@ -67,7 +67,7 @@ class ShipTest {
 
 	@Test
 	void testRemoveCrewMember() {
-		CrewMember alice = new CrewMember("Alice", CrewClass.PILOT);
+		CrewMember alice = new CrewMember("Alice", CrewClass.SCOUT);
 		CrewMember bob = new CrewMember("Bob", CrewClass.ENGINEER);
 		ArrayList<CrewMember> crew = new ArrayList<CrewMember>();
 		crew.add(alice);
