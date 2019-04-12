@@ -86,8 +86,8 @@ public final class Ship {
 	}
 	
 	public static boolean damageShields(int amount) {
-		Ship.shipShields -= amount;
-		if (Ship.shipShields > 0) {
+		shipShields -= amount;
+		if (shipShields > 0) {
 			return false;
 		} else {
 			return true;

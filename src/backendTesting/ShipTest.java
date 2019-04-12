@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import backend.CrewClass;
 import backend.CrewMember;
 import backend.Ship;
+import backend.MedicalItem;
 import java.util.ArrayList;
 
 class ShipTest {
@@ -94,7 +95,15 @@ class ShipTest {
 
 	@Test
 	void testGetInventory() {
-		fail("Not yet implemented");
+		MedicalItem elixir = new MedicalItem("Elixir", 50, 50);
+		MedicalItem potion = new MedicalItem("Potion", 20, 20);
+		assertEquals(Ship.getInventory().size(), 0);
+		elixir.increaseHeld(5);
+		assertEquals(Ship.getInventory().size(), 1);
+		potion.increaseHeld(0);
+		assertEquals(Ship.getInventory().size(), 1);
+		potion.increaseHeld(5);
+		assertEquals(Ship.getInventory().size(), 2);
 	}
 
 	@Test
