@@ -29,7 +29,9 @@ class CrewMemberTest {
 
 	@Test
 	void testGetActionPoints() {
-		assertEquals(alice.getActionPoints(), 5);
+		assertEquals(alice.getActionPoints(), 2);
+		alice.repairShields();
+		assertEquals(alice.getActionPoints(), 1);
 	}
 
 	@Test
@@ -83,7 +85,7 @@ class CrewMemberTest {
 		alice.increaseHunger(30);
 		assertEquals(alice.getHunger(), 30);
 		alice.increaseHunger(100);
-		assertEquals(alice.getHunger(), 130);
+		assertEquals(alice.getHunger(), 100);
 	}
 
 	@Test

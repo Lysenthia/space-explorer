@@ -15,7 +15,7 @@ class ShipTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		Ship.clearInventory();
+		Ship.clearAll();
 	}
 
 	@Test

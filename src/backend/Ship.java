@@ -165,8 +165,10 @@ public final class Ship {
 	 * Clears the inventory of all items
 	 * Not for using during games, as it bypasses checks
 	 */
-	public static void clearInventory() {
+	public static void clearAll() {
 		Ship.inventory.clear();
+		Ship.shipCrew.clear();
+		Ship.money = 0;
 	}
 	
 }
