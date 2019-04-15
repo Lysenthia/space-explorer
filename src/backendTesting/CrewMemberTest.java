@@ -109,12 +109,24 @@ class CrewMemberTest {
 
 	@Test
 	void testSleep() {
-		fail("Not yet implemented");
+		alice.addTiredness(150);
+		assertEquals(alice.getTiredness(), 100);
+		alice.sleep();
+		assertEquals(alice.getTiredness(), 0);
 	}
 
 	@Test
 	void testRepairShields() {
-		fail("Not yet implemented");
+		CrewMember bob = new CrewMember("Bob", CrewClass.ENGINEER);
+		Ship.damageShields(10);
+		alice.repairShields();
+		assertEquals(Ship.getShields(), 100);
+		Ship.damageShields(75);
+		assertEquals(Ship.getShields(), 25);
+		alice.repairShields();
+		assertEquals(Ship.getShields(), 50);
+		bob.repairShields();
+		assertEquals(Ship.getShields(), 100);
 	}
 
 	@Test
