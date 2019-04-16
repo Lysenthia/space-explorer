@@ -5,7 +5,7 @@ import java.util.Random;
 /**
  * Potential items found on a planet
  * @author hoo42
- *
+ * @author rvo16
  */
 public enum PlanetFindableObjects {
 	/**

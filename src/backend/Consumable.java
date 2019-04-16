@@ -12,6 +12,7 @@ public abstract class Consumable {
 	 * @param price the price of the consumable
 	 * @param effectivness the effectiveness of the consumable
 	 */
+	
 	public Consumable(String name, int price, int effectivness) {
 		this.name = name;
 		this.price = price;

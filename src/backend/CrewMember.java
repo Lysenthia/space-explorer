@@ -7,8 +7,10 @@ import java.util.Random;
  * not they have the space plague. Also provides actions that a crew member can
  * perform, such as repairing shields.
  * @author hoo42
- *
+ * @author rvo16
+ * 
  */
+
 public class CrewMember {
 	private String name;
 	private int actionPoints;

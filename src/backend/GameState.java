@@ -5,8 +5,9 @@ import java.util.ArrayList;
  * Stores information regarding the current state of the game such as the current and end day,
  * and the number of parts that are needed and have been found.
  * @author hoo42
- *
+ * @author rvo16
  */
+
 public class GameState {
 	private static int currentDay;
 	private static int endDay;
@@ -29,17 +30,18 @@ public class GameState {
 	}
 	
 	/**
-	 * Returns the ingame day upon which the game will end
-	 * @return the ingame day upon which the game will end
+	 * Returns the in-game day upon which the game will end
+	 * @return the in-game day upon which the game will end
 	 */
 	public static int getEndDay() {
 		return endDay;
 	}
 	
 	/**
-	 * Returns the ingame current day
-	 * @return the ingame current day
+	 * Returns the in-game current day
+	 * @return the in-game current day
 	 */
+	
 	public static int getCurrentDay() {
 		return currentDay;
 	}
@@ -65,7 +67,7 @@ public class GameState {
 	}
 
 	/**
-	 * Transitions an ingame day
+	 * Transitions an in-game day
 	 */
 	public static void transitionDay() {
 		//TODO

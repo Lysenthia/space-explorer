@@ -3,29 +3,35 @@ package backend;
 /**
  * Potential classes for crew members
  * @author hoo42
- *
+ * @author rvo16
  */
 public enum CrewClass {
+	
 	/**
 	 * Guard archetype
 	 */
 	GUARD("Guard"),
+	
 	/**
 	 * Cook archetype
 	 */
 	COOK("Cook"),
+	
 	/**
 	 * Scout archetype
 	 */
 	SCOUT("Scout"),
+	
 	/**
 	 * Engineer archetype
 	 */
 	ENGINEER("Shields Engineer"),
+	
 	/**
 	 * Cyborg archetype
 	 */
 	CYBORG("Cyborg"),
+	
 	/**
 	 * Medic archetype
 	 */

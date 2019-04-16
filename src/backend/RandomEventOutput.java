@@ -4,7 +4,7 @@ package backend;
  * Contains a random event that occurred and the crew member involved
  * Should only be used by the RandomEvent class
  * @author hoo42
- *
+ * @author rvo16
  */
 public class RandomEventOutput{
 	public final int event;

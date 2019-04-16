@@ -5,6 +5,7 @@ import java.util.ArrayList;
 /**
  * Implements random events that occur when a day is transitioned
  * @author hoo42
+ * @author rvo16
  *
  */
 public class RandomEvent {
