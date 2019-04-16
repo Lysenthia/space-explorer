@@ -4,7 +4,7 @@ package backend;
  * Contains information regarding the item found when searching a planet
  * Used by CrewMember when searchPlanet() is called
  * @author hoo42
- *
+ * @author rvo16
  */
 public class PlanetSearchOutput {
 	public final PlanetFindableObjects FOUND;

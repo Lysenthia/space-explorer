@@ -4,7 +4,7 @@ package backend;
  * Stores information regarding a single planet including its name, description,
  * whether or not it has a part, has been searched, and has had its part found.
  * @author hoo42
- *
+ * @author rvo16
  */
 
 public class Planet {
