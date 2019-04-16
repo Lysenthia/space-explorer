@@ -19,6 +19,7 @@ public final class Ship {
 	public static int getShields() {
 		return shipShields;
 	}
+	
 	/**
 	 * Gets the amount of money the player has
 	 * @return the amount of money the player has
@@ -26,6 +27,7 @@ public final class Ship {
 	public static int getMoney() {
 		return money;
 	}
+	
 	/**
 	 * Adds an amount to the current amount of money the player has
 	 * @param amount the amount of money to be added to the player's money
@@ -33,6 +35,7 @@ public final class Ship {
 	public static void addMoney(int amount) {
 		money += amount;
 	}
+	
 	/**
 	 * Decreases an amount to the current amount of money the player has
 	 * @param amount the amount of money to be subtracted from the player's money
@@ -40,6 +43,7 @@ public final class Ship {
 	public static void decreaseMoney(int amount) {
 		money -= amount;
 	}
+	
 	/**
 	 * Displays a list of the current crew members on the ship
 	 * @return the list of crew members of the ship
@@ -47,6 +51,7 @@ public final class Ship {
 	public static ArrayList<CrewMember> getShipCrew() {
 		return shipCrew;
 	}
+	
 	/**
 	 * Adds a new crew member to the ship crew
 	 * @param member the member to be added to the ship crew
@@ -75,6 +80,7 @@ public final class Ship {
 			return false;
 		}
 	}
+	
 	/**
 	 * Gets the name of the ship
 	 * @return the name of the ship
@@ -82,6 +88,7 @@ public final class Ship {
 	public static String getName() {
 		return name;
 	}
+	
 	/**
 	 * Sets the name of the ship
 	 * @param newName the new name of the ship
@@ -89,6 +96,7 @@ public final class Ship {
 	public static void setName(String newName) {
 		name = newName;
 	}
+	
 	/**
 	 * A list containing the consumables in the inventory
 	 * @return
@@ -96,6 +104,7 @@ public final class Ship {
 	public static ArrayList<Consumable> getInventory() {
 		return Ship.inventory;
 	}
+	
 	/**
 	 * Method to check if the inventory contains an item
 	 * @param item the item to be checked against
@@ -115,6 +124,7 @@ public final class Ship {
 			inventory.add(item);
 		}
 	}
+	
 	/**
 	 * Method to remove an item from the ship's inventory
 	 * @param item the item to be removed from the ship's inventory
@@ -124,6 +134,7 @@ public final class Ship {
 			inventory.remove(item);
 		}
 	}
+	
 	/**
 	 * Method to repair the shields on the ship
 	 * @param amount the value to repair the ship's shields by
@@ -134,6 +145,7 @@ public final class Ship {
 			shipShields = 100;
 		}	
 	}
+	
 	/**
 	 * Method that damages the ship's shields
 	 * @param amount the amount of damage to the ship's shields
@@ -148,6 +160,7 @@ public final class Ship {
 			return true;
 		}
 	}
+	
 	/**
 	 * Method to set the two crew member pilot's of the ship
 	 * @param pilotOne the first pilot of the ship
@@ -157,6 +170,10 @@ public final class Ship {
 		//TODO
 	}
 	
+	/**
+	 * Method to see what planet the ship is orbiting
+	 * @return orbiting status
+	 */
 	public static Planet getOrbiting() {
 		return orbiting;
 	}

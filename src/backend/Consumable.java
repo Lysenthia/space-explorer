@@ -28,6 +28,7 @@ public abstract class Consumable {
 	public String getName() {
 		return this.name;
 	}
+	
 	/**
 	 * Returns the price of the consumable
 	 * @return the price of the consumable
@@ -35,6 +36,7 @@ public abstract class Consumable {
 	public int getPrice() {
 		return this.price;
 	}
+	
 	/**
 	 * Returns the number of a type of item held at a current time
 	 * @return the number of a type of item held at a current time
@@ -42,6 +44,7 @@ public abstract class Consumable {
 	public int getHeld() {
 		return this.held;
 	}
+	
 	/**
 	 * Increases the number of the type of item held at a current time
 	 * @param amount the amount the held item is increased by
@@ -50,6 +53,7 @@ public abstract class Consumable {
 		this.held += amount;
 		Ship.addToInventory(this);
 	}
+	
 	/**
 	 * Decreases the number of the type of item held at a current time
 	 * @param amount the amount the held item is decreased by

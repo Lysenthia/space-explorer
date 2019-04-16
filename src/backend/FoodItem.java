@@ -13,7 +13,7 @@ public class FoodItem extends Consumable {
 	}
 	
 	/**
-	 * Returns true if food item is being used and decreases hunger and item helf count
+	 * Returns true if food item is being used and decreases hunger and item held count
 	 * 			false otherwise
 	 */
 	@Override

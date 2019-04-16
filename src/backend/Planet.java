@@ -6,6 +6,7 @@ package backend;
  * @author hoo42
  *
  */
+
 public class Planet {
 	private boolean partFound;
 	private String name;
