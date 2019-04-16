@@ -186,6 +186,7 @@ public final class Ship {
 		Ship.inventory.clear();
 		Ship.shipCrew.clear();
 		Ship.money = 0;
+		Ship.shipShields = 100;
 	}
 	
 }
