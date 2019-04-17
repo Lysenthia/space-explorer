@@ -53,5 +53,6 @@ public class Planet {
 	 */
 	public void findPart() {
 		this.partFound = true;
+		GameState.findPart();
 	}
 }

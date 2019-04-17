@@ -166,16 +166,27 @@ public final class Ship {
 	 * @param pilotOne the first pilot of the ship
 	 * @param pilotTwo the second pilot of the ship
 	 */
-	public static void pilot(CrewMember pilotOne, CrewMember pilotTwo) {
-		//TODO
+	public static void pilot(CrewMember pilotOne, CrewMember pilotTwo, Planet destination) {
+		pilotOne.useActionPoint();
+		pilotTwo.useActionPoint();
+		orbiting = destination;
 	}
 	
 	/**
 	 * Method to see what planet the ship is orbiting
-	 * @return orbiting status
+	 * @return planet the ship is orbiting
 	 */
 	public static Planet getOrbiting() {
 		return orbiting;
+	}
+	
+	/**
+	 * Forces the planet into the orbit of a planet
+	 * Not intended for use outside of testing and initial setup of game
+	 * @param destination the planet to force the ship into orbit around
+	 */
+	public static void forceOrbit(Planet destination) {
+		Ship.orbiting = destination;
 	}
 	
 	/**
@@ -187,6 +198,7 @@ public final class Ship {
 		Ship.shipCrew.clear();
 		Ship.money = 0;
 		Ship.shipShields = 100;
+		Ship.orbiting = null;
 	}
 	
 }

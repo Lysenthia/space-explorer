@@ -9,9 +9,9 @@ import java.util.ArrayList;
  */
 
 public class GameState {
-	private static int currentDay;
+	private static int currentDay = 1;
 	private static int endDay;
-	private static int partsFound;
+	private static int partsFound = 0;
 	private static int partsNeeded;
 	private static ArrayList<Consumable> allConsumables = new ArrayList<Consumable>();
 	
@@ -62,8 +62,22 @@ public class GameState {
 		return partsFound;
 	}
 	
+	/**
+	 * Returns a list of all the consumables in the game
+	 * @return a list of all the consumables in the game
+	 */
 	public static ArrayList<Consumable> getAllConsumable() {
 		return allConsumables;
+	}
+	
+	/**
+	 * Adds a consumable item to the list of all consumables in the game
+	 * @param item the consumable to add to the list
+	 */
+	public static void addConsumable(Consumable item) {
+		if (!allConsumables.contains(item)) {
+			allConsumables.add(item);
+		}
 	}
 
 	/**
@@ -71,6 +85,24 @@ public class GameState {
 	 */
 	public static void transitionDay() {
 		//TODO
+		currentDay += 1;
+	}
+	
+	/**
+	 * Increases the number of parts found by 1
+	 */
+	public static void findPart() {
+		partsFound += 1;
+	}
+	
+	/**
+	 * Resets GameState to how it would be at the start of a new game
+	 * For testing purposes only
+	 */
+	public static void clear() {
+		allConsumables.clear();
+		currentDay = 1;
+		partsFound = 0;
 	}
 	
 }

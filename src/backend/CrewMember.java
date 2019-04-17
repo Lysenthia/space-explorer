@@ -59,6 +59,13 @@ public class CrewMember {
 		return this.actionPoints;
 	}
 	
+	/**
+	 * Decreases the crew members action point by 1
+	 */
+	public void useActionPoint() {
+		this.actionPoints -= 1;
+	}
+	
 	/** 
 	 * Returns the crew members current hunger
 	 * @return the crew members current hunger
@@ -188,7 +195,7 @@ public class CrewMember {
 	 * Reduces the crew members tiredness by 100 and decreases action points by 1
 	 */
 	public void sleep() {
-		this.actionPoints -= 1;
+		this.useActionPoint();
 		this.reduceTiredness(100);
 	}
 	
@@ -197,7 +204,7 @@ public class CrewMember {
 	 * Decreases the crew members action points by 1
 	 */
 	public void repairShields() {
-		this.actionPoints -= 1;
+		this.useActionPoint();
 		if (this.memberClass == CrewClass.ENGINEER) {
 			Ship.repairShields(50);
 		} else {
@@ -212,7 +219,7 @@ public class CrewMember {
 	 */
 	public PlanetSearchOutput searchPlanet(Planet planet) {
 		//TODO Implement when a part has already been found
-		this.actionPoints -= 1;
+		this.useActionPoint();
 		Consumable item = null;
 		int amount = 0;
 		PlanetFindableObjects event = null;

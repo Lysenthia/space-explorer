@@ -2,6 +2,7 @@ package backendTesting;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Arrays;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,6 +17,8 @@ class CrewMemberTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		alice = new CrewMember("Alice", CrewClass.SCOUT);
+		Ship.clearAll();
+		GameState.clear();
 	}
 
 	@Test
@@ -132,7 +135,23 @@ class CrewMemberTest {
 
 	@Test
 	void testSearchPlanet() {
-		fail("Not yet implemented");
+		Planet kerbin = new Planet("Kerbin", "Little Green Men and Women");
+		MedicalItem elixir = new MedicalItem("Elixir", 10, 100);
+		GameState.addConsumable(elixir);
+		PlanetSearchOutput var;
+		for (int i = 0; i < 20; i++) {
+			var = alice.searchPlanet(kerbin);
+			assertEquals(Arrays.asList(PlanetFindableObjects.values()).contains(var.FOUND), true);
+			if (var.FOUND == PlanetFindableObjects.ITEM) {
+				assertEquals(GameState.getAllConsumable().contains(var.ITEM), true);
+			} else if (var.FOUND == PlanetFindableObjects.MONEY) {
+				assertEquals(var.MONEY <= 100, true);
+			} else if (var.FOUND == PlanetFindableObjects.PART) {
+				assertEquals(kerbin.getPartFound(), true);
+			} else if (var.FOUND == PlanetFindableObjects.NOTHING) {
+				assertEquals(alice.getMemberClass() != CrewClass.SCOUT, true);
+			}
+		}
 	}
 
 }

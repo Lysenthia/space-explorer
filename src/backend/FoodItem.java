@@ -18,7 +18,7 @@ public class FoodItem extends Consumable {
 	 */
 	@Override
 	public boolean use(CrewMember user) {
-		if (user.getHunger() < 100) {
+		if (user.getHunger() > 0) {
 			user.decreaseHunger(effectivness);
 			this.decreaseHeld(1);
 			return true;

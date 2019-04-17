@@ -5,10 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import backend.CrewClass;
-import backend.CrewMember;
-import backend.Ship;
-import backend.MedicalItem;
+import backend.*;
 import java.util.ArrayList;
 
 class ShipTest {
@@ -174,7 +171,12 @@ class ShipTest {
 
 	@Test
 	void testPilot() {
-		fail("Not yet implemented");
+		CrewMember Alice = new CrewMember("Alice", CrewClass.SCOUT);
+		CrewMember Bob = new CrewMember("Bob", CrewClass.ENGINEER);
+		Planet kerbin = new Planet("Kerbin", "Little green gem");
+		assertEquals(Ship.getOrbiting(), null);
+		Ship.pilot(Alice, Bob, kerbin);
+		assertEquals(Ship.getOrbiting(), kerbin);
 	}
 
 }
