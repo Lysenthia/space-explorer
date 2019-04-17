@@ -60,10 +60,11 @@ public class GameEnviroment {
 		/*
 		BEGIN GAME PROCESSING
 		*/
-		System.out.println("Hello!");
-		System.out.println("Welcome to Space Explorers!");
-		//Select number of days
-		System.out.println("How many days would you like to play for? (between 3 and 10 days): ");
+		System.out.println("｡･:*:･ﾟ★,｡･:*:･ﾟ☆       Hello!      ｡･:*:･ﾟ★,｡･:*:･ﾟ☆");
+		System.out.println("✧･ﾟ: *✧･ﾟ:*  Welcome to Space Explorers!  *:･ﾟ✧*:･ﾟ✧");
+		System.out.println("Your spaceships has been broken and its pieces are scattered throughout the surrounding planets.\n" + 
+				"You will need to find the missing pieces of your spaceship so that you can repair it and get home.");
+		System.out.println("\nHow many days would you like to play for? (between 3 and 10 days): ");
 		line = input.nextLine();
 		if (hasInteger(line)) {
 			days = extractInt(line);
@@ -80,7 +81,7 @@ public class GameEnviroment {
 		System.out.println("Please select between 2-4 crew members");
 		for (int i = 0; i < possibleCrew.size(); i++) {
 			CrewMember member = possibleCrew.get(i);
-			System.out.println(String.format("%d:\tName: %s\tClass: %s", i, member.getName(), member.getMemberClass().name()));
+			System.out.println(String.format("%d:\tName: %s\tClass: %s", i, member.getName(), member.getMemberClass().getClassName()));
 		}
 		input.close();
 		System.out.println("Done");
