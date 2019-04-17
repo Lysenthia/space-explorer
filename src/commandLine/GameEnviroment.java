@@ -85,5 +85,6 @@ public class GameEnviroment {
 		}
 		input.close();
 		System.out.println("Done");
+		System.exit(0);
 	}
 }
