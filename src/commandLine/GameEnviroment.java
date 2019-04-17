@@ -1,5 +1,6 @@
-package backend;
+package commandLine;
 import java.util.Scanner;
+import backend.*;
 
 public class GameEnviroment {
 
