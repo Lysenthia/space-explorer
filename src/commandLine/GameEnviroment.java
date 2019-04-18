@@ -27,13 +27,16 @@ public class GameEnviroment {
 	public static int[] extractInt(String s, int size) {
 		Scanner reader = new Scanner(s.trim());
 		int[] list = new int[size];
+		//ArrayList<Integer> list = new ArrayList<Integer>();
 		int i = 0;
 		while (reader.hasNextInt() && i < size) {
 			list[i] = reader.nextInt();
 			i++;
 		}
 		reader.close();
-		return list;
+		int[] out = new int[i];
+		System.arraycopy(list, 0, out, 0, i);
+		return out;
 	}
 
 	private static void initialiseVariables() {
@@ -107,8 +110,9 @@ public class GameEnviroment {
 			if (hasInteger(line, 2)) {
 				members = extractInt(line, 4);
 				for (int i = 0; i < members.length; i++) {
+					System.out.println(members[i]);
 					int value = members[i];
-					ready = (value >=  0 && value < members.length);
+					ready = (value >=  0 && value < size);
 					if (!ready) {
 						break;
 					}
