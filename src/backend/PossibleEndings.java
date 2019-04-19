@@ -1,4 +1,4 @@
-package commandLine;
+package backend;
 
 public enum PossibleEndings {
 	/**
