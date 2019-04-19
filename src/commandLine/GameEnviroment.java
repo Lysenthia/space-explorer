@@ -250,7 +250,7 @@ public class GameEnviroment {
 				choice = extractInt(line, 1)[0];
 			}
 		}
-		return planets.get(choice);
+		return possibleDestinations.get(choice);
 	}
 	
 	/**
@@ -385,7 +385,7 @@ public class GameEnviroment {
 				choice = extractInt(line, 1)[0];
 			}
 		}
-		CrewMember searcher = Ship.getShipCrew().get(choice);
+		CrewMember searcher = crew.get(choice);
 		PlanetSearchOutput result = searcher.searchPlanet(Ship.getOrbiting());
 		switch(result.FOUND) {
 		case ITEM:
@@ -411,7 +411,6 @@ public class GameEnviroment {
 		}
 		
 	}
-	
 	
 	/**
 	 * Gets the action that the player wishes to perform during normal gameplay
@@ -459,8 +458,6 @@ public class GameEnviroment {
 		}
 	}
 	
-	
-	
 	/**
 	 * Ends the game
 	 */
@@ -468,7 +465,6 @@ public class GameEnviroment {
 		//TODO
 		System.out.println(ending);
 	}
-	
 	
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);

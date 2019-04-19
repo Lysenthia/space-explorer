@@ -228,6 +228,7 @@ public class CrewMember {
 			switch(event) {
 				case MONEY:
 					amount = rng.nextInt(100) + 1;
+					Ship.addMoney(amount);
 					break;
 				case ITEM:
 					item = GameState.getAllConsumable().get(rng.nextInt(GameState.getAllConsumable().size()));
@@ -244,6 +245,7 @@ public class CrewMember {
 			switch(event) {
 			case MONEY:
 				amount = rng.nextInt(100) + 1;
+				Ship.addMoney(amount);
 				break;
 			case ITEM:
 				item = GameState.getAllConsumable().get(rng.nextInt(GameState.getAllConsumable().size()));
