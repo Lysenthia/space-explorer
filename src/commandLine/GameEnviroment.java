@@ -209,8 +209,7 @@ public class GameEnviroment {
 			}
 		} while (!ready);
 		for (int i = 0; i < members.length; i++) {
-			CrewMember member = pilots.get(members[i]);
-			selectedPilots.add(new CrewMember(member.getName(), member.getMemberClass()));
+			selectedPilots.add(pilots.get(members[i]));
 		}
 		System.out.println();
 		return selectedPilots;
@@ -270,7 +269,10 @@ public class GameEnviroment {
 		if (possiblePilots.size() >= 2) {
 			pilots = getPilots(input, possiblePilots);
 			destination = selectPlanet(input);
-			Ship.pilot(pilots.get(0), pilots.get(1), destination);
+			CrewMember pilotOne = pilots.get(0);
+			CrewMember pilotTwo = pilots.get(1);
+			Ship.pilot(pilotOne, pilotTwo, destination);
+			System.out.println(String.format("%s and %s piloted the %s to %s.", pilotOne.getName(), pilotTwo.getName(), Ship.getName(), destination.getName()));
 			System.out.println(String.format("Travelled to the planet %s.\nDescription: %s", destination.getName(), destination.getDescription()));
 		} else {
 			System.out.println("Not enough crew members to pilot the ship");
@@ -355,8 +357,38 @@ public class GameEnviroment {
 	 * @param input
 	 */
 	private static void searchPlanet(Scanner input) {
-		//TODO
+		ArrayList<CrewMember> crew = new ArrayList<CrewMember>();
+		for (CrewMember member : Ship.getShipCrew()) {
+			if (member.getActionPoints() > 0) {
+				crew.add(member);
+			}
+		}
+		System.out.println("Please select a crew member to search the planet:");
+		for (int i = 0; i < crew.size(); i++) {
+			CrewMember member = crew.get(i);
+			System.out.println(String.format("%d:\tName: %s\tClass: %s\tAction points remaining: %d", i, member.getName(), member.getMemberClass().getClassName(),member.getActionPoints()));
+		}
+		int choice = 0;
+		String line = input.nextLine();
+		if (hasInteger(line, 1)) {
+			choice = extractInt(line, 1)[0];
+		}
+		while (choice < 0 || choice > crew.size()) {
+			System.out.println("Please select a crew member to search the planet:");
+			for (int i = 0; i < crew.size(); i++) {
+				CrewMember member = crew.get(i);
+				System.out.println(String.format("%d:\tName: %s\tClass: %s\tAction points remaining: %d", i, member.getName(), member.getMemberClass().getClassName(),member.getActionPoints()));
+			}
+			System.out.println(String.format("Please enter an integer between 0 and %d inclusive: ", crew.size() - 1));
+			line = input.nextLine();
+			if (hasInteger(line, 1)) {
+				choice = extractInt(line, 1)[0];
+			}
+		}
+		
+		
 	}
+	
 	
 	/**
 	 * Gets the action that the player wishes to perform during normal gameplay
@@ -404,6 +436,8 @@ public class GameEnviroment {
 		}
 	}
 	
+	
+	
 	/**
 	 * Ends the game
 	 */
@@ -412,7 +446,8 @@ public class GameEnviroment {
 		System.out.println(ending);
 	}
 	
-public static void main(String[] args) {
+	
+	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
 		
 		initialiseVariables();
