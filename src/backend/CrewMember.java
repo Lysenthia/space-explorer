@@ -218,14 +218,13 @@ public class CrewMember {
 	 * @return a special output type containing the type of item found (money, consumable, part, nothing), and details regarding this item
 	 */
 	public PlanetSearchOutput searchPlanet(Planet planet) {
-		//TODO Implement when a part has already been found
 		this.useActionPoint();
 		Consumable item = null;
 		int amount = 0;
 		PlanetFindableObjects event = null;
 		Random rng = new Random();
 		if (this.memberClass == CrewClass.SCOUT) {
-			event = PlanetFindableObjects.selectRandom(true);
+			event = PlanetFindableObjects.selectRandom(true, planet.getPartFound());
 			switch(event) {
 				case MONEY:
 					amount = rng.nextInt(100) + 1;
@@ -241,7 +240,7 @@ public class CrewMember {
 					break;
 			}
 		} else {
-			event = PlanetFindableObjects.selectRandom(false);
+			event = PlanetFindableObjects.selectRandom(false, planet.getPartFound());
 			switch(event) {
 			case MONEY:
 				amount = rng.nextInt(100) + 1;

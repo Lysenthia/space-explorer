@@ -28,13 +28,22 @@ public enum PlanetFindableObjects {
 	/**
 	 * Randomly selects an item that can be found on a planet
 	 * @param reduced true if the option to find nothing is not allowed, false otherwise
+	 * @param  
 	 * @return a randomly selected item
 	 */
-	public static PlanetFindableObjects selectRandom(boolean reduced) {
-		if (reduced) {
-			return new PlanetFindableObjects[] {ITEM, MONEY, PART}[new Random().nextInt(3)];
+	public static PlanetFindableObjects selectRandom(boolean isScout, boolean partFound) {
+		if (partFound) {
+			if (isScout) {
+				return new PlanetFindableObjects[] {ITEM, MONEY}[new Random().nextInt(2)];
+			} else {
+				return new PlanetFindableObjects[] {ITEM, MONEY, NOTHING}[new Random().nextInt(3)];
+			}
 		} else {
-			return PlanetFindableObjects.values()[new Random().nextInt(4)];
+			if (isScout) {
+				return new PlanetFindableObjects[] {ITEM, MONEY, PART}[new Random().nextInt(3)];
+			} else {
+				return PlanetFindableObjects.values()[new Random().nextInt(4)];
+			}
 		}
 	}
 }

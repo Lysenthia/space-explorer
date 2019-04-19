@@ -400,7 +400,7 @@ public class GameEnviroment {
 			System.out.println(String.format("%s attempted to find something of use, however they could not find anything due to their own inexperience", searcher.getName()));
 			break;
 		case PART:
-			System.out.println(String.format("%s managed to find a part for the %s's hyperdrive! Note: You can no longer find hyperdrive parts on %s", searcher.getName(), Ship.getOrbiting().getName()));
+			System.out.println(String.format("%s managed to find a part for the %s's hyperdrive! Note: You can no longer find hyperdrive parts on %s", searcher.getName(), Ship.getName(), Ship.getOrbiting().getName()));
 			if (GameState.getPartsNeeded() == GameState.getPartsFound()) {
 				finished = true;
 				ending = PossibleEndings.VICTORY;
