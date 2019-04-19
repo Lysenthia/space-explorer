@@ -385,7 +385,30 @@ public class GameEnviroment {
 				choice = extractInt(line, 1)[0];
 			}
 		}
-		
+		CrewMember searcher = Ship.getShipCrew().get(choice);
+		PlanetSearchOutput result = searcher.searchPlanet(Ship.getOrbiting());
+		switch(result.FOUND) {
+		case ITEM:
+			System.out.println(String.format("%s managed to find a %s", searcher.getName(), result.ITEM.getName()));
+			System.out.println(String.format("The number of %s held is now %d", result.ITEM.getName(), result.ITEM.getHeld()));
+			break;
+		case MONEY:
+			System.out.println(String.format("%s managed to find a %d credits", searcher.getName(),result.MONEY));
+			System.out.println(String.format("Total credits: %d", Ship.getMoney()));
+			break;
+		case NOTHING:
+			System.out.println(String.format("%s attempted to find something of use, however they could not find anything due to their own inexperience", searcher.getName()));
+			break;
+		case PART:
+			System.out.println(String.format("%s managed to find a part for the %s's hyperdrive! Note: You can no longer find hyperdrive parts on %s", searcher.getName(), Ship.getOrbiting().getName()));
+			if (GameState.getPartsNeeded() == GameState.getPartsFound()) {
+				finished = true;
+				ending = PossibleEndings.VICTORY;
+			} else {
+				System.out.println(String.format("Parts left to find: %d", GameState.getPartsNeeded() - GameState.getPartsFound()));
+			}
+			break;
+		}
 		
 	}
 	
