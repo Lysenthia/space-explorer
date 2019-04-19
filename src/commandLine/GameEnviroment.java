@@ -8,7 +8,15 @@ public class GameEnviroment {
 	private static ArrayList<CrewMember> possibleCrew = new ArrayList<CrewMember>();
 	private static Outpost outpost;
 	private static ArrayList<Planet> planets = new ArrayList<Planet>();
+	private static boolean finished = false;
 	
+	/**
+	 * Checks if a string contains a given number of integers
+	 * @param s the string to check for integers
+	 * @param size the number of integers to check for
+	 * @return true if the string contains the correct number of integers;
+	 * 		   false otherwise
+	 */
 	public static boolean hasInteger(String s, int size) {
 		Scanner reader = new Scanner(s.trim());
 		int i = 0;
@@ -24,6 +32,12 @@ public class GameEnviroment {
 		}
 	}
 	
+	/**
+	 * Extracts a series of integers from a string
+	 * @param s the string to extract the integers from
+	 * @param size the maximum number of integers to extract
+	 * @return an array containing the extracted integers (May be smaller than size)
+	 */
 	public static int[] extractInt(String s, int size) {
 		Scanner reader = new Scanner(s.trim());
 		int[] list = new int[size];
@@ -38,6 +52,9 @@ public class GameEnviroment {
 		return out;
 	}
 
+	/**
+	 * Initialises various variables used by the game
+	 */
 	private static void initialiseVariables() {
 		possibleCrew.add(new CrewMember("Alice", CrewClass.SCOUT));
 		possibleCrew.add(new CrewMember("Bob", CrewClass.ENGINEER));
@@ -69,6 +86,9 @@ public class GameEnviroment {
 		planets.add(new Planet("Pluto", "The furthest planet from Sol. Angry at it's exclusion from the title of planet, protesters bombed other space objects and used the material to beef up Pluto to a planet."));
 	}
 	
+	/**
+	 * Prints the intro greeting for the game
+	 */
 	private static void printGreeting() {
 		System.out.println("｡･:*:･ﾟ★,｡･:*:･ﾟ☆       Hello!      ｡･:*:･ﾟ★,｡･:*:･ﾟ☆");
 		System.out.println("✧･ﾟ: *✧･ﾟ:*  Welcome to Space Explorers!  *:･ﾟ✧*:･ﾟ✧");
@@ -76,6 +96,10 @@ public class GameEnviroment {
 				"You will need to find the missing pieces of your spaceship so that you can repair it and get home.");
 	}
 	
+	/**
+	 * Gets the end day for the game
+	 * @param input the Scanner shared by various methods
+	 */
 	private static void getEndDay(Scanner input) {
 		System.out.println("\nHow many days would you like to play for? (between 3 and 10 days): ");
 		int days = 0;
@@ -94,7 +118,12 @@ public class GameEnviroment {
 		System.out.println(String.format("End day has been set to %d\n%d parts must be found\n", GameState.getEndDay(), GameState.getPartsNeeded()));
 	}
 	
+	/**
+	 * Gets the crew members to add to the ship's crew
+	 * @param input the Scanner shared between methods
+	 */
 	private static void getCrewMembers(Scanner input) {
+		ArrayList<String> usedNames = new ArrayList<String>();
 		int size = possibleCrew.size();
 		boolean ready = false;
 		String line;
@@ -119,12 +148,21 @@ public class GameEnviroment {
 		} while (!ready);
 		for (int i = 0; i < members.length; i++) {
 			CrewMember member = possibleCrew.get(members[i]);
-			Ship.addCrewMember(new CrewMember(member.getName(), member.getMemberClass()));
-			System.out.println(String.format("Added crew member with name %s and class %s", member.getName(), member.getMemberClass().getClassName()));
+			if (usedNames.contains(member.getName())) {
+				Ship.addCrewMember(new CrewMember(member.getName() + i, member.getMemberClass()));
+				System.out.println(String.format("Added crew member with name %s and class %s", member.getName() + i, member.getMemberClass().getClassName()));
+			} else {
+				Ship.addCrewMember(new CrewMember(member.getName(), member.getMemberClass()));
+				usedNames.add(member.getName());
+				System.out.println(String.format("Added crew member with name %s and class %s", member.getName(), member.getMemberClass().getClassName()));
+			}
 		}
 		System.out.println();
 	}
 	
+	/**
+	 * Prints the possible actions for the player to the console
+	 */
 	private static void printActions() {
 		System.out.println("What would you like to do? ");
 		System.out.println("0: Go to a new planet");
@@ -132,17 +170,155 @@ public class GameEnviroment {
 		System.out.println(String.format("2: Go to %s", outpost.getName()));
 		System.out.println("3: Transition to a new day");
 		if (Ship.getOrbiting() != null) {
-			System.out.println(String.format("Search %s for supplies", Ship.getOrbiting().getName()));
+			System.out.println(String.format("4: Search %s for supplies", Ship.getOrbiting().getName()));
 		}
 	}
 	
+	private static ArrayList<CrewMember> getPilots(Scanner input, ArrayList<CrewMember> pilots) {
+		int size = pilots.size();
+		ArrayList<CrewMember> selectedPilots = new ArrayList<CrewMember>();
+		boolean ready = false;
+		String line;
+		int[] members = null;
+		do {
+			System.out.println("Please select 2 crew members");
+			for (int i = 0; i < size; i++) {
+				CrewMember member = pilots.get(i);
+				System.out.println(String.format("%d:\tName: %s\tAction points remaining: %d", i, member.getName(), member.getActionPoints()));
+			}
+			line = input.nextLine();
+			if (hasInteger(line, 2)) {
+				members = extractInt(line, 2);
+				for (int i = 0; i < members.length; i++) {
+					int value = members[i];
+					ready = (value >=  0 && value < size);
+					if (!ready) {
+						break;
+					}
+				}
+				if (members[0] == members[1]) {
+					ready = false;
+				}
+			}
+		} while (!ready);
+		for (int i = 0; i < members.length; i++) {
+			CrewMember member = pilots.get(members[i]);
+			selectedPilots.add(new CrewMember(member.getName(), member.getMemberClass()));
+		}
+		System.out.println();
+		return selectedPilots;
+	}
+
+	private static void printPlanets(ArrayList<Planet> planetsToPrint) {
+		for (int i = 0; i < planetsToPrint.size(); i++) {
+			Planet cur = planetsToPrint.get(i);
+			System.out.println(String.format("%d:\tName: %s\tPart Found: %b", i, cur.getName(), cur.getPartFound()));
+		}
+	}
+	
+	private static Planet selectPlanet(Scanner input) {
+		ArrayList<Planet> possibleDestinations = new ArrayList<Planet>(planets);
+		possibleDestinations.remove(Ship.getOrbiting());
+		System.out.println("Please select a planet to travel to:");
+		printPlanets(possibleDestinations);
+		int choice = 0;
+		String line = input.nextLine();
+		if (hasInteger(line, 1)) {
+			choice = extractInt(line, 1)[0];
+		}
+		while (choice < 0 || choice > possibleDestinations.size()) {
+			System.out.println("Please select a planet to travel to:");
+			printPlanets(possibleDestinations);
+			System.out.println(String.format("Please enter an integer between 0 and %d inclusive: ", possibleDestinations.size() - 1));
+			line = input.nextLine();
+			if (hasInteger(line, 1)) {
+				choice = extractInt(line, 1)[0];
+			}
+		}
+		return planets.get(choice);
+	}
+	
+	private static void pilotShip(Scanner input) {
+		ArrayList<CrewMember> possiblePilots = new ArrayList<CrewMember>();
+		ArrayList<CrewMember> pilots;
+		Planet destination;
+		for (CrewMember member : Ship.getShipCrew()) {
+			if (member.getActionPoints() > 0) {
+				possiblePilots.add(member);
+			}
+		}
+		if (possiblePilots.size() >= 2) {
+			pilots = getPilots(input, possiblePilots);
+			destination = selectPlanet(input);
+			Ship.pilot(pilots.get(0), pilots.get(1), destination);
+			System.out.println(String.format("Travelled to the planet %s.\nDescription: %s", destination.getName(), destination.getDescription()));
+		} else {
+			System.out.println("Not enough crew members to pilot the ship");
+			System.out.println("In order to travel to a new planet, at least 2 crew members must have 1 or more action points");
+		}
+		System.out.println();
+	}
+	
+	private static void enterInventory(Scanner input) {
+		
+	}
+	
+	private static void enterOutpost(Scanner input) {
+		
+	}
+	
+	private static void transitionDay(Scanner input) {
+		
+	}
+	
+	private static void searchPlanet(Scanner input) {
+		
+	}
+	
+	/**
+	 * Gets the action that the player wishes to perform during normal gameplay
+	 * @param input the Scanner shared between methods
+	 */
 	private static void selectAction(Scanner input) {
+		int maxChoice;
 		if (Ship.getOrbiting() == null) {
 			System.out.println("Currently in a heliocentric orbit");
+			maxChoice = 3;
 		} else {
 			System.out.println(String.format("Currently orbiting the planet %s", Ship.getOrbiting().getName()));
+			maxChoice = 4;
 		}
 		printActions();
+		int choice = 0;
+		String line = input.nextLine();
+		if (hasInteger(line, 1)) {
+			choice = extractInt(line, 1)[0];
+		}
+		while (choice < 0 || choice > maxChoice) {
+			printActions();
+			System.out.println(String.format("Please enter an integer between 0 and %d inclusive: ", maxChoice));
+			line = input.nextLine();
+			if (hasInteger(line, 1)) {
+				choice = extractInt(line, 1)[0];
+			}
+		}
+		switch (choice) {
+		case 0:
+			pilotShip(input);
+			break;
+		case 1:
+			enterInventory(input);
+			break;
+		case 2:
+			enterOutpost(input);
+			break;
+		case 3:
+			transitionDay(input);
+			break;
+		case 4:
+			searchPlanet(input);
+			break;
+		}
 	}
 	
 	public static void main(String[] args) {
@@ -152,8 +328,9 @@ public class GameEnviroment {
 		printGreeting();
 		getEndDay(input);
 		getCrewMembers(input);
-		selectAction(input);
-		
+		while (!finished) {
+			selectAction(input);
+		}
 		input.close();
 		System.out.println("Done");
 		System.exit(0);
