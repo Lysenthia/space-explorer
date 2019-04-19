@@ -83,9 +83,36 @@ public class GameState {
 	/**
 	 * Transitions an in-game day
 	 */
-	public static void transitionDay() {
+	public static ArrayList<CrewMember> transitionDay() {
 		//TODO
+		boolean dead;
+		ArrayList<CrewMember> deadCrew = new ArrayList<CrewMember>();
 		currentDay += 1;
+		//Executes two loops over crew members due to different purposes
+		for (CrewMember member : Ship.getShipCrew()) {
+			switch (member.getMemberClass()) {
+			case COOK:
+				for (CrewMember crew : Ship.getShipCrew()) {
+					crew.decreaseHunger(10);
+				}
+				break;
+			case MEDIC:
+				for (CrewMember crew : Ship.getShipCrew()) {
+					crew.increaseHealth(10);
+				}
+				break;
+			default:
+				break;
+			}
+		}
+		for (CrewMember member : Ship.getShipCrew()) {
+			dead = member.transitionDay();
+			if (dead) {
+				Ship.removeCrewMember(member);
+				deadCrew.add(member);
+			}
+		}
+		return deadCrew;
 	}
 	
 	/**

@@ -9,6 +9,7 @@ public class GameEnviroment {
 	private static Outpost outpost;
 	private static ArrayList<Planet> planets = new ArrayList<Planet>();
 	private static boolean finished = false;
+	private static PossibleEndings ending;
 	
 	/**
 	 * Checks if a string contains a given number of integers
@@ -283,7 +284,7 @@ public class GameEnviroment {
 	 * @param input the Scanner shared between methods
 	 */
 	private static void viewStatus(Scanner input) {
-		
+		//TODO
 	}
 	
 	/**
@@ -291,7 +292,7 @@ public class GameEnviroment {
 	 * @param input the Scanner shared between methods
 	 */
 	private static void enterOutpost(Scanner input) {
-		
+		//TODO
 	}
 	
 	/**
@@ -299,7 +300,54 @@ public class GameEnviroment {
 	 * @param input
 	 */
 	private static void transitionDay(Scanner input) {
-		
+		ArrayList<CrewMember> deadCrew;
+		deadCrew = GameState.transitionDay();
+		RandomEventOutput event;
+		System.out.println(String.format("Advanced to day %d", GameState.getCurrentDay()));
+		if (GameState.getCurrentDay() >= GameState.getEndDay()) {
+			finished = true;
+			ending = PossibleEndings.OUT_OF_TIME;
+		} else {
+			if (deadCrew.size() > 1) {
+				System.out.println("Due to the effects of the space plague, the following crew members have died:");
+				for (CrewMember member: deadCrew) {
+					System.out.println(member.getName());
+				}
+			} else if (deadCrew.size() == 1) {
+				System.out.println(String.format("Due to the effects of the space plague, %s has died", deadCrew.get(0).getName()));
+			}
+			event = RandomEvent.activateRandomEvent();
+			switch (event.event) {
+			case ASTEROID_BELT:
+				System.out.println("Whilst floating through space, your ship encountered a comically unrealistic asteroid belt.");
+				System.out.println("Impact with an asteroid caused your ship to sustain 50% damage to its shields.");
+				if (Ship.getShields() >= 0) {
+					finished = true;
+					ending = PossibleEndings.SHIP_DESTROYED;
+				} else {
+					System.out.println(String.format("The %s's shields are now at %d%", Ship.getName(), Ship.getShields()));
+				}
+				break;
+			case NOTHING:
+				break;
+			case SPACE_PIRATES:
+				System.out.println("Whilst floating in space, a space pirate managed to sneak onboard your ship.");
+				if (event.member == null) {
+					System.out.println("They managed to make off with two items before being found");
+				} else {
+					if (event.member.getMemberClass() == CrewClass.GUARD) {
+						System.out.println(String.format("Fortunately, your %s %s managed to find them, and dispatched of them before they could steal anything", CrewClass.GUARD.getClassName().toLowerCase(),event.member.getName()));
+					} else {
+						System.out.println(String.format("Fortunately %s managed to find them, but the pirate managed to make off with an item", event.member.getName()));
+					}
+				}
+				break;
+			case SPACE_PLAGUE:
+				System.out.println(String.format("Whilst floating in space, %s contracted the space plague. This will decrease their health by 25 each day.", event.member.getName()));
+				System.out.println("In order to cure them, head to the outpost and buy a cure");
+				break;		
+			}
+		}
 	}
 	
 	/**
@@ -307,7 +355,7 @@ public class GameEnviroment {
 	 * @param input
 	 */
 	private static void searchPlanet(Scanner input) {
-		
+		//TODO
 	}
 	
 	/**
@@ -356,7 +404,15 @@ public class GameEnviroment {
 		}
 	}
 	
-	public static void main(String[] args) {
+	/**
+	 * Ends the game
+	 */
+	private static void invokeEnding() {
+		//TODO
+		System.out.println(ending);
+	}
+	
+public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
 		
 		initialiseVariables();
@@ -366,6 +422,7 @@ public class GameEnviroment {
 		while (!finished) {
 			selectAction(input);
 		}
+		invokeEnding();
 		input.close();
 		System.out.println("Done");
 		System.exit(0);

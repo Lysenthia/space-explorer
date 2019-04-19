@@ -22,7 +22,8 @@ public class RandomEvent {
 	 * @param rng random number generator
 	 * @return crew member that caught the space plague
 	 */
-	private static CrewMember spacePlague(Random rng) {
+	private static CrewMember spacePlague() {
+		Random rng = new Random();
 		ArrayList<CrewMember> crew = Ship.getShipCrew();
 		int index = rng.nextInt(crew.size());
 		CrewMember infectee = crew.get(index);
@@ -37,7 +38,8 @@ public class RandomEvent {
 	 * @param rng random number generator
 	 * @return crew member that caught the space pirates (null if they were not caught)
 	 */
-	private static CrewMember spacePirate(Random rng) {
+	private static CrewMember spacePirate() {
+		Random rng = new Random();
 		boolean spotted = rng.nextBoolean();
 		ArrayList<Consumable> inventory = Ship.getInventory();
 		if (spotted) {
@@ -71,22 +73,20 @@ public class RandomEvent {
 	 */
 	public static RandomEventOutput activateRandomEvent() {
 		CrewMember member = null;
-		int event = 0;
-		Random rng = new Random();
-		if (rng.nextBoolean()) {
-			event = rng.nextInt(RandomEventTypes.values().length);
-			switch (RandomEventTypes.values()[event]) {
-				case ASTEROID_BELT:
-					asteroidBelt();
-					break;
-				case SPACE_PLAGUE:
-					member = spacePlague(rng);
-					break;
-				case SPACE_PIRATES:
-					member = spacePirate(rng);
-					break;
+		RandomEventTypes event = RandomEventTypes.getEvent();
+		switch (event) {
+			case ASTEROID_BELT:
+				asteroidBelt();
+				break;
+			case SPACE_PLAGUE:
+				member = spacePlague();
+				break;
+			case SPACE_PIRATES:
+				member = spacePirate();
+				break;
+			case NOTHING:
+				break;
 			}
-		}
 		RandomEventOutput output = new RandomEventOutput(event, member);
 		return output;
 	}

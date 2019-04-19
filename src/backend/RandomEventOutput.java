@@ -7,7 +7,7 @@ package backend;
  * @author rvo16
  */
 public class RandomEventOutput{
-	public final int event;
+	public final RandomEventTypes event;
 	public final CrewMember member;
 	
 	/**
@@ -15,7 +15,7 @@ public class RandomEventOutput{
 	 * @param event the event that occurred
 	 * @param member the crew member involved in the event
 	 */
-	public RandomEventOutput(int event, CrewMember member) {
+	public RandomEventOutput(RandomEventTypes event, CrewMember member) {
 		this.event = event;
 		this.member = member;
 	}
