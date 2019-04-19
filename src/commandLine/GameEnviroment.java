@@ -87,7 +87,7 @@ public class GameEnviroment {
 	}
 	
 	/**
-	 * Prints the intro greeting for the game
+	 * Prints the introduction greeting for the game
 	 */
 	private static void printGreeting() {
 		System.out.println("｡･:*:･ﾟ★,｡･:*:･ﾟ☆       Hello!      ｡･:*:･ﾟ★,｡･:*:･ﾟ☆");
@@ -174,6 +174,12 @@ public class GameEnviroment {
 		}
 	}
 	
+	/**
+	 * Lets the player select 2 pilots from a given list 
+	 * @param input the Scanner shared between methods
+	 * @param pilots a list of possible pilots for the ship
+	 * @return an ArrayList of the 2 selected pilots
+	 */
 	private static ArrayList<CrewMember> getPilots(Scanner input, ArrayList<CrewMember> pilots) {
 		int size = pilots.size();
 		ArrayList<CrewMember> selectedPilots = new ArrayList<CrewMember>();
@@ -209,6 +215,10 @@ public class GameEnviroment {
 		return selectedPilots;
 	}
 
+	/**
+	 * Prints a given ArrayList of planets with numbering and whether or not a part has been found on that planet
+	 * @param planetsToPrint the ArrayList of planets to print
+	 */
 	private static void printPlanets(ArrayList<Planet> planetsToPrint) {
 		for (int i = 0; i < planetsToPrint.size(); i++) {
 			Planet cur = planetsToPrint.get(i);
@@ -216,6 +226,11 @@ public class GameEnviroment {
 		}
 	}
 	
+	/**
+	 * Lets the player select a planet to travel to
+	 * @param input the Scanner shared between methods
+	 * @return the Planet selected by the player
+	 */
 	private static Planet selectPlanet(Scanner input) {
 		ArrayList<Planet> possibleDestinations = new ArrayList<Planet>(planets);
 		possibleDestinations.remove(Ship.getOrbiting());
@@ -238,6 +253,10 @@ public class GameEnviroment {
 		return planets.get(choice);
 	}
 	
+	/**
+	 * Player selected action: Lets the player travel to a new planet
+	 * @param input the Scanner shared between methods
+	 */
 	private static void pilotShip(Scanner input) {
 		ArrayList<CrewMember> possiblePilots = new ArrayList<CrewMember>();
 		ArrayList<CrewMember> pilots;
@@ -259,18 +278,34 @@ public class GameEnviroment {
 		System.out.println();
 	}
 	
-	private static void enterInventory(Scanner input) {
+	/**
+	 * Player selected action: Lets the player view their crew and inventory
+	 * @param input the Scanner shared between methods
+	 */
+	private static void viewStatus(Scanner input) {
 		
 	}
 	
+	/**
+	 * Player selected action: Lets the player travel to the outpost and buy items
+	 * @param input the Scanner shared between methods
+	 */
 	private static void enterOutpost(Scanner input) {
 		
 	}
 	
+	/**
+	 * Player selected action: Lets the player transition to a new day
+	 * @param input
+	 */
 	private static void transitionDay(Scanner input) {
 		
 	}
 	
+	/**
+	 * Player selected action: Lets the player search a planet for supplies
+	 * @param input
+	 */
 	private static void searchPlanet(Scanner input) {
 		
 	}
@@ -307,7 +342,7 @@ public class GameEnviroment {
 			pilotShip(input);
 			break;
 		case 1:
-			enterInventory(input);
+			viewStatus(input);
 			break;
 		case 2:
 			enterOutpost(input);
