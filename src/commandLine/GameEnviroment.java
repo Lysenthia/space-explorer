@@ -172,6 +172,9 @@ public class GameEnviroment {
 		System.out.println("3: Transition to a new day");
 		if (Ship.getOrbiting() != null) {
 			System.out.println(String.format("4: Search %s for supplies", Ship.getOrbiting().getName()));
+			System.out.println("5: Quit game");
+		} else {
+			System.out.println("4: Quit game");
 		}
 	}
 	
@@ -193,18 +196,26 @@ public class GameEnviroment {
 				CrewMember member = pilots.get(i);
 				System.out.println(String.format("%d:\tName: %s\tAction points remaining: %d", i, member.getName(), member.getActionPoints()));
 			}
+			System.out.println(String.format("%d:\tCancel", pilots.size()));
 			line = input.nextLine();
 			if (hasInteger(line, 2)) {
 				members = extractInt(line, 2);
 				for (int i = 0; i < members.length; i++) {
 					int value = members[i];
-					ready = (value >=  0 && value < size);
+					ready = (value >=  0 && value <= size);
 					if (!ready) {
 						break;
 					}
 				}
+				if (members[0] == pilots.size() || members[1] == pilots.size()) {
+					return null;
+				}
 				if (members[0] == members[1]) {
 					ready = false;
+				}
+			} else if (hasInteger(line, 1)) {
+				if (extractInt(line, 1)[0] == pilots.size()) {
+					return null;
 				}
 			}
 		} while (!ready);
@@ -236,6 +247,7 @@ public class GameEnviroment {
 		possibleDestinations.remove(Ship.getOrbiting());
 		System.out.println("Please select a planet to travel to:");
 		printPlanets(possibleDestinations);
+		System.out.println(String.format("%d: Cancel", possibleDestinations.size()));
 		int choice = 0;
 		String line = input.nextLine();
 		if (hasInteger(line, 1)) {
@@ -244,13 +256,18 @@ public class GameEnviroment {
 		while (choice < 0 || choice > possibleDestinations.size()) {
 			System.out.println("Please select a planet to travel to:");
 			printPlanets(possibleDestinations);
-			System.out.println(String.format("Please enter an integer between 0 and %d inclusive: ", possibleDestinations.size() - 1));
+			System.out.println(String.format("%d: Cancel", possibleDestinations.size()));
+			System.out.println(String.format("Please enter an integer between 0 and %d inclusive: ", possibleDestinations.size()));
 			line = input.nextLine();
 			if (hasInteger(line, 1)) {
 				choice = extractInt(line, 1)[0];
 			}
 		}
-		return possibleDestinations.get(choice);
+		if (choice == possibleDestinations.size()) {
+			return null;
+		} else {
+			return possibleDestinations.get(choice);
+		}
 	}
 	
 	/**
@@ -268,7 +285,13 @@ public class GameEnviroment {
 		}
 		if (possiblePilots.size() >= 2) {
 			pilots = getPilots(input, possiblePilots);
+			if (pilots == null) {
+				return;
+			}
 			destination = selectPlanet(input);
+			if (destination == null) {
+				return;
+			}
 			CrewMember pilotOne = pilots.get(0);
 			CrewMember pilotTwo = pilots.get(1);
 			Ship.pilot(pilotOne, pilotTwo, destination);
@@ -289,12 +312,20 @@ public class GameEnviroment {
 		//TODO
 	}
 	
+	private static void purchaseItem() {
+		//TODO
+	}
+	
 	/**
 	 * Player selected action: Lets the player travel to the outpost and buy items
 	 * @param input the Scanner shared between methods
 	 */
 	private static void enterOutpost(Scanner input) {
 		//TODO
+		boolean done = false;
+		while(!done) {
+			done = true;
+		}
 	}
 	
 	/**
@@ -420,10 +451,10 @@ public class GameEnviroment {
 		int maxChoice;
 		if (Ship.getOrbiting() == null) {
 			System.out.println("Currently in a heliocentric orbit");
-			maxChoice = 3;
+			maxChoice = 4;
 		} else {
 			System.out.println(String.format("Currently orbiting the planet %s", Ship.getOrbiting().getName()));
-			maxChoice = 4;
+			maxChoice = 5;
 		}
 		printActions();
 		int choice = 0;
@@ -453,7 +484,13 @@ public class GameEnviroment {
 			transitionDay(input);
 			break;
 		case 4:
+			if (maxChoice == 5) {
 			searchPlanet(input);
+			break;
+			}
+		case 5:
+			finished = true;
+			ending = PossibleEndings.QUIT;
 			break;
 		}
 	}

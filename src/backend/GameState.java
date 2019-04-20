@@ -84,7 +84,6 @@ public class GameState {
 	 * Transitions an in-game day
 	 */
 	public static ArrayList<CrewMember> transitionDay() {
-		//TODO
 		boolean dead;
 		ArrayList<CrewMember> deadCrew = new ArrayList<CrewMember>();
 		currentDay += 1;

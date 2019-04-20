@@ -20,5 +20,9 @@ public enum PossibleEndings {
 	/**
 	 * Victory
 	 */
-	VICTORY;
+	VICTORY,
+	/**
+	 * Player quit game
+	 */
+	QUIT;
 }
