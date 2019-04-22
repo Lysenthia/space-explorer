@@ -321,7 +321,8 @@ public class GameEnviroment {
 	 * @param input the Scanner shared between methods
 	 */
 	private static void enterOutpost(Scanner input) {
-		//TODO
+		System.out.println(String.format("Welcome to %s", outpost.getName()));
+		System.out.println("What would you like to do? ");
 		boolean done = false;
 		while(!done) {
 			done = true;
@@ -444,7 +445,7 @@ public class GameEnviroment {
 	}
 	
 	/**
-	 * Gets the action that the player wishes to perform during normal gameplay
+	 * Gets the action that the player wishes to perform during normal game play
 	 * @param input the Scanner shared between methods
 	 */
 	private static void selectAction(Scanner input) {
@@ -515,7 +516,7 @@ public class GameEnviroment {
 		}
 		invokeEnding();
 		input.close();
-		System.out.println("Done");
+		System.out.println("GAMEOVER");
 		System.exit(0);
 	}
 }
