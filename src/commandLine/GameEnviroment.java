@@ -312,8 +312,61 @@ public class GameEnviroment {
 		//TODO
 	}
 	
-	private static void purchaseItem() {
-		//TODO
+	private static boolean purchaseItem(Scanner input) {
+		int size = outpost.getStock().size();
+		Consumable item;
+		int i = 0;
+		System.out.println(String.format("What would you like to purchase? (Credits: %d)", Ship.getMoney()));
+		for (i = 0; i < size; i++) {
+			item = outpost.getStock().get(i);
+			System.out.println(String.format("%d:\tName: %-30sCost: %-8dType: %-20s\tEffectivness: %-8dHeld: %d", i, item.getName(), item.getPrice(), item.getItemType(), item.getEffectiveness(), item.getHeld()));
+		}
+		System.out.println(String.format("%d: Cancel", i));
+		int choice = 0;
+		String line = input.nextLine();
+		if (hasInteger(line, 1)) {
+			choice = extractInt(line, 1)[0];
+		}
+		while (choice < 0 || choice > size) {
+			System.out.println(String.format("Please select one of the below options (Credits: %d)", Ship.getMoney()));
+			for (i = 0; i < size; i++) {
+				item = outpost.getStock().get(i);
+				System.out.println(String.format("%d:\tName: %-30sCost: %-8dType: %-20s\tEffectivness: %-8dHeld: %d", i, item.getName(), item.getPrice(), item.getItemType(), item.getEffectiveness(), item.getHeld()));
+			}
+			System.out.println(String.format("%d: Cancel", i));
+			line = input.nextLine();
+			if (hasInteger(line, 1)) {
+				choice = extractInt(line, 1)[0];
+			}
+		}
+		if (choice == size) {
+			return true;
+		}
+		item = outpost.getStock().get(choice);
+		System.out.println(String.format("How many %s would you like to buy?\n(Price: %d Effectivness: %d Held: %d)", item.getName(), item.getPrice(), item.getEffectiveness(), item.getHeld()));
+		choice = 0;
+		line = input.nextLine();
+		if (hasInteger(line, 1)) {
+			choice = extractInt(line, 1)[0];
+		}
+		while (choice < 0) {
+			System.out.println("Please select a positive integer (Enter 0 to return to item selection)");
+			line = input.nextLine();
+			if (hasInteger(line, 1)) {
+				choice = extractInt(line, 1)[0];
+			}
+		}
+		if (choice == 0) {
+			System.out.println("Did not buy anything");
+		} else {
+			if (Ship.getMoney() >= item.getPrice()) {
+				System.out.println(String.format("Purchased %d %s", choice, item.getName()));
+				item.increaseHeld(choice);
+			} else {
+				System.out.println(String.format("Cannot afford to buy this many %s", item.getName().toLowerCase()));
+			}
+		}
+		return false;
 	}
 	
 	/**
@@ -322,11 +375,13 @@ public class GameEnviroment {
 	 */
 	private static void enterOutpost(Scanner input) {
 		System.out.println(String.format("Welcome to %s", outpost.getName()));
-		System.out.println("What would you like to do? ");
 		boolean done = false;
 		while(!done) {
-			done = true;
+			done = purchaseItem(input);
+			System.out.println();
 		}
+		System.out.println("Leaving the outpost");
+		System.out.println();
 	}
 	
 	/**

@@ -4,19 +4,22 @@ public abstract class Consumable {
 	protected String name;
 	protected int price;
 	protected int held;
-	protected int effectivness;
+	protected int effectiveness;
+	protected String itemType;
 	
 	/**
 	 * Creates an instance of the consumable class with name, price and effectiveness
 	 * @param name the name of the consumable
 	 * @param price the price of the consumable
+	 * @param itemType the type of item (i.e medical, cure, food)
 	 * @param effectivness the effectiveness of the consumable
 	 */
 	
-	public Consumable(String name, int price, int effectivness) {
+	public Consumable(String name, int price, int effectiveness, String itemType) {
 		this.name = name;
 		this.price = price;
-		this.effectivness = effectivness;
+		this.effectiveness = effectiveness;
+		this.itemType = itemType;
 		this.held = 0;
 	}
 	
@@ -63,5 +66,16 @@ public abstract class Consumable {
 		this.held -= amount;
 		Ship.removeFromInventory(this);
 	}
+	
+	/**
+	 * Gets the effectiveness of a consumable item
+	 * @return
+	 */
+	public int getEffectiveness() {
+		return this.effectiveness;
+	}
 
+	public String getItemType() {
+		return this.itemType;
+	}
 }
