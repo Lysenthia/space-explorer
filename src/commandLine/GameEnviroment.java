@@ -420,7 +420,7 @@ public class GameEnviroment {
 					finished = true;
 					ending = PossibleEndings.SHIP_DESTROYED;
 				} else {
-					System.out.println(String.format("The %s's shields are now at %d%", Ship.getName(), Ship.getShields()));
+					System.out.println(String.format("The %s's shields are now at %d", Ship.getName(), Ship.getShields()));
 				}
 				break;
 			case NOTHING:
@@ -450,6 +450,7 @@ public class GameEnviroment {
 	 * @param input
 	 */
 	private static void searchPlanet(Scanner input) {
+		//TODO Add ability to cancel action
 		ArrayList<CrewMember> crew = new ArrayList<CrewMember>();
 		for (CrewMember member : Ship.getShipCrew()) {
 			if (member.getActionPoints() > 0) {
@@ -466,7 +467,7 @@ public class GameEnviroment {
 		if (hasInteger(line, 1)) {
 			choice = extractInt(line, 1)[0];
 		}
-		while (choice < 0 || choice > crew.size()) {
+		while (choice < 0 || choice >= crew.size()) {
 			System.out.println("Please select a crew member to search the planet:");
 			for (int i = 0; i < crew.size(); i++) {
 				CrewMember member = crew.get(i);
