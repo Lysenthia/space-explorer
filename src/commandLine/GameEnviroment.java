@@ -457,53 +457,57 @@ public class GameEnviroment {
 				crew.add(member);
 			}
 		}
-		System.out.println("Please select a crew member to search the planet:");
-		for (int i = 0; i < crew.size(); i++) {
-			CrewMember member = crew.get(i);
-			System.out.println(String.format("%d:\tName: %s\tClass: %s\tAction points remaining: %d", i, member.getName(), member.getMemberClass().getClassName(),member.getActionPoints()));
-		}
-		int choice = 0;
-		String line = input.nextLine();
-		if (hasInteger(line, 1)) {
-			choice = extractInt(line, 1)[0];
-		}
-		while (choice < 0 || choice >= crew.size()) {
+		if (crew.size() > 0) {
 			System.out.println("Please select a crew member to search the planet:");
 			for (int i = 0; i < crew.size(); i++) {
 				CrewMember member = crew.get(i);
 				System.out.println(String.format("%d:\tName: %s\tClass: %s\tAction points remaining: %d", i, member.getName(), member.getMemberClass().getClassName(),member.getActionPoints()));
 			}
-			System.out.println(String.format("Please enter an integer between 0 and %d inclusive: ", crew.size() - 1));
-			line = input.nextLine();
+			int choice = 0;
+			String line = input.nextLine();
 			if (hasInteger(line, 1)) {
 				choice = extractInt(line, 1)[0];
 			}
-		}
-		CrewMember searcher = crew.get(choice);
-		PlanetSearchOutput result = searcher.searchPlanet(Ship.getOrbiting());
-		switch(result.FOUND) {
-		case ITEM:
-			System.out.println(String.format("%s managed to find a %s", searcher.getName(), result.ITEM.getName()));
-			System.out.println(String.format("The number of %s held is now %d", result.ITEM.getName(), result.ITEM.getHeld()));
-			break;
-		case MONEY:
-			System.out.println(String.format("%s managed to find a %d credits", searcher.getName(),result.MONEY));
-			System.out.println(String.format("Total credits: %d", Ship.getMoney()));
-			break;
-		case NOTHING:
-			System.out.println(String.format("%s attempted to find something of use, however they could not find anything due to their own inexperience", searcher.getName()));
-			break;
-		case PART:
-			System.out.println(String.format("%s managed to find a part for the %s's hyperdrive! Note: You can no longer find hyperdrive parts on %s", searcher.getName(), Ship.getName(), Ship.getOrbiting().getName()));
-			if (GameState.getPartsNeeded() == GameState.getPartsFound()) {
-				finished = true;
-				ending = PossibleEndings.VICTORY;
-			} else {
-				System.out.println(String.format("Parts left to find: %d", GameState.getPartsNeeded() - GameState.getPartsFound()));
+			while (choice < 0 || choice >= crew.size()) {
+				System.out.println("Please select a crew member to search the planet:");
+				for (int i = 0; i < crew.size(); i++) {
+					CrewMember member = crew.get(i);
+					System.out.println(String.format("%d:\tName: %s\tClass: %s\tAction points remaining: %d", i, member.getName(), member.getMemberClass().getClassName(),member.getActionPoints()));
+				}
+				System.out.println(String.format("Please enter an integer between 0 and %d inclusive: ", crew.size() - 1));
+				line = input.nextLine();
+				if (hasInteger(line, 1)) {
+					choice = extractInt(line, 1)[0];
+				}
 			}
-			break;
+			CrewMember searcher = crew.get(choice);
+			PlanetSearchOutput result = searcher.searchPlanet(Ship.getOrbiting());
+			switch(result.FOUND) {
+			case ITEM:
+				System.out.println(String.format("%s managed to find a %s", searcher.getName(), result.ITEM.getName()));
+				System.out.println(String.format("The number of %s held is now %d", result.ITEM.getName(), result.ITEM.getHeld()));
+				break;
+			case MONEY:
+				System.out.println(String.format("%s managed to find a %d credits", searcher.getName(),result.MONEY));
+				System.out.println(String.format("Total credits: %d", Ship.getMoney()));
+				break;
+			case NOTHING:
+				System.out.println(String.format("%s attempted to find something of use, however they could not find anything due to their own inexperience", searcher.getName()));
+				break;
+			case PART:
+				System.out.println(String.format("%s managed to find a part for the %s's hyperdrive! Note: You can no longer find hyperdrive parts on %s", searcher.getName(), Ship.getName(), Ship.getOrbiting().getName()));
+				if (GameState.getPartsNeeded() == GameState.getPartsFound()) {
+					finished = true;
+					ending = PossibleEndings.VICTORY;
+				} else {
+					System.out.println(String.format("Parts left to find: %d", GameState.getPartsNeeded() - GameState.getPartsFound()));
+				}
+				break;
+			}
+		} else {
+			System.out.println("No crew members can search the planet");
 		}
-		
+		System.out.println();
 	}
 	
 	/**
