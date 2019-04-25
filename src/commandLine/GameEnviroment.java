@@ -310,18 +310,27 @@ public class GameEnviroment {
 		ArrayList<Consumable> inventory = Ship.getInventory();
 		int i = 0;
 		if (inventory.size() == 0) {
-			System.out.println("Your inventory is empty.");
+			System.out.println("\nYour inventory is empty.");
 		}
 		else {
+			System.out.println();
+			System.out.println("======INVENTORY======");
 		for (i = 0; i < inventory.size(); i++) {
 			Consumable item = inventory.get(i);
-			System.out.println(item);
+			System.out.println(String.format("%d:\tName: %-30sCost: %-8dType: %-20s\tEffectivness: %-8dHeld: %d", i, item.getName(), item.getPrice(), item.getItemType(), item.getEffectiveness(), item.getHeld()));
 		}	
 		}
 	}
 	
 	private static void restCrewMember(Scanner input) {
-		System.out.println("This is case 1");
+		ArrayList<CrewMember> crew = Ship.getShipCrew();
+		int i = 0;
+		System.out.println();
+		System.out.println("Who would you like to rest? ");
+		for (i = 0; i < crew.size(); i++) {
+			CrewMember member = crew.get(i);
+			System.out.println(String.format("%s: Crew Member: %-15s Tiredness: %-5d Action points: %-5s", i, member.getName(), member.getTiredness(), member.getActionPoints()));
+		}	
 	}
 	
 	/**
@@ -329,10 +338,12 @@ public class GameEnviroment {
 	 * @param input the Scanner shared between methods
 	 */
 	private static void viewStatus(Scanner input) {
+		System.out.println();
 		for (CrewMember member : Ship.getShipCrew()) {
 			System.out.println(String.format("Crew Member: %-15s Health: %-5d Action points: %-5s Hunger Level: %-5s Tiredness Level: %-5s Space Plague Status: %s",
 					member.getName(), member.getHealth(), member.getActionPoints(), member.getHunger(), member.getTiredness(), member.hasSpacePlague()));
 		}
+		System.out.println(String.format("Credits: %d", Ship.getMoney()));
 		System.out.println("\nWhat would you like to do? ");
 		System.out.println("0: Use a item.");
 		//Displays list of inventory to use
@@ -359,7 +370,6 @@ public class GameEnviroment {
 				choice = extractInt(line, 1)[0];
 			}
 		}
-		
 		switch (choice) {
 		case 0:
 			useItem(input);
@@ -368,8 +378,9 @@ public class GameEnviroment {
 			restCrewMember(input);
 			break;
 		case 2:
-			return;
+			break;
 		}
+		System.out.println();
 	}
 	
 	/**
