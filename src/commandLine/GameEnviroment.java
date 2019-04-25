@@ -359,12 +359,6 @@ public class GameEnviroment {
 		}
 	}
 	
-<<<<<<< HEAD
-	
-	
-	private static void purchaseItem() {
-		//TODO
-=======
 	/**
 	 * Allows the player to purchase items at the outpost
 	 * @param input the Scanner shared between methods
@@ -426,7 +420,6 @@ public class GameEnviroment {
 			}
 		}
 		return false;
->>>>>>> branch 'master' of https://eng-git.canterbury.ac.nz/hoo42/seng201project.git
 	}
 	
 	/**
