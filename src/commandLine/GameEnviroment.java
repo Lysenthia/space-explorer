@@ -359,10 +359,74 @@ public class GameEnviroment {
 		}
 	}
 	
+<<<<<<< HEAD
 	
 	
 	private static void purchaseItem() {
 		//TODO
+=======
+	/**
+	 * Allows the player to purchase items at the outpost
+	 * @param input the Scanner shared between methods
+	 * @return true if the player has cancelled out of buying;
+	 * 		   false otherwise
+	 */
+	private static boolean purchaseItem(Scanner input) {
+		int size = outpost.getStock().size();
+		Consumable item;
+		int i = 0;
+		System.out.println(String.format("What would you like to purchase? (Credits: %d)", Ship.getMoney()));
+		for (i = 0; i < size; i++) {
+			item = outpost.getStock().get(i);
+			System.out.println(String.format("%d:\tName: %-30sCost: %-8dType: %-20s\tEffectivness: %-8dHeld: %d", i, item.getName(), item.getPrice(), item.getItemType(), item.getEffectiveness(), item.getHeld()));
+		}
+		System.out.println(String.format("%d: Cancel", i));
+		int choice = 0;
+		String line = input.nextLine();
+		if (hasInteger(line, 1)) {
+			choice = extractInt(line, 1)[0];
+		}
+		while (choice < 0 || choice > size) {
+			System.out.println(String.format("Please select one of the below options (Credits: %d)", Ship.getMoney()));
+			for (i = 0; i < size; i++) {
+				item = outpost.getStock().get(i);
+				System.out.println(String.format("%d:\tName: %-30sCost: %-8dType: %-20s\tEffectivness: %-8dHeld: %d", i, item.getName(), item.getPrice(), item.getItemType(), item.getEffectiveness(), item.getHeld()));
+			}
+			System.out.println(String.format("%d: Cancel", i));
+			line = input.nextLine();
+			if (hasInteger(line, 1)) {
+				choice = extractInt(line, 1)[0];
+			}
+		}
+		if (choice == size) {
+			return true;
+		}
+		item = outpost.getStock().get(choice);
+		System.out.println(String.format("How many %s would you like to buy?\n(Price: %d Effectivness: %d Held: %d)", item.getName(), item.getPrice(), item.getEffectiveness(), item.getHeld()));
+		choice = 0;
+		line = input.nextLine();
+		if (hasInteger(line, 1)) {
+			choice = extractInt(line, 1)[0];
+		}
+		while (choice < 0) {
+			System.out.println("Please select a positive integer (Enter 0 to return to item selection)");
+			line = input.nextLine();
+			if (hasInteger(line, 1)) {
+				choice = extractInt(line, 1)[0];
+			}
+		}
+		if (choice == 0) {
+			System.out.println("Did not buy anything");
+		} else {
+			if (Ship.getMoney() >= item.getPrice()) {
+				System.out.println(String.format("Purchased %d %s", choice, item.getName()));
+				item.increaseHeld(choice);
+			} else {
+				System.out.println(String.format("Cannot afford to buy this many %s", item.getName().toLowerCase()));
+			}
+		}
+		return false;
+>>>>>>> branch 'master' of https://eng-git.canterbury.ac.nz/hoo42/seng201project.git
 	}
 	
 	/**
@@ -371,11 +435,13 @@ public class GameEnviroment {
 	 */
 	private static void enterOutpost(Scanner input) {
 		System.out.println(String.format("Welcome to %s", outpost.getName()));
-		System.out.println("What would you like to do? ");
 		boolean done = false;
 		while(!done) {
-			done = true;
+			done = purchaseItem(input);
+			System.out.println();
 		}
+		System.out.println("Leaving the outpost");
+		System.out.println();
 	}
 	
 	/**
@@ -404,11 +470,11 @@ public class GameEnviroment {
 			case ASTEROID_BELT:
 				System.out.println("Whilst floating through space, your ship encountered a comically unrealistic asteroid belt.");
 				System.out.println("Impact with an asteroid caused your ship to sustain 50% damage to its shields.");
-				if (Ship.getShields() >= 0) {
+				if (Ship.getShields() <= 0) {
 					finished = true;
 					ending = PossibleEndings.SHIP_DESTROYED;
 				} else {
-					System.out.println(String.format("The %s's shields are now at %d%", Ship.getName(), Ship.getShields()));
+					System.out.println(String.format("The %s's shields are now at %d", Ship.getName(), Ship.getShields()));
 				}
 				break;
 			case NOTHING:
@@ -438,6 +504,7 @@ public class GameEnviroment {
 	 * @param input
 	 */
 	private static void searchPlanet(Scanner input) {
+		//TODO Add ability to cancel action
 		ArrayList<CrewMember> crew = new ArrayList<CrewMember>();
 		for (CrewMember member : Ship.getShipCrew()) {
 			if (member.getActionPoints() > 0) {
@@ -454,7 +521,7 @@ public class GameEnviroment {
 		if (hasInteger(line, 1)) {
 			choice = extractInt(line, 1)[0];
 		}
-		while (choice < 0 || choice > crew.size()) {
+		while (choice < 0 || choice >= crew.size()) {
 			System.out.println("Please select a crew member to search the planet:");
 			for (int i = 0; i < crew.size(); i++) {
 				CrewMember member = crew.get(i);
@@ -549,8 +616,32 @@ public class GameEnviroment {
 	 * Ends the game
 	 */
 	private static void invokeEnding() {
-		//TODO
-		System.out.println(ending);
+		switch (ending) {
+		case CREW_DEAD:
+			System.out.println(String.format("With the death of all the %s's crew, she is left floating through space, a desolate reminder of the perils of space travel...", Ship.getName()));
+			System.out.println("GAMEOVER");
+			break;
+		case LOST_IN_SPACE:
+			CrewMember lastCrew = Ship.getShipCrew().get(0);
+			System.out.println(String.format("With the death of all the %s's crew but %s, %s's future is uncertain, whether they will be rescued by another ship, starve to death, or choke and freeze as the ships life support system fails...", Ship.getName(), lastCrew.getName(), lastCrew.getName()));
+			System.out.println("GAMEOVER");
+			break;
+		case OUT_OF_TIME:
+			System.out.println(String.format("With the crew unable to repair her Alcubierre drive in time, the %s's negative mass generator failed, causing her and her crew to vanish, never to be seen again...", Ship.getName()));
+			System.out.println("GAMEOVER");
+			break;
+		case QUIT:
+			System.out.println(String.format("In the face of impossible odds, the %s's crew promptly gave up, and decided it would be easier to jump out of the airlock into the vacuum of space", Ship.getName()));
+			break;
+		case SHIP_DESTROYED:
+			System.out.println(String.format("With the failure of the %s's shields system, her structural integrity failed, causing the ship to break up and expose her entire crew to the harsh void of space, killing all of them...", Ship.getName()));
+			System.out.println("GAMEOVER");
+			break;
+		case VICTORY:
+			System.out.println(String.format("With the finding of the last part of her Alcubierre drive, the %s's crew were able to perform a patchwork fix, letting her crew escape back to more civilised systems where their ship could undergo permanent repairs", Ship.getName()));
+			System.out.println("A WINNER IS YOU");
+			break;
+		}
 	}
 	
 	public static void main(String[] args) {
@@ -565,7 +656,7 @@ public class GameEnviroment {
 		}
 		invokeEnding();
 		input.close();
-		System.out.println("GAMEOVER");
+		System.out.println("Closing game");
 		System.exit(0);
 	}
 }

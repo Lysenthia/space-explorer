@@ -8,8 +8,8 @@ public class FoodItem extends Consumable {
 	 * @param price the price of the food item
 	 * @param effectivness the effectiveness of the food item
 	 */
-	public FoodItem(String name, int price, int effectivness) {
-		super(name, price, effectivness);
+	public FoodItem(String name, int price, int effectiveness) {
+		super(name, price, effectiveness, "Food");
 	}
 	
 	/**
@@ -19,7 +19,7 @@ public class FoodItem extends Consumable {
 	@Override
 	public boolean use(CrewMember user) {
 		if (user.getHunger() > 0) {
-			user.decreaseHunger(effectivness);
+			user.decreaseHunger(effectiveness);
 			this.decreaseHeld(1);
 			return true;
 		} else {

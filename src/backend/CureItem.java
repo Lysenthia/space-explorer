@@ -9,8 +9,8 @@ public class CureItem extends Consumable {
 	 * @param price sets the price of the cureItem
 	 * @param effectivness sets the effectiveness of the cureItem
 	 */
-	public CureItem(String name, int price, int effectivness) {
-		super(name, price, effectivness);
+	public CureItem(String name, int price, int effectiveness) {
+		super(name, price, effectiveness, "Space Plague Cure");
 	}
 	
 	/**
@@ -21,11 +21,11 @@ public class CureItem extends Consumable {
 	public boolean use(CrewMember user) {
 		if (user.hasSpacePlague()) {
 			this.decreaseHeld(1);
-			if (this.effectivness < 100) {
+			if (this.effectiveness < 100) {
 				int roll;
 				Random rng = new Random();
 				roll = rng.nextInt(100);
-				if (this.effectivness > roll) {
+				if (this.effectiveness > roll) {
 					user.removeSpacePlague();
 				}
 			} else {
