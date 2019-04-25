@@ -307,11 +307,21 @@ public class GameEnviroment {
 	
 	
 	private static void useItem(Scanner input) {
-		//TODO
+		ArrayList<Consumable> inventory = Ship.getInventory();
+		int i = 0;
+		if (inventory.size() == 0) {
+			System.out.println("Your inventory is empty.");
+		}
+		else {
+		for (i = 0; i < inventory.size(); i++) {
+			Consumable item = inventory.get(i);
+			System.out.println(item);
+		}	
+		}
 	}
 	
 	private static void restCrewMember(Scanner input) {
-		//TODO
+		System.out.println("This is case 1");
 	}
 	
 	/**
@@ -320,7 +330,8 @@ public class GameEnviroment {
 	 */
 	private static void viewStatus(Scanner input) {
 		for (CrewMember member : Ship.getShipCrew()) {
-			System.out.println(String.format("Crew Member: %-15s Health: %-5d Action points: %-5s Hunger Level: %-5s Tiredness Level: %-5s Space Plague Status: %s", member.getName(), member.getHealth(), member.getActionPoints(), member.getHunger(), member.getTiredness(), member.hasSpacePlague()));
+			System.out.println(String.format("Crew Member: %-15s Health: %-5d Action points: %-5s Hunger Level: %-5s Tiredness Level: %-5s Space Plague Status: %s",
+					member.getName(), member.getHealth(), member.getActionPoints(), member.getHunger(), member.getTiredness(), member.hasSpacePlague()));
 		}
 		System.out.println("\nWhat would you like to do? ");
 		System.out.println("0: Use a item.");
@@ -335,7 +346,7 @@ public class GameEnviroment {
 			choice = extractInt(line, 1)[0];
 		}
 		while (choice < 0 || choice > 2) {
-			System.out.println("What would you like to do ?");
+			System.out.println("\nWhat would you like to do ?");
 			System.out.println("0: Use a item.");
 			//Displays list of inventory to use
 			System.out.println("1: Rest a crew member (Reduce tiredness)");
@@ -351,9 +362,11 @@ public class GameEnviroment {
 		
 		switch (choice) {
 		case 0:
-			//TODO
+			useItem(input);
+			break;
 		case 1:
-			//TODO
+			restCrewMember(input);
+			break;
 		case 2:
 			return;
 		}
