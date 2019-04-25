@@ -304,12 +304,59 @@ public class GameEnviroment {
 		System.out.println();
 	}
 	
+	
+	
+	private static void useItem(Scanner input) {
+		//TODO
+	}
+	
+	private static void restCrewMember(Scanner input) {
+		//TODO
+	}
+	
 	/**
 	 * Player selected action: Lets the player view their crew and inventory
 	 * @param input the Scanner shared between methods
 	 */
 	private static void viewStatus(Scanner input) {
-		//TODO
+		for (CrewMember member : Ship.getShipCrew()) {
+			System.out.println(String.format("Crew Member: %-15s Health: %-5d Action points: %-5s Hunger Level: %-5s Tiredness Level: %-5s Space Plague Status: %s", member.getName(), member.getHealth(), member.getActionPoints(), member.getHunger(), member.getTiredness(), member.hasSpacePlague()));
+		}
+		System.out.println("\nWhat would you like to do? ");
+		System.out.println("0: Use a item.");
+		//Displays list of inventory to use
+		System.out.println("1: Rest a crew member (Reduce tiredness)");
+		//Display crew member status and select one
+		System.out.println("2: Cancel");
+		//Cancel back to main inventory
+		int choice = 0;
+		String line = input.nextLine();
+		if (hasInteger(line, 1)) {
+			choice = extractInt(line, 1)[0];
+		}
+		while (choice < 0 || choice > 2) {
+			System.out.println("What would you like to do ?");
+			System.out.println("0: Use a item.");
+			//Displays list of inventory to use
+			System.out.println("1: Rest a crew member (Reduce tiredness)");
+			//Display crew member status and select one
+			System.out.println("2: Cancel");
+			//Cancel back to main inventory
+			System.out.println("Please enter an integer between 0 and 3 inclusive: ");
+			line = input.nextLine();
+			if (hasInteger(line, 1)) {
+				choice = extractInt(line, 1)[0];
+			}
+		}
+		
+		switch (choice) {
+		case 0:
+			//TODO
+		case 1:
+			//TODO
+		case 2:
+			return;
+		}
 	}
 	
 	/**
