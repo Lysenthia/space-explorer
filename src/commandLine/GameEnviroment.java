@@ -344,8 +344,41 @@ public class GameEnviroment {
 		if (choice == inventory.size()) {
 			return;
 		} else {
-			inventory.remove(choice);
-
+			Consumable item = inventory.get(choice);
+			System.out.println("Please select a crew member to use the item on: ");
+			ArrayList<CrewMember> crew = Ship.getShipCrew();
+			
+			for (i = 0; i < crew.size(); i++) {
+				CrewMember member = crew.get(i);
+				System.out.println(String.format("%s: Crew Member: %-15s Tiredness: %-5d Action points: %-5s", i, member.getName(), member.getTiredness(), member.getActionPoints()));
+			}
+			choice = 0;
+			String line1 = input.nextLine();
+			if (hasInteger(line1, 1)) {
+				choice = extractInt(line1, 1)[0];
+			}
+			while (choice < 0 || choice > crew.size()) {
+				System.out.println("Please select a crew member to use the item on: ");
+				for (i = 0; i < crew.size(); i++) {
+					CrewMember member = crew.get(i);
+					System.out.println(String.format("%s: Crew Member: %-15s Tiredness: %-5d Action points: %-5s", i, member.getName(), member.getTiredness(), member.getActionPoints()));
+				}
+				System.out.println(String.format("Please enter an integer between 0 and %d inclusive: ", crew.size()));
+				
+				line = input.nextLine();
+				if (hasInteger(line, 1)) {
+					choice = extractInt(line, 1)[0];
+				}
+			}
+			CrewMember member = crew.get(choice);
+			boolean used = item.use(member);
+			if (used) {
+				System.out.println(String.format("Crew member %s has used item %s", member.getName(), item.getName()));
+			}
+			else {
+				System.out.println(String.format("Crew member %s has no need to use this item", member.getName()));
+			}
+			
 		}
 		}
 	}
