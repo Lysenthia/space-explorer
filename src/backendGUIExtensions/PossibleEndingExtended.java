@@ -26,12 +26,23 @@ public enum PossibleEndingExtended {
 	 */
 	QUIT("");
 	
+	/**
+	 * The splash of the ending
+	 */
 	private final String image;
 	
+	/**
+	 * Constructs a possible ending with a splash to be displayed
+	 * @param image the path to the splash to be displayed
+	 */
 	private PossibleEndingExtended(String image) {
 		this.image = image;
 	}
 	
+	/**
+	 * Returns the path to the splash of the ending
+	 * @return the path to the splash of the ending
+	 */
 	public String getImage() {
 		return this.image;
 	}
