@@ -318,7 +318,35 @@ public class GameEnviroment {
 		for (i = 0; i < inventory.size(); i++) {
 			Consumable item = inventory.get(i);
 			System.out.println(String.format("%d:\tName: %-30sCost: %-8dType: %-20s\tEffectivness: %-8dHeld: %d", i, item.getName(), item.getPrice(), item.getItemType(), item.getEffectiveness(), item.getHeld()));
-		}	
+		}
+		System.out.println("Please select an item to use: ");
+		
+		int choice = 0;
+		String line = input.nextLine();
+		if (hasInteger(line, 1)) {
+			choice = extractInt(line, 1)[0];
+		}
+		while (choice < 0 || choice > inventory.size()) {
+			System.out.println("Please select an item to use: ");
+			System.out.println();
+			System.out.println("======INVENTORY======");
+		for (i = 0; i < inventory.size(); i++) {
+			Consumable item = inventory.get(i);
+			System.out.println(String.format("%d:\tName: %-30sCost: %-8dType: %-20s\tEffectivness: %-8dHeld: %d", i, item.getName(), item.getPrice(), item.getItemType(), item.getEffectiveness(), item.getHeld()));
+		}
+			System.out.println(String.format("%d: Cancel", inventory.size()));
+			System.out.println(String.format("Please enter an integer between 0 and %d inclusive: ", inventory.size()));
+			line = input.nextLine();
+			if (hasInteger(line, 1)) {
+				choice = extractInt(line, 1)[0];
+			}
+		}
+		if (choice == inventory.size()) {
+			return;
+		} else {
+			inventory.remove(choice);
+
+		}
 		}
 	}
 	
@@ -330,7 +358,37 @@ public class GameEnviroment {
 		for (i = 0; i < crew.size(); i++) {
 			CrewMember member = crew.get(i);
 			System.out.println(String.format("%s: Crew Member: %-15s Tiredness: %-5d Action points: %-5s", i, member.getName(), member.getTiredness(), member.getActionPoints()));
-		}	
+		}
+		int choice = 0;
+		String line = input.nextLine();
+		if (hasInteger(line, 1)) {
+			choice = extractInt(line, 1)[0];
+		}
+		while (choice < 0 || choice > crew.size()) {
+			System.out.println();
+			System.out.println("Who would you like to rest? ");
+			for (i = 0; i < crew.size(); i++) {
+				CrewMember member = crew.get(i);
+				System.out.println(String.format("%s: Crew Member: %-15s Tiredness: %-5d Action points: %-5s", i, member.getName(), member.getTiredness(), member.getActionPoints()));
+			}
+			line = input.nextLine();
+			if (hasInteger(line, 1)) {
+				choice = extractInt(line, 1)[0];
+			}
+		}
+		if (choice == crew.size()) {
+			return;
+		} else {
+			CrewMember member = crew.get(choice);
+			if (member.getActionPoints() > 0 && member.getActionPoints() <=2 ) {
+				member.sleep();
+				System.out.println(String.format("Crew member %s feels rested and is now less tired", member.getName()));	
+		}
+			else {
+				System.out.println(String.format("Crew member %s does not have enough action points to do this.", member.getName()));
+			}
+		}
+		
 	}
 	
 	/**
