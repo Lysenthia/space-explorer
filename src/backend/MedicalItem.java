@@ -1,9 +1,15 @@
 package backend;
 
+/**
+ * Allows the creation of medical items for increasing a crew members health.
+ * Implements {@link Consumable}
+ * @author hoo42
+ * @author rvo16
+ */
 public class MedicalItem extends Consumable {
 
 	/**
-	 * Creates and instance of the medical item with name, price and effectiveness
+	 * Creates an instance of the medical item with name, price and effectiveness
 	 * @param name the name of the medical item
 	 * @param price the price of the medical item
 	 * @param effectivness the effectiveness of the medical item
@@ -13,8 +19,9 @@ public class MedicalItem extends Consumable {
 	}
 
 	/**
-	 * Returns true if medical item is being used and increases crew member health and decreases held item count
-	 * 			false otherwise
+	 * Returns true if medical item is being used and increases crew member health and decreases held item count;
+	 * 		   false otherwise
+	 * 
 	 */
 	@Override
 	public boolean use(CrewMember user) {

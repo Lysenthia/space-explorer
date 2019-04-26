@@ -1,6 +1,12 @@
 package backend;
 import java.util.Random;
 
+/**
+ * Allows the creation of cure items for removing the space plague from Crew Members.
+ * Implements {@link Consumable}
+ * @author hoo42
+ * @author rvo16
+ */
 public class CureItem extends Consumable {
 	
 	/**

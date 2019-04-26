@@ -1,5 +1,11 @@
 package backend;
 
+/**
+ * Allows the creation of food items for decreasing a crew members hunger.
+ * Implements {@link Consumable}
+ * @author hoo42
+ * @author rvo16
+ */
 public class FoodItem extends Consumable {
 	
 	/**

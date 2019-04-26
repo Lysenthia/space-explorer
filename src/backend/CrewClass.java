@@ -37,6 +37,9 @@ public enum CrewClass {
 	 */
 	MEDIC("Medic");
 	
+	/**
+	 * The name of the class that will be seen by the player 
+	 */
 	private final String className;
 	
 	/**

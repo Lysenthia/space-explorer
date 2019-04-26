@@ -1,16 +1,43 @@
 package backend;
 import java.util.ArrayList;
 
+/**
+ * Stores information regarding the ship, the current crew, and the items held
+ * @author hoo42
+ * @author rvo16
+ */
 public final class Ship {
-	
+	/**
+	 * The name of the ship
+	 */
 	private static String name = "White Whale";
+	/**
+	 * The crew members aboard the ship
+	 */
 	private static ArrayList<CrewMember> shipCrew = new ArrayList<CrewMember>();
+	/**
+	 * The items that are currently held
+	 */
 	private static ArrayList<Consumable> inventory = new ArrayList<Consumable>();
+	/**
+	 * The shields of the ship.
+	 * Should be 1-100.
+	 * If 0 or below, the ship is destroyed
+	 */
 	private static int shipShields = 100;
+	/**
+	 * The number of credits held
+	 */
 	private static int money = 0;
+	/**
+	 * The planet that the ship is orbiting
+	 */
 	private static Planet orbiting;
 	
-	private Ship() {} //Intended to throw an error if someone tries to make an instance of this class
+	/**
+	 * Intended to throw an error if someone attempts to make an instance of this class
+	 */
+	private Ship() {}
 	
 	/**
 	 * Gets the value of the ship's shields at the current time

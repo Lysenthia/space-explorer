@@ -7,7 +7,15 @@ package backend;
  * @author rvo16
  */
 public class RandomEventOutput{
+	/**
+	 * The type of event that occurred
+	 * @see RandomEventTypes
+	 */
 	public final RandomEventTypes event;
+	/**
+	 * The crew member that was involved in the event.
+	 * null if there was no crew member involvement
+	 */
 	public final CrewMember member;
 	
 	/**
