@@ -527,9 +527,9 @@ public class GameEnviroment {
 		if (choice == 0) {
 			System.out.println("Did not buy anything");
 		} else {
-			if (Ship.getMoney() >= item.getPrice()) {
+			boolean purchased = outpost.purchaseItem(item, choice);
+			if (purchased) {
 				System.out.println(String.format("Purchased %d %s", choice, item.getName()));
-				item.increaseHeld(choice);
 			} else {
 				System.out.println(String.format("Cannot afford to buy this many %s", item.getName().toLowerCase()));
 			}
