@@ -4,7 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
-public class MainScreen {
+public class EndingScreen {
 
 	private JFrame frame;
 
@@ -15,7 +15,7 @@ public class MainScreen {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainScreen window = new MainScreen();
+					EndingScreen window = new EndingScreen();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -27,7 +27,7 @@ public class MainScreen {
 	/**
 	 * Create the application.
 	 */
-	public MainScreen() {
+	public EndingScreen() {
 		initialize();
 	}
 
