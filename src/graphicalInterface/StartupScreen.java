@@ -1,31 +1,27 @@
 package graphicalInterface;
 
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import java.awt.BorderLayout;
-import javax.swing.JButton;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import javax.swing.SpringLayout;
-import javax.swing.JLabel;
 import java.awt.Font;
-import java.awt.Insets;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import net.miginfocom.swing.MigLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.border.EmptyBorder;
 
 public class StartupScreen {
 
 	private JFrame frmStartupScreen;
+	private JTextField DaysTextField;
+	private JTextField PartsTextField;
 
 	/**
 	 * Launch the application.
@@ -55,19 +51,82 @@ public class StartupScreen {
 	 */
 	private void initialize() {
 		frmStartupScreen = new JFrame();
-		frmStartupScreen.setResizable(false);
+		frmStartupScreen.getContentPane().setBackground(UIManager.getColor("ColorChooser.background"));
 		frmStartupScreen.setTitle("Startup Screen");
-		frmStartupScreen.setBounds(100, 100, 800, 601);
+		frmStartupScreen.setBounds(100, 100, 903, 669);
 		frmStartupScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmStartupScreen.getContentPane().setLayout(null);
 		
-		JLabel lblHelloAndWel = new JLabel("Hello!");
-		lblHelloAndWel.setBounds(363, 12, 66, 30);
-		lblHelloAndWel.setFont(new Font("Dialog", Font.BOLD, 14));
+		JLabel lblHelloAndWel = new JLabel("｡･:*:･ﾟ★,｡･:*:･ﾟ☆       Hello!      ｡･:*:･ﾟ★,｡･:*:･ﾟ☆");
+		lblHelloAndWel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblHelloAndWel.setFont(new Font("Dialog", Font.BOLD, 16));
+		frmStartupScreen.getContentPane().setLayout(new GridLayout(0, 1, 0, 0));
 		frmStartupScreen.getContentPane().add(lblHelloAndWel);
 		
-		JLabel lblWelcomeToSpace = new JLabel("Welcome to Space Explorers!");
-		lblWelcomeToSpace.setBounds(276, 42, 216, 28);
+		JLabel lblWelcomeToSpace = new JLabel("✧･ﾟ: *✧･ﾟ:*  Welcome to Space Explorers!  *:･ﾟ✧*:･ﾟ✧");
+		lblWelcomeToSpace.setHorizontalAlignment(SwingConstants.CENTER);
+		lblWelcomeToSpace.setFont(new Font("Dialog", Font.BOLD, 16));
 		frmStartupScreen.getContentPane().add(lblWelcomeToSpace);
+		
+		JTextPane descriptionTextArea = new JTextPane();
+		descriptionTextArea.setEditable(false);
+		descriptionTextArea.setBackground(UIManager.getColor("CheckBoxMenuItem.background"));
+		descriptionTextArea.setFont(new Font("Dialog", Font.PLAIN, 14));
+		descriptionTextArea.setText("Your spaceships has been broken and its pieces are scattered throughout the surrounding planets. You will need to find the missing pieces of your spaceship so that you can repair it and get home.");
+		frmStartupScreen.getContentPane().add(descriptionTextArea);
+		
+		JLabel lblPleaseSelectThe = new JLabel("Please select the number of days you would like to play for!");
+		lblPleaseSelectThe.setFont(new Font("Dialog", Font.BOLD, 14));
+		lblPleaseSelectThe.setHorizontalAlignment(SwingConstants.CENTER);
+		frmStartupScreen.getContentPane().add(lblPleaseSelectThe);
+		
+		JPanel daysPanel = new JPanel();
+		daysPanel.setBorder(new EmptyBorder(0, 100, 0, 100));
+		frmStartupScreen.getContentPane().add(daysPanel);
+		daysPanel.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		JLabel daysLabel = new JLabel("Days:");
+		daysPanel.add(daysLabel);
+		daysLabel.setFont(new Font("Dialog", Font.BOLD, 14));
+		daysLabel.setLabelFor(DaysTextField);
+		
+		DaysTextField = new JTextField();
+		daysPanel.add(DaysTextField);
+		DaysTextField.setEditable(false);
+		DaysTextField.setColumns(10);
+		
+		JPanel partsPanel = new JPanel();
+		partsPanel.setBorder(new EmptyBorder(0, 100, 0, 100));
+		frmStartupScreen.getContentPane().add(partsPanel);
+		partsPanel.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		JLabel partsToFindLabel = new JLabel("Parts to Find:");
+		partsPanel.add(partsToFindLabel);
+		partsToFindLabel.setFont(new Font("Dialog", Font.BOLD, 14));
+		
+		PartsTextField = new JTextField();
+		partsPanel.add(PartsTextField);
+		PartsTextField.setEditable(false);
+		PartsTextField.setColumns(10);
+		partsToFindLabel.setLabelFor(PartsTextField);
+		
+		JSlider slider = new JSlider();
+		slider.setBorder(new EmptyBorder(0, 50, 0, 50));
+		frmStartupScreen.getContentPane().add(slider);
+		slider.setMinorTickSpacing(1);
+		slider.setMajorTickSpacing(1);
+		slider.setValue(1);
+		slider.setPaintTicks(true);
+		slider.setPaintLabels(true);
+		slider.setToolTipText("");
+		slider.setSnapToTicks(true);
+		slider.setMinimum(3);
+		slider.setMaximum(10);
+		
+		JButton continueButton = new JButton("Continue");
+		continueButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		frmStartupScreen.getContentPane().add(continueButton);
 	}
 }
