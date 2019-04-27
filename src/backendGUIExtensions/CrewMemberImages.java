@@ -14,7 +14,7 @@ import java.nio.file.Paths;
 public final class CrewMemberImages {
 	private static ArrayList<GUIImage> images = new ArrayList<GUIImage>();
 	private static GUIImage defaultImage;
-	private static Path resourceFolder = Paths.get(System.getProperty("user.dir")+"/resources/img/");
+	private static Path resourceFolder = Paths.get(System.getProperty("user.dir")+"/resources/crew-img/");
 
 	public static ArrayList<GUIImage> getImages() {
 		return images;

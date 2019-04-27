@@ -12,7 +12,7 @@ public class PlanetExtended extends Planet {
 	/**
 	 * The path to an image of the planet
 	 */
-	private String image;
+	private GUIImage image;
 
 	/**
 	 * Creates an instance of an extended planet with a name, description, and path to an image of the planet
@@ -20,7 +20,7 @@ public class PlanetExtended extends Planet {
 	 * @param description a description of the planet
 	 * @param image the path to an image of the planet
 	 */
-	public PlanetExtended(String name, String description, String image) {
+	public PlanetExtended(String name, String description, GUIImage image) {
 		super(name, description);
 		this.image = image;
 	}
@@ -29,7 +29,7 @@ public class PlanetExtended extends Planet {
 	 * Sets the image of the planet
 	 * @param image the path to an image of the planet
 	 */
-	public void setImage(String image) {
+	public void setImage(GUIImage image) {
 		this.image = image;
 	}
 	
@@ -37,7 +37,7 @@ public class PlanetExtended extends Planet {
 	 * Returns the path to the image of the planet
 	 * @return the path to the image of the planet
 	 */
-	public String getImage() {
+	public GUIImage getImage() {
 		return this.image;
 	}
 

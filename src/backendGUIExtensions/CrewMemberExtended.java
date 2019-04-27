@@ -13,7 +13,7 @@ public class CrewMemberExtended extends CrewMember {
 	/**
 	 * The path to the image of the crew member
 	 */
-	private String image;
+	private GUIImage image;
 	
 	/**
 	 * Constructs an instance of an extended crew member with a name, class, and path to an image of them
@@ -21,7 +21,7 @@ public class CrewMemberExtended extends CrewMember {
 	 * @param memberClass the class of the crew member
 	 * @param image the path to an image of the crew member
 	 */
-	public CrewMemberExtended(String name, CrewClass memberClass, String image) {
+	public CrewMemberExtended(String name, CrewClass memberClass, GUIImage image) {
 		super(name, memberClass);
 		this.image = image;
 	}
@@ -30,7 +30,7 @@ public class CrewMemberExtended extends CrewMember {
 	 * Sets the path to an image of the crew member
 	 * @param image the path to an image of the crew member
 	 */
-	public void setImage(String image) {
+	public void setImage(GUIImage image) {
 		this.image = image;
 	}
 	
@@ -38,8 +38,8 @@ public class CrewMemberExtended extends CrewMember {
 	 * Returns the path to an image of the crew member
 	 * @return the path to an image of the crew member
 	 */
-	public String getImage() {
-		return this.image;
+	public GUIImage getImage() {
+		return image;
 	}
 	
 }
