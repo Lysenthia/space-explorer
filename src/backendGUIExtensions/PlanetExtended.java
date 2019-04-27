@@ -1,15 +1,12 @@
 package backendGUIExtensions;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 import javax.imageio.ImageIO;
 
@@ -28,18 +25,28 @@ public class PlanetExtended extends Planet {
 	 * The path to an image of the planet
 	 */
 	private GUIImage image;
+	/**
+	 * The path to the resource folder
+	 */
 	private static Path resourceFolder = Paths.get(System.getProperty("user.dir")+"/resources/");
+	private static GUIImage defaultImage;
 	/**
 	 * Creates an instance of an extended planet with a name, description, and path to an image of the planet
 	 * @param name the name of the planet
 	 * @param description a description of the planet
-	 * @param image the path to an image of the planet
+	 * @param a GUIImage of the planet
 	 */
 	public PlanetExtended(String name, String description, GUIImage image) {
 		super(name, description);
 		this.image = image;
 	}
 	
+	/**
+	 * Creates an instance of an extended planet with a name, description, and path to an image of the planet
+	 * @param name the name of the planet
+	 * @param description a description of the planet
+	 * @param image the name of the image of the planet
+	 */
 	public PlanetExtended(String name, String description, String image) {
 		super(name, description);
 		Path location = Paths.get(resourceFolder.toString() + "/planet-img/" + image);
@@ -65,20 +72,43 @@ public class PlanetExtended extends Planet {
 	public GUIImage getImage() {
 		return this.image;
 	}
+	
+	/**
+	 * Gets the default image for a planet (This should be the sun)
+	 * @throws IOException if an error is encountered whilst fetching the image
+	 */
+	public static void fetchDefautImage() throws IOException {
+		Path path = Paths.get(resourceFolder.toString() + "/planet-img/default.jpg");
+		GUIImage image = new GUIImage(path, ImageIO.read(path.toFile()));
+		defaultImage = image;
+	}
+	
+	/**
+	 * Returns the default image for a planet, and fetches it if if does not exist
+	 * @return the default image for a planet
+	 * @throws IOException if an error is encountered while fetching the image
+	 */
+	public static GUIImage getDefaultImage() throws IOException {
+		if (defaultImage == null) {
+			fetchDefautImage();
+		}
+		return defaultImage;
+	}
 
-	public static ArrayList<PlanetExtended> getFromYAML() {
+	/**
+	 * Parses the planets.yaml file and constructs an ArrayList of PlanetExtended from the read data
+	 * @return an ArrayList of PlanetExtended from the YAML file
+	 * @throws IOException if a default image is not found
+	 */
+	public static ArrayList<PlanetExtended> getFromYAML() throws IOException {
 		ArrayList<PlanetExtended> planets = new ArrayList<PlanetExtended>();
 		Yaml parser = new Yaml();
-		try {
-			InputStream input = new FileInputStream(resourceFolder.toString() + "/game-data/planets.yaml");
-			ArrayList<LinkedHashMap<String, String>> output = parser.load(input);
-			for (LinkedHashMap<String, String> data : output) {
-				planets.add(new PlanetExtended(data.get("name"), data.get("description"), data.get("image")));
-			}
-			
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		InputStream input = new FileInputStream(resourceFolder.toString() + "/game-data/planets.yaml");
+		ArrayList<LinkedHashMap<String, String>> output = parser.load(input);
+		for (LinkedHashMap<String, String> data : output) {
+			planets.add(new PlanetExtended(data.get("name"), data.get("description"), data.get("image")));
+		}	
+		fetchDefautImage();
 		return planets;
 	}
 }
