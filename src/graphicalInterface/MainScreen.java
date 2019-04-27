@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+import javax.swing.SwingConstants;
 
 public class MainScreen {
 
@@ -58,6 +59,7 @@ public class MainScreen {
 		planetsImagePanel.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JLabel planetImage = new JLabel("Planet Image Goes Here");
+		planetImage.setHorizontalAlignment(SwingConstants.CENTER);
 		planetsImagePanel.add(planetImage);
 		
 		JPanel planetInfoPanel = new JPanel();
