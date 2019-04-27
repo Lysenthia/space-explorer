@@ -19,12 +19,15 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import backend.*;
+import backendGUIExtensions.CrewMemberExtended;
 import backendGUIExtensions.CrewMemberImages;
 import backendGUIExtensions.GUIImage;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class CrewSelection {
 
@@ -113,7 +116,6 @@ public class CrewSelection {
 		panelMemberOptions.add(cbImageSelect);
 		
 		tfNameEntry = new JTextField();
-		
 		tfNameEntry.setHorizontalAlignment(SwingConstants.CENTER);
 		tfNameEntry.setText("Member Name");
 		panelMemberOptions.add(tfNameEntry);
@@ -309,7 +311,7 @@ public class CrewSelection {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if ((nameClicked | 0b0111) == 0b0111) {
-					tfNameEntry.setText(null);
+					tfNameEntry.setText("");
 					nameClicked ^= 0b1000;
 				}
 			}
@@ -319,7 +321,7 @@ public class CrewSelection {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if ((nameClicked | 0b1011) == 0b1011) {
-					tfNameEntry2.setText(null);
+					tfNameEntry2.setText("");
 					nameClicked ^= 0b0100;
 				}
 			}
@@ -329,7 +331,7 @@ public class CrewSelection {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if ((nameClicked | 0b1101) == 0b1101) {
-					tfNameEntry3.setText(null);
+					tfNameEntry3.setText("");
 					nameClicked ^= 0b0010;
 				}
 			}
@@ -339,11 +341,79 @@ public class CrewSelection {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if ((nameClicked | 0b1110) == 0b1110) {
-					tfNameEntry4.setText(null);
+					tfNameEntry4.setText("");
 					nameClicked ^= 0b0001;
 				}
 			}
 		});
+		
+		tfNameEntry.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if (tfNameEntry.getText().length() >= 20) {
+					e.consume();
+				}
+			}
+		});
+		
+		tfNameEntry2.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if (tfNameEntry2.getText().length() >= 20) {
+					e.consume();
+				}
+			}
+		});
+		
+		tfNameEntry3.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if (tfNameEntry3.getText().length() >= 20) {
+					e.consume();
+				}
+			}
+		});
+		
+		tfNameEntry4.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if (tfNameEntry4.getText().length() >= 20) {
+					e.consume();
+				}
+			}
+		});
+		
+		btnContinue.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ArrayList<CrewMemberExtended> crew = new ArrayList <CrewMemberExtended>();
+				int crewSize = sliderCrewCount.getValue();
+				switch (crewSize) {
+				case 4:
+					if (tfNameEntry4.getText().replaceAll("\\s+","") == "") {
+						crew.add(new CrewMemberExtended("Eve", (CrewClass)cbMemberClass4.getSelectedItem(), (GUIImage)cbImageSelect4.getSelectedItem()));
+					} else {
+						crew.add(new CrewMemberExtended(tfNameEntry4.getText(), (CrewClass)cbMemberClass4.getSelectedItem(), (GUIImage)cbImageSelect4.getSelectedItem()));
+					}
+				case 3:
+					if (tfNameEntry3.getText().replaceAll("\\s+","") == "") {
+						crew.add(new CrewMemberExtended("Charlie", (CrewClass)cbMemberClass3.getSelectedItem(), (GUIImage)cbImageSelect3.getSelectedItem()));
+					} else {
+						crew.add(new CrewMemberExtended(tfNameEntry3.getText(), (CrewClass)cbMemberClass3.getSelectedItem(), (GUIImage)cbImageSelect3.getSelectedItem()));
+					}
+				case 2:
+					if (tfNameEntry.getText().replaceAll("\\s+","") == "") {
+						crew.add(new CrewMemberExtended("Alice", (CrewClass)cbMemberClass.getSelectedItem(), (GUIImage)cbImageSelect.getSelectedItem()));
+					} else {
+						crew.add(new CrewMemberExtended(tfNameEntry.getText(), (CrewClass)cbMemberClass.getSelectedItem(), (GUIImage)cbImageSelect.getSelectedItem()));
+					}
+					if (tfNameEntry2.getText().replaceAll("\\s+","") == "") {
+						crew.add(new CrewMemberExtended("Bob", (CrewClass)cbMemberClass2.getSelectedItem(), (GUIImage)cbImageSelect2.getSelectedItem()));
+					} else {
+						crew.add(new CrewMemberExtended(tfNameEntry2.getText(), (CrewClass)cbMemberClass2.getSelectedItem(), (GUIImage)cbImageSelect2.getSelectedItem()));
+					}
+				}
+			}
+		});
 	}
-
 }
