@@ -1,8 +1,8 @@
 package graphicalInterface;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
@@ -14,13 +14,17 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
+import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import backend.*;
-import backendGUIExtensions.*;
-import java.awt.Dimension;
-import javax.swing.SpringLayout;
+import backendGUIExtensions.CrewMemberImages;
+import backendGUIExtensions.GUIImage;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class CrewSelection {
 
@@ -32,13 +36,15 @@ public class CrewSelection {
 	
 	private ArrayList<GUIImage> possibleImages;
 	private ArrayList<JLabel> crewImageLabels = new ArrayList<JLabel>();
-	private ArrayList<JComboBox<String>> crewImageCB = new ArrayList<JComboBox<String>>();
-	private ArrayList<JComboBox<String>> crewClassesCB = new ArrayList<JComboBox<String>>();
+	private ArrayList<JComboBox<GUIImage>> crewImageCB = new ArrayList<JComboBox<GUIImage>>();
+	private ArrayList<JComboBox<CrewClass>> crewClassesCB = new ArrayList<JComboBox<CrewClass>>();
+	
+	private int nameClicked = 0b0;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void callScreen() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -55,6 +61,7 @@ public class CrewSelection {
 	 * Create the application.
 	 */
 	public CrewSelection() {
+		this.possibleImages = StartApplication.getPossibleCrewImages();
 		initialize();
 	}
 
@@ -62,22 +69,12 @@ public class CrewSelection {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		String[] classNames = new String[CrewClass.values().length];
-		for (int i = 0; i < classNames.length; i++) {
-			classNames[i] = CrewClass.values()[i].getClassName();
-		}
-		try {
-			CrewMemberImages.fetchImages();
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.exit(1);
-		}
-		possibleImages = CrewMemberImages.getImages();
+		
 		
 		frame = new JFrame();
 		frame.getContentPane().setPreferredSize(new Dimension(800, 600));
 		frame.setResizable(false);
-		frame.setBounds(100, 100, 800, 600);
+		frame.setBounds(20, 20, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		SpringLayout springLayout = new SpringLayout();
 		frame.getContentPane().setLayout(springLayout);
@@ -112,18 +109,18 @@ public class CrewSelection {
 		panelMember.add(panelMemberOptions);
 		panelMemberOptions.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		JComboBox<String> cbImageSelect = new JComboBox<String>();
-		cbImageSelect.setModel(new DefaultComboBoxModel<String>(new String[] {"Image"}));
+		JComboBox<GUIImage> cbImageSelect = new JComboBox<GUIImage>();
 		panelMemberOptions.add(cbImageSelect);
 		
 		tfNameEntry = new JTextField();
+		
 		tfNameEntry.setHorizontalAlignment(SwingConstants.CENTER);
 		tfNameEntry.setText("Member Name");
 		panelMemberOptions.add(tfNameEntry);
 		tfNameEntry.setColumns(10);
 		
-		JComboBox<String> cbMemberClass = new JComboBox<String>();
-		cbMemberClass.setModel(new DefaultComboBoxModel<String>(classNames));
+		JComboBox<CrewClass> cbMemberClass = new JComboBox<CrewClass>();
+		cbMemberClass.setModel(new DefaultComboBoxModel<CrewClass>(CrewClass.values()));
 		panelMemberOptions.add(cbMemberClass);
 		
 		JPanel panelMember2 = new JPanel();
@@ -148,8 +145,7 @@ public class CrewSelection {
 		panelMember2.add(panelMember2Options);
 		panelMember2Options.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		JComboBox<String> cbImageSelect2 = new JComboBox<String>();
-		cbImageSelect2.setModel(new DefaultComboBoxModel<String>(new String[] {"Image"}));
+		JComboBox<GUIImage> cbImageSelect2 = new JComboBox<GUIImage>();
 		panelMember2Options.add(cbImageSelect2);
 		
 		tfNameEntry2 = new JTextField();
@@ -158,8 +154,8 @@ public class CrewSelection {
 		tfNameEntry2.setColumns(10);
 		panelMember2Options.add(tfNameEntry2);
 		
-		JComboBox<String> cbMemberClass2 = new JComboBox<String>();
-		cbMemberClass2.setModel(new DefaultComboBoxModel<String>(classNames));
+		JComboBox<CrewClass> cbMemberClass2 = new JComboBox<CrewClass>();
+		cbMemberClass2.setModel(new DefaultComboBoxModel<CrewClass>(CrewClass.values()));
 		panelMember2Options.add(cbMemberClass2);
 		
 		JPanel panelMember3 = new JPanel();
@@ -184,7 +180,7 @@ public class CrewSelection {
 		panelMember3.add(panelMember3Options);
 		panelMember3Options.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		JComboBox<String> cbImageSelect3 = new JComboBox<String>();
+		JComboBox<GUIImage> cbImageSelect3 = new JComboBox<GUIImage>();
 		panelMember3Options.add(cbImageSelect3);
 		
 		tfNameEntry3 = new JTextField();
@@ -193,8 +189,8 @@ public class CrewSelection {
 		tfNameEntry3.setColumns(10);
 		panelMember3Options.add(tfNameEntry3);
 		
-		JComboBox<String> cbMemberClass3 = new JComboBox<String>();
-		cbMemberClass3.setModel(new DefaultComboBoxModel<String>(classNames));
+		JComboBox<CrewClass> cbMemberClass3 = new JComboBox<CrewClass>();
+		cbMemberClass3.setModel(new DefaultComboBoxModel<CrewClass>(CrewClass.values()));
 		panelMember3Options.add(cbMemberClass3);
 		
 		JPanel panelMember4 = new JPanel();
@@ -219,7 +215,7 @@ public class CrewSelection {
 		panelMember4.add(panelMember4Options);
 		panelMember4Options.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		JComboBox<String> cbImageSelect4 = new JComboBox<String>();
+		JComboBox<GUIImage> cbImageSelect4 = new JComboBox<GUIImage>();
 		panelMember4Options.add(cbImageSelect4);
 		
 		tfNameEntry4 = new JTextField();
@@ -228,8 +224,8 @@ public class CrewSelection {
 		tfNameEntry4.setColumns(10);
 		panelMember4Options.add(tfNameEntry4);
 		
-		JComboBox<String> cbMemberClass4 = new JComboBox<String>();
-		cbMemberClass4.setModel(new DefaultComboBoxModel<String>(classNames));
+		JComboBox<CrewClass> cbMemberClass4 = new JComboBox<CrewClass>();
+		cbMemberClass4.setModel(new DefaultComboBoxModel<CrewClass>(CrewClass.values()));
 		panelMember4Options.add(cbMemberClass4);
 		
 		JPanel panelOptions = new JPanel();
@@ -278,15 +274,76 @@ public class CrewSelection {
 			lbl.setIcon(new ImageIcon(CrewMemberImages.getDefaultImage().getContents(lbl.getWidth(), lbl.getHeight())));
 		}
 		
-		ArrayList<String> filenames = new ArrayList<String>(); 
-		for (GUIImage image : CrewMemberImages.getImages() ) {
-			filenames.add(image.getName().toString());
-		}
-		for (JComboBox<String> cb : crewImageCB) {
-			cb.setModel(new DefaultComboBoxModel<String>(filenames.toArray(new String[filenames.size()])));
+		for (JComboBox<GUIImage> cb : crewImageCB) {
+			cb.setModel(new DefaultComboBoxModel<GUIImage>(possibleImages.toArray(new GUIImage[possibleImages.size()])));
 		}
 		
+		cbImageSelect.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				GUIImage selected = (GUIImage) cbImageSelect.getSelectedItem();
+				lblImage.setIcon(new ImageIcon(selected.getContents(lblImage.getWidth(), lblImage.getHeight())));
+			}
+		});
 		
+		cbImageSelect2.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				GUIImage selected = (GUIImage) cbImageSelect2.getSelectedItem();
+				lblImage2.setIcon(new ImageIcon(selected.getContents(lblImage.getWidth(), lblImage.getHeight())));
+			}
+		});
+		
+		cbImageSelect3.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				GUIImage selected = (GUIImage) cbImageSelect3.getSelectedItem();
+				lblImage3.setIcon(new ImageIcon(selected.getContents(lblImage.getWidth(), lblImage.getHeight())));
+			}
+		});
+		
+		cbImageSelect4.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				GUIImage selected = (GUIImage) cbImageSelect4.getSelectedItem();
+				lblImage4.setIcon(new ImageIcon(selected.getContents(lblImage.getWidth(), lblImage.getHeight())));
+			}
+		});
+		tfNameEntry.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if ((nameClicked | 0b0111) == 0b0111) {
+					tfNameEntry.setText(null);
+					nameClicked ^= 0b1000;
+				}
+			}
+		});
+		
+		tfNameEntry2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if ((nameClicked | 0b1011) == 0b1011) {
+					tfNameEntry2.setText(null);
+					nameClicked ^= 0b0100;
+				}
+			}
+		});
+		
+		tfNameEntry3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if ((nameClicked | 0b1101) == 0b1101) {
+					tfNameEntry3.setText(null);
+					nameClicked ^= 0b0010;
+				}
+			}
+		});
+		
+		tfNameEntry4.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if ((nameClicked | 0b1110) == 0b1110) {
+					tfNameEntry4.setText(null);
+					nameClicked ^= 0b0001;
+				}
+			}
+		});
 	}
 
 }

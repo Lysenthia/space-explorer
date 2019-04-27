@@ -52,9 +52,17 @@ public enum CrewClass {
 	
 	/**
 	 * Returns the player visible name for a crew member class
-	 * @return
+	 * @return the player visible name for a crew member class
+	 * @depreciated replaced with the {@link toString} for ease of use
 	 */
 	public String getClassName() {
+		return this.className;
+	}
+	
+	/**
+	 * Returns the player visible name for a crew member class
+	 */
+	public String toString() {
 		return this.className;
 	}
 	
