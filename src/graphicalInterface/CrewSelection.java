@@ -1,25 +1,28 @@
 package graphicalInterface;
 
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
 import java.awt.GridLayout;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import javax.swing.SwingConstants;
-import java.awt.Dimension;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
 import backend.CrewClass;
 
 public class CrewSelection {
 
 	private JFrame frame;
 	private JTextField tfNameEntry;
+	private JTextField tfNameEntry2;
+	private JTextField tfNameEntry3;
+	private JTextField tfNameEntry4;
 
 	/**
 	 * Launch the application.
@@ -48,6 +51,10 @@ public class CrewSelection {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		String[] classNames = new String[CrewClass.values().length];
+		for (int i = 0; i < classNames.length; i++) {
+			classNames[i] = CrewClass.values()[i].getClassName();
+		}
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.setBounds(100, 100, 800, 600);
@@ -70,8 +77,8 @@ public class CrewSelection {
 		panelMember.add(panelMemberOptions);
 		panelMemberOptions.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		JComboBox cbImageSelect = new JComboBox();
-		cbImageSelect.setModel(new DefaultComboBoxModel(new String[] {"Image"}));
+		JComboBox<String> cbImageSelect = new JComboBox<String>();
+		cbImageSelect.setModel(new DefaultComboBoxModel<String>(new String[] {"Image"}));
 		panelMemberOptions.add(cbImageSelect);
 		
 		tfNameEntry = new JTextField();
@@ -80,8 +87,8 @@ public class CrewSelection {
 		panelMemberOptions.add(tfNameEntry);
 		tfNameEntry.setColumns(10);
 		
-		JComboBox cbMemberClass = new JComboBox();
-		cbMemberClass.setModel(new DefaultComboBoxModel(CrewClass.values()));
+		JComboBox<String> cbMemberClass = new JComboBox<String>();
+		cbMemberClass.setModel(new DefaultComboBoxModel<String>(classNames));
 		panelMemberOptions.add(cbMemberClass);
 		
 		JPanel panelMember2 = new JPanel();
@@ -94,7 +101,21 @@ public class CrewSelection {
 		
 		JPanel panelMember2Options = new JPanel();
 		panelMember2.add(panelMember2Options);
-		panelMember2Options.setLayout(new GridLayout(1, 0, 0, 0));
+		panelMember2Options.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		JComboBox<String> cbImageSelect2 = new JComboBox<String>();
+		cbImageSelect2.setModel(new DefaultComboBoxModel<String>(new String[] {"Image"}));
+		panelMember2Options.add(cbImageSelect2);
+		
+		tfNameEntry2 = new JTextField();
+		tfNameEntry2.setText("Member Name");
+		tfNameEntry2.setHorizontalAlignment(SwingConstants.CENTER);
+		tfNameEntry2.setColumns(10);
+		panelMember2Options.add(tfNameEntry2);
+		
+		JComboBox<String> cbMemberClass2 = new JComboBox<String>();
+		cbMemberClass2.setModel(new DefaultComboBoxModel<String>(classNames));
+		panelMember2Options.add(cbMemberClass2);
 		
 		JPanel panelMember3 = new JPanel();
 		panelCrew.add(panelMember3);
@@ -106,7 +127,20 @@ public class CrewSelection {
 		
 		JPanel panelMember3Options = new JPanel();
 		panelMember3.add(panelMember3Options);
-		panelMember3Options.setLayout(new GridLayout(1, 0, 0, 0));
+		panelMember3Options.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		JComboBox<String> cbImageSelect3 = new JComboBox<String>();
+		panelMember3Options.add(cbImageSelect3);
+		
+		tfNameEntry3 = new JTextField();
+		tfNameEntry3.setText("Member Name");
+		tfNameEntry3.setHorizontalAlignment(SwingConstants.CENTER);
+		tfNameEntry3.setColumns(10);
+		panelMember3Options.add(tfNameEntry3);
+		
+		JComboBox<String> cbMemberClass3 = new JComboBox<String>();
+		cbMemberClass3.setModel(new DefaultComboBoxModel<String>(classNames));
+		panelMember3Options.add(cbMemberClass3);
 		
 		JPanel panelMember4 = new JPanel();
 		panelCrew.add(panelMember4);
@@ -118,7 +152,20 @@ public class CrewSelection {
 		
 		JPanel panelMember4Options = new JPanel();
 		panelMember4.add(panelMember4Options);
-		panelMember4Options.setLayout(new GridLayout(1, 0, 0, 0));
+		panelMember4Options.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		JComboBox<String> cbImageSelect4 = new JComboBox<String>();
+		panelMember4Options.add(cbImageSelect4);
+		
+		tfNameEntry4 = new JTextField();
+		tfNameEntry4.setText("Member Name");
+		tfNameEntry4.setHorizontalAlignment(SwingConstants.CENTER);
+		tfNameEntry4.setColumns(10);
+		panelMember4Options.add(tfNameEntry4);
+		
+		JComboBox<String> cbMemberClass4 = new JComboBox<String>();
+		cbMemberClass4.setModel(new DefaultComboBoxModel<String>(classNames));
+		panelMember4Options.add(cbMemberClass4);
 		
 		JPanel panelOptions = new JPanel();
 		frame.getContentPane().add(panelOptions);
