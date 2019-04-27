@@ -75,6 +75,7 @@ public class CrewSelection {
 		
 		
 		frame = new JFrame();
+		frame.setPreferredSize(new Dimension(800, 600));
 		frame.getContentPane().setPreferredSize(new Dimension(800, 600));
 		frame.setResizable(false);
 		frame.setBounds(20, 20, 800, 600);
@@ -413,6 +414,8 @@ public class CrewSelection {
 						crew.add(new CrewMemberExtended(tfNameEntry2.getText(), (CrewClass)cbMemberClass2.getSelectedItem(), (GUIImage)cbImageSelect2.getSelectedItem()));
 					}
 				}
+				MainScreen.callScreen();
+				frame.dispose();
 			}
 		});
 	}

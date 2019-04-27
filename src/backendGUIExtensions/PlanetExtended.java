@@ -77,21 +77,17 @@ public class PlanetExtended extends Planet {
 	 * Gets the default image for a planet (This should be the sun)
 	 * @throws IOException if an error is encountered whilst fetching the image
 	 */
-	public static void fetchDefautImage() throws IOException {
+	public static void fetchDefaultImage() throws IOException {
 		Path path = Paths.get(resourceFolder.toString() + "/planet-img/default.jpg");
 		GUIImage image = new GUIImage(path, ImageIO.read(path.toFile()));
 		defaultImage = image;
 	}
 	
 	/**
-	 * Returns the default image for a planet, and fetches it if if does not exist
+	 * Returns the default image for a planet
 	 * @return the default image for a planet
-	 * @throws IOException if an error is encountered while fetching the image
 	 */
-	public static GUIImage getDefaultImage() throws IOException {
-		if (defaultImage == null) {
-			fetchDefautImage();
-		}
+	public static GUIImage getDefaultImage(){
 		return defaultImage;
 	}
 
@@ -108,7 +104,7 @@ public class PlanetExtended extends Planet {
 		for (LinkedHashMap<String, String> data : output) {
 			planets.add(new PlanetExtended(data.get("name"), data.get("description"), data.get("image")));
 		}	
-		fetchDefautImage();
+		fetchDefaultImage();
 		return planets;
 	}
 }

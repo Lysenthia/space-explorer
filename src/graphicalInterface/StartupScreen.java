@@ -1,6 +1,7 @@
 package graphicalInterface;
 
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -13,7 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
@@ -56,6 +56,8 @@ public class StartupScreen {
 	 */
 	private void initialize() {		
 		frmStartupScreen = new JFrame();
+		frmStartupScreen.setPreferredSize(new Dimension(800, 600));
+		frmStartupScreen.setResizable(false);
 		frmStartupScreen.getContentPane().setBackground(UIManager.getColor("ColorChooser.background"));
 		frmStartupScreen.setTitle("Startup Screen");
 		frmStartupScreen.setBounds(20, 20, 903, 669);
@@ -72,12 +74,9 @@ public class StartupScreen {
 		lblWelcomeToSpace.setFont(new Font("Dialog", Font.BOLD, 16));
 		frmStartupScreen.getContentPane().add(lblWelcomeToSpace);
 		
-		JTextPane descriptionTextArea = new JTextPane();
-		descriptionTextArea.setEditable(false);
-		descriptionTextArea.setBackground(UIManager.getColor("CheckBoxMenuItem.background"));
-		descriptionTextArea.setFont(new Font("Dialog", Font.PLAIN, 14));
-		descriptionTextArea.setText("Your spaceships has been broken and its pieces are scattered throughout the surrounding planets. You will need to find the missing pieces of your spaceship so that you can repair it and get home.");
-		frmStartupScreen.getContentPane().add(descriptionTextArea);
+		JLabel lblDescription = new JLabel("<html><p>Your spaceships has been broken and its pieces are scattered throughout the surrounding planets. <br>You will need to find the missing pieces of your spaceship so that you can repair it and get home.</p></html>");
+		lblDescription.setHorizontalAlignment(SwingConstants.CENTER);
+		frmStartupScreen.getContentPane().add(lblDescription);
 		
 		JLabel lblPleaseSelectThe = new JLabel("Please select the number of days you would like to play for!");
 		lblPleaseSelectThe.setFont(new Font("Dialog", Font.BOLD, 14));
@@ -133,6 +132,8 @@ public class StartupScreen {
 		slider.setSnapToTicks(true);
 		slider.setMinimum(3);
 		slider.setMaximum(10);
+		
+		frmStartupScreen.pack();
 		
 		JButton continueButton = new JButton("Continue");
 		continueButton.addActionListener(new ActionListener() {
