@@ -1,5 +1,6 @@
 package graphicalInterface;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -9,7 +10,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class PlanetSearchScreen {
 
@@ -43,8 +47,14 @@ public class PlanetSearchScreen {
 	 */
 	private void initialize() {
 		frmPlanetSearchScreen = new JFrame();
+		frmPlanetSearchScreen.setPreferredSize(new Dimension(800, 600));
 		frmPlanetSearchScreen.setResizable(false);
-		frmPlanetSearchScreen.setAlwaysOnTop(true);
+		frmPlanetSearchScreen.getContentPane().setBackground(UIManager.getColor("ColorChooser.background"));
+		frmPlanetSearchScreen.setTitle("Planet Search Screen");
+		frmPlanetSearchScreen.setBounds(20, 20, 903, 669);
+		frmPlanetSearchScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		
 		frmPlanetSearchScreen.setTitle("Planet Search Screen");
 		frmPlanetSearchScreen.getContentPane().setLayout(new GridLayout(0, 1, 0, 0));
 		
@@ -62,6 +72,10 @@ public class PlanetSearchScreen {
 		MercuryPanel.setLayout(new GridLayout(0, 3, 0, 0));
 		
 		JButton btnMercury = new JButton("Mercury");
+		btnMercury.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		MercuryPanel.add(btnMercury);
 		
 		JLabel lblDescriptionGoesHere = new JLabel("Description goes here");
@@ -198,6 +212,12 @@ public class PlanetSearchScreen {
 		CancelPanel.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JButton btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				MainScreen.callScreen();
+				frmPlanetSearchScreen.dispose();
+			}
+		});
 		CancelPanel.add(btnCancel);
 	}
 }
