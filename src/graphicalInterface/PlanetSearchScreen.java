@@ -1,17 +1,15 @@
 package graphicalInterface;
 
 import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.SpringLayout;
-import javax.swing.SwingConstants;
 import javax.swing.JPanel;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 public class PlanetSearchScreen {
 
@@ -192,5 +190,13 @@ public class PlanetSearchScreen {
 		JLabel label_15 = new JLabel("Parts Found: False");
 		label_15.setHorizontalAlignment(SwingConstants.CENTER);
 		PlutoPanel.add(label_15);
+		
+		JPanel CancelPanel = new JPanel();
+		CancelPanel.setBorder(new EmptyBorder(10, 0, 0, 0));
+		frmPlanetSearchScreen.getContentPane().add(CancelPanel);
+		CancelPanel.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		JButton btnCancel = new JButton("Cancel");
+		CancelPanel.add(btnCancel);
 	}
 }
