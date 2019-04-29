@@ -18,7 +18,7 @@ public class PlanetSearchScreen {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void callScreen() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -44,6 +44,7 @@ public class PlanetSearchScreen {
 	private void initialize() {
 		frmPlanetSearchScreen = new JFrame();
 		frmPlanetSearchScreen.setResizable(false);
+		frmPlanetSearchScreen.setAlwaysOnTop(true);
 		frmPlanetSearchScreen.setTitle("Planet Search Screen");
 		frmPlanetSearchScreen.getContentPane().setLayout(new GridLayout(0, 1, 0, 0));
 		

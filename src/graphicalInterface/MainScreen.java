@@ -140,6 +140,12 @@ public class MainScreen {
 		leftOptions.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JButton btnPilot = new JButton("Travel to a new Planet");
+		btnPilot.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				PlanetSearchScreen.callScreen();
+				frame.dispose();
+			}
+		});
 		leftOptions.add(btnPilot);
 		
 		JButton btnOutpost = new JButton("Go to the outpost");
