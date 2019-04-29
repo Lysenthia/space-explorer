@@ -16,6 +16,8 @@ import javax.swing.border.EmptyBorder;
 import backend.GameState;
 import backend.Ship;
 import backendGUIExtensions.PlanetExtended;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MainScreen {
 
@@ -158,6 +160,11 @@ public class MainScreen {
 		rightOptions.add(btnStatus);
 		
 		JButton btnQuit = new JButton("Quit");
+		btnQuit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.exit(0);
+			}
+		});
 		rightOptions.add(btnQuit);
 		
 		frame.pack();

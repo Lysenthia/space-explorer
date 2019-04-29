@@ -63,13 +63,13 @@ public class StartupScreen {
 		frmStartupScreen.setBounds(20, 20, 903, 669);
 		frmStartupScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		JLabel lblHelloAndWel = new JLabel("�ｿｽ�ｽｽ�ｽ｡�ｿｽ�ｽｽ�ｽ･:*:�ｿｽ�ｽｽ�ｽ･�ｿｽ�ｽｾ貅ｪ�ｿｽ,�ｿｽ�ｽｽ�ｽ｡�ｿｽ�ｽｽ�ｽ･:*:�ｿｽ�ｽｽ�ｽ･�ｿｽ�ｽｾ貅ｪ�ｿｽ       Hello!      �ｿｽ�ｽｽ�ｽ｡�ｿｽ�ｽｽ�ｽ･:*:�ｿｽ�ｽｽ�ｽ･�ｿｽ�ｽｾ貅ｪ�ｿｽ,�ｿｽ�ｽｽ�ｽ｡�ｿｽ�ｽｽ�ｽ･:*:�ｿｽ�ｽｽ�ｽ･�ｿｽ�ｽｾ貅ｪ�ｿｽ");
+		JLabel lblHelloAndWel = new JLabel("       Hello!      ");
 		lblHelloAndWel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblHelloAndWel.setFont(new Font("Dialog", Font.BOLD, 16));
 		frmStartupScreen.getContentPane().setLayout(new GridLayout(0, 1, 0, 0));
 		frmStartupScreen.getContentPane().add(lblHelloAndWel);
 		
-		JLabel lblWelcomeToSpace = new JLabel("隨ｨ�ｽｧ�ｿｽ�ｽｽ�ｽ･�ｿｽ�ｽｾ�ｿｽ: *隨ｨ�ｽｧ�ｿｽ�ｽｽ�ｽ･�ｿｽ�ｽｾ�ｿｽ:*  Welcome to Space Explorers!  *:�ｿｽ�ｽｽ�ｽ･�ｿｽ�ｽｾ貅ｪ謔ｸ*:�ｿｽ�ｽｽ�ｽ･�ｿｽ�ｽｾ貅ｪ謔ｸ");
+		JLabel lblWelcomeToSpace = new JLabel("  Welcome to Space Explorers!  ");
 		lblWelcomeToSpace.setHorizontalAlignment(SwingConstants.CENTER);
 		lblWelcomeToSpace.setFont(new Font("Dialog", Font.BOLD, 16));
 		frmStartupScreen.getContentPane().add(lblWelcomeToSpace);
