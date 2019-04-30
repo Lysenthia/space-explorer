@@ -149,6 +149,12 @@ public class MainScreen {
 		leftOptions.add(btnPilot);
 		
 		JButton btnOutpost = new JButton("Go to the outpost");
+		btnOutpost.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				OutpostScreen.callScreen();
+				frame.dispose();
+			}
+		});
 		leftOptions.add(btnOutpost);
 		
 		JButton btnDay = new JButton("Transition to a new day");
