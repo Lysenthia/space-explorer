@@ -1,35 +1,33 @@
 package graphicalInterface;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.SpringLayout;
-import javax.swing.JPanel;
 import java.awt.GridLayout;
 import java.awt.Rectangle;
-
-import static org.junit.Assert.assertNotNull;
-
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Window.Type;
-import java.util.ArrayList;
-
-import backend.*;
-import backendGUIExtensions.*;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import javax.swing.JCheckBox;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
-import javax.swing.JScrollPane;
-import javax.swing.JRadioButton;
-import javax.swing.ScrollPaneConstants;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JRadioButtonMenuItem;
+import java.util.ArrayList;
+
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.SpringLayout;
+import javax.swing.SwingConstants;
+
+import backend.CrewMember;
+import backend.Planet;
+import backend.Ship;
+import backendGUIExtensions.CrewMemberExtended;
+import backendGUIExtensions.PlanetExtended;
 
 public class PilotScreen {
 
@@ -70,7 +68,8 @@ public class PilotScreen {
 		ArrayList<CrewMember> crew = Ship.getShipCrew();
 		ArrayList<JCheckBox> selectedCrew = new ArrayList<JCheckBox>();
 		ArrayList<PlanetExtended> planetsList = StartApplication.getPlanets();
-		ArrayList<JRadioButton> radioBtnList= new ArrayList<JRadioButton>();
+		planetsList.remove((PlanetExtended)Ship.getOrbiting());
+		ButtonGroup radioButtons = new ButtonGroup();
 		ArrayList<JLabel> lblImages = new ArrayList<JLabel>();
 		
 		frame = new JFrame();
@@ -117,7 +116,7 @@ public class PilotScreen {
 		springLayout.putConstraint(SpringLayout.SOUTH, buttonPanel, 0, SpringLayout.SOUTH, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, buttonPanel, 800, SpringLayout.WEST, frame.getContentPane());
 		frame.getContentPane().add(buttonPanel);
-		buttonPanel.setLayout(new GridLayout(0, 1, 0, 0));
+		buttonPanel.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		JButton confirm = new JButton("Confirm");
 		confirm.addMouseListener(new MouseAdapter() {
@@ -136,18 +135,26 @@ public class PilotScreen {
 							}
 						}
 					}
-					for (int i = 0; i < planetsList.size(); i++) {
-						JRadioButton planetRadio = new JRadioButton("New radio button");
-						planetRadio.setHorizontalAlignment(SwingConstants.CENTER);
-						planetsInternal.add(planetRadio);
-					}
-				} else {
-					//TODO: Popup Error Message
+					String selection = radioButtons.getSelection().getActionCommand();
+					Planet planet = planetsList.get(Integer.parseInt(selection));
+					pilotShip(pilot1, pilot2, planet);
+					MainScreen.callScreen();
+					frame.dispose();
 				}
 			}
 		});
 		buttonPanel.add(confirm);
 		confirm.setEnabled(false);
+		
+		JButton cancel = new JButton("Cancel");
+		cancel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				MainScreen.callScreen();
+				frame.dispose();
+			}
+		});
+		buttonPanel.add(cancel);
 
 		frame.pack();
 		
@@ -216,18 +223,25 @@ public class PilotScreen {
 			temp.add(selected);
 		}
 		frame.pack();
-		
 		for (int i = 0; i < lblImages.size(); i++) {
 			JLabel image = lblImages.get(i);
 			image.setIcon(new ImageIcon(((CrewMemberExtended)crew.get(i)).getImage().getContents(image.getWidth(), image.getHeight())));
 		}
-		//Populate planets
-		/*
-		for (int i = 0; i < planetsList.size(); i++) {
-			
-		}*/
 		
-		//frame.pack();
+		//Populate planets
+		for (int i = 0; i < planetsList.size(); i++) {
+			Planet planet = planetsList.get(i);
+			String message = String.format("Name: %-20s Part found: %b", planet.getName(), planet.getPartFound());
+			JRadioButton planetRadio = new JRadioButton(message);
+			planetRadio.setHorizontalAlignment(SwingConstants.CENTER);
+			planetRadio.setActionCommand(Integer.toString(i));
+			if (i == 0) {
+				planetRadio.setSelected(true);
+			}
+			planetsInternal.add(planetRadio);
+			radioButtons.add(planetRadio);
+		}
+		frame.pack();
 		
 	}
 }

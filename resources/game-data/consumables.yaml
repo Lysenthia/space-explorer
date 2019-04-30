@@ -1,0 +1,37 @@
+consumables:
+   medical:
+    - name: "Bandage"
+      price: 25
+      effectiveness: 25
+    - name: "First Aid Kit"
+      price: 50
+      effectiveness: 50
+    - name: "Elixir"
+      price: 100
+      effectiveness: 100
+   food:
+    - name: "Bread"
+      price: 30
+      effectiveness: 30
+    - name: "Flour"
+      price: 5
+      effectiveness: 5
+    - name: "Rice"
+      price: 20
+      effectiveness: 20
+    - name: "Nutripaste"
+      price: 100
+      effectiveness: 100
+    - name: "Assorted Fruits"
+      price: 50
+      effectiveness: 50
+    - name: "Snapfrozen Curry"
+      price: 70
+      effectiveness: 70
+   cure:
+    - name: "Budget Space Plague Cure"
+      price: 50
+      effectiveness: 50
+    - name: "Space Plague Cure"
+      price: 100
+      effectiveness: 1000

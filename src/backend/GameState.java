@@ -131,4 +131,12 @@ public class GameState {
 		partsFound = 0;
 	}
 	
+	/**
+	 * Replaces the ArrayList of consumables completely with a new array
+	 * @param consumables the new ArrayList to replace allConsumables with
+	 */
+	public static void setAllConsumables(ArrayList<Consumable> consumables) {
+		allConsumables = consumables;
+	}
+	
 }

@@ -100,8 +100,9 @@ public class PlanetExtended extends Planet {
 		ArrayList<PlanetExtended> planets = new ArrayList<PlanetExtended>();
 		Yaml parser = new Yaml();
 		InputStream input = new FileInputStream(resourceFolder.toString() + "/game-data/planets.yaml");
-		ArrayList<LinkedHashMap<String, String>> output = parser.load(input);
-		for (LinkedHashMap<String, String> data : output) {
+		LinkedHashMap<String, ArrayList<LinkedHashMap<String, String>>> output = parser.load(input);
+		ArrayList<LinkedHashMap<String, String>> filteredOutput = output.get("planets");
+		for (LinkedHashMap<String, String> data : filteredOutput) {
 			planets.add(new PlanetExtended(data.get("name"), data.get("description"), data.get("image")));
 		}	
 		fetchDefaultImage();

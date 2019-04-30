@@ -1,3 +1,4 @@
+planets:
   - name: "Mercury"
     description: "The closest planet to Sol. Small and very hot."
     image: "mercury.jpg"
