@@ -10,6 +10,9 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
+import backend.Ship;
+
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -59,7 +62,7 @@ public class OutpostScreen {
 		lblDesciption.setHorizontalAlignment(SwingConstants.CENTER);
 		DescriptionPanel.add(lblDesciption);
 		
-		JLabel lblCredits = new JLabel("Credits : {Credits go here}");
+		JLabel lblCredits = new JLabel(String.format("Credits: %d", Ship.getMoney()));
 		lblCredits.setHorizontalAlignment(SwingConstants.CENTER);
 		DescriptionPanel.add(lblCredits);
 		
@@ -82,7 +85,8 @@ public class OutpostScreen {
 		lblEffectiveness.setHorizontalAlignment(SwingConstants.CENTER);
 		BandagePanel.add(lblEffectiveness);
 		
-		JLabel lblNewLabel = new JLabel("Held: {number here}");
+		
+		JLabel lblNewLabel = new JLabel("Held: insert");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		BandagePanel.add(lblNewLabel);
 		
