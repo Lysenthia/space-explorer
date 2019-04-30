@@ -169,6 +169,12 @@ public class MainScreen {
 		rightOptions.add(btnSearch);
 		
 		JButton btnStatus = new JButton("View Crew Members/Access Inventory");
+		btnStatus.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				StatusScreen.callScreen();
+				frame.dispose();
+			}
+		});
 		rightOptions.add(btnStatus);
 		
 		JButton btnQuit = new JButton("Quit");
