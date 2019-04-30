@@ -387,33 +387,33 @@ public class CrewSelection {
 		btnContinue.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ArrayList<CrewMemberExtended> crew = new ArrayList <CrewMemberExtended>();
 				int crewSize = sliderCrewCount.getValue();
 				switch (crewSize) {
 				case 4:
 					if (tfNameEntry4.getText().replaceAll("\\s+","") == "") {
-						crew.add(new CrewMemberExtended("Eve", (CrewClass)cbMemberClass4.getSelectedItem(), (GUIImage)cbImageSelect4.getSelectedItem()));
+						Ship.addCrewMember(new CrewMemberExtended("Eve", (CrewClass)cbMemberClass4.getSelectedItem(), (GUIImage)cbImageSelect4.getSelectedItem()));
 					} else {
-						crew.add(new CrewMemberExtended(tfNameEntry4.getText(), (CrewClass)cbMemberClass4.getSelectedItem(), (GUIImage)cbImageSelect4.getSelectedItem()));
+						Ship.addCrewMember(new CrewMemberExtended(tfNameEntry4.getText(), (CrewClass)cbMemberClass4.getSelectedItem(), (GUIImage)cbImageSelect4.getSelectedItem()));
 					}
 				case 3:
 					if (tfNameEntry3.getText().replaceAll("\\s+","") == "") {
-						crew.add(new CrewMemberExtended("Charlie", (CrewClass)cbMemberClass3.getSelectedItem(), (GUIImage)cbImageSelect3.getSelectedItem()));
+						Ship.addCrewMember(new CrewMemberExtended("Charlie", (CrewClass)cbMemberClass3.getSelectedItem(), (GUIImage)cbImageSelect3.getSelectedItem()));
 					} else {
-						crew.add(new CrewMemberExtended(tfNameEntry3.getText(), (CrewClass)cbMemberClass3.getSelectedItem(), (GUIImage)cbImageSelect3.getSelectedItem()));
+						Ship.addCrewMember(new CrewMemberExtended(tfNameEntry3.getText(), (CrewClass)cbMemberClass3.getSelectedItem(), (GUIImage)cbImageSelect3.getSelectedItem()));
 					}
 				case 2:
 					if (tfNameEntry.getText().replaceAll("\\s+","") == "") {
-						crew.add(new CrewMemberExtended("Alice", (CrewClass)cbMemberClass.getSelectedItem(), (GUIImage)cbImageSelect.getSelectedItem()));
+						Ship.addCrewMember(new CrewMemberExtended("Alice", (CrewClass)cbMemberClass.getSelectedItem(), (GUIImage)cbImageSelect.getSelectedItem()));
 					} else {
-						crew.add(new CrewMemberExtended(tfNameEntry.getText(), (CrewClass)cbMemberClass.getSelectedItem(), (GUIImage)cbImageSelect.getSelectedItem()));
+						Ship.addCrewMember(new CrewMemberExtended(tfNameEntry.getText(), (CrewClass)cbMemberClass.getSelectedItem(), (GUIImage)cbImageSelect.getSelectedItem()));
 					}
 					if (tfNameEntry2.getText().replaceAll("\\s+","") == "") {
-						crew.add(new CrewMemberExtended("Bob", (CrewClass)cbMemberClass2.getSelectedItem(), (GUIImage)cbImageSelect2.getSelectedItem()));
+						Ship.addCrewMember(new CrewMemberExtended("Bob", (CrewClass)cbMemberClass2.getSelectedItem(), (GUIImage)cbImageSelect2.getSelectedItem()));
 					} else {
-						crew.add(new CrewMemberExtended(tfNameEntry2.getText(), (CrewClass)cbMemberClass2.getSelectedItem(), (GUIImage)cbImageSelect2.getSelectedItem()));
+						Ship.addCrewMember(new CrewMemberExtended(tfNameEntry2.getText(), (CrewClass)cbMemberClass2.getSelectedItem(), (GUIImage)cbImageSelect2.getSelectedItem()));
 					}
 				}
+				
 				MainScreen.callScreen();
 				frame.dispose();
 			}

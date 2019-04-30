@@ -142,7 +142,7 @@ public class MainScreen {
 		JButton btnPilot = new JButton("Travel to a new Planet");
 		btnPilot.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				PlanetSearchScreen.callScreen();
+				PilotScreen.callScreen();
 				frame.dispose();
 			}
 		});
