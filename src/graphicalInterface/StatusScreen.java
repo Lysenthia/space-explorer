@@ -187,7 +187,7 @@ public class StatusScreen {
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				MainScreen.callScreen();
 				frmStatusscreen.dispose();
 			}
 		});
