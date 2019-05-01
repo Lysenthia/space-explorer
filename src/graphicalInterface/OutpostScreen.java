@@ -13,15 +13,14 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 
 import backend.Consumable;
 import backend.GameState;
 import backend.Ship;
-import javax.swing.SpringLayout;
-import javax.swing.JTextField;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 
 public class OutpostScreen {
 
@@ -100,7 +99,6 @@ public class OutpostScreen {
 		itemsInternal.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JScrollPane scrollPane = new JScrollPane(itemsInternal);
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		itemsPanel.add(scrollPane);
 		springLayout.putConstraint(SpringLayout.WEST, ButtonsPanel, 0, SpringLayout.WEST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, ButtonsPanel, 800, SpringLayout.WEST, frame.getContentPane());
@@ -121,34 +119,33 @@ public class OutpostScreen {
 		ButtonsPanel.add(btnCancel);
 		frame.pack();
 		for (Consumable item : consumables) {
-			System.out.println("Adding item: " + item.getName());
-			JPanel itemPanel = new JPanel();
-			itemPanel.setLayout(new GridLayout(1, 0, 0, 0));
-			scrollPane.add(itemPanel);
+			JPanel itemSubPanel = new JPanel();
+			itemSubPanel.setLayout(new GridLayout(1, 6, 0, 0));
+			itemsInternal.add(itemSubPanel);
 			
 			JLabel lblName = new JLabel(String.format("<html><p>%s</p></html>", item.getName()));
 			lblName.setHorizontalAlignment(SwingConstants.CENTER);
-			itemPanel.add(lblName);
+			itemSubPanel.add(lblName);
 			
 			JLabel lblCost = new JLabel(String.format("Cost: %d", item.getPrice()));
 			lblCost.setHorizontalAlignment(SwingConstants.CENTER);
-			itemPanel.add(lblCost);
+			itemSubPanel.add(lblCost);
 			
 			JLabel lblType = new JLabel(String.format("Type: %-10s", item.getItemType()));
 			lblType.setHorizontalAlignment(SwingConstants.CENTER);
-			itemPanel.add(lblType);
+			itemSubPanel.add(lblType);
 			
 			JLabel lblEffectiveness = new JLabel(String.format("Effectiveness: %d", item.getPrice()));
 			lblEffectiveness.setHorizontalAlignment(SwingConstants.CENTER);
-			itemPanel.add(lblEffectiveness);
+			itemSubPanel.add(lblEffectiveness);
 			
 			
 			JLabel lblHeld = new JLabel(String.format("Held: %d", item.getHeld()));
 			lblHeld.setHorizontalAlignment(SwingConstants.CENTER);
-			itemPanel.add(lblHeld);
+			itemSubPanel.add(lblHeld);
 			
 			countEntry = new JTextField();
-			itemPanel.add(countEntry);
+			itemSubPanel.add(countEntry);
 			countEntry.setColumns(10);
 		}
 		
