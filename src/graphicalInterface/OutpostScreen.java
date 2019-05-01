@@ -1,11 +1,13 @@
 package graphicalInterface;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -54,9 +56,12 @@ public class OutpostScreen {
 	 */
 	private void initialize() {
 		ArrayList<Consumable> consumables = GameState.getAllConsumable();
-		ArrayList<Integer> costs = new ArrayList<Integer>();
+		int[] costs = new int[consumables.size()];
+		Arrays.fill(costs, 0);
 		
 		frame = new JFrame();
+		frame.setResizable(false);
+		frame.setPreferredSize(new Dimension(800, 600));
 		frame.setBounds(100, 100, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		SpringLayout springLayout = new SpringLayout();
@@ -80,7 +85,7 @@ public class OutpostScreen {
 		DescriptionPanel.add(lblCredits);
 		
 		JPanel itemsPanel = new JPanel();
-		springLayout.putConstraint(SpringLayout.NORTH, itemsPanel, 0, SpringLayout.NORTH, DescriptionPanel);
+		springLayout.putConstraint(SpringLayout.NORTH, itemsPanel, 0, SpringLayout.SOUTH, DescriptionPanel);
 		springLayout.putConstraint(SpringLayout.WEST, itemsPanel, 0, SpringLayout.WEST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, itemsPanel, 800, SpringLayout.WEST, frame.getContentPane());
 		frame.getContentPane().add(itemsPanel);
@@ -89,8 +94,12 @@ public class OutpostScreen {
 		springLayout.putConstraint(SpringLayout.NORTH, ButtonsPanel, 420, SpringLayout.NORTH, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.SOUTH, ButtonsPanel, 0, SpringLayout.SOUTH, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.SOUTH, itemsPanel, 0, SpringLayout.NORTH, ButtonsPanel);
+		itemsPanel.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		JScrollPane scrollPane = new JScrollPane();
+		JPanel itemsInternal = new JPanel();
+		itemsInternal.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		JScrollPane scrollPane = new JScrollPane(itemsInternal);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		itemsPanel.add(scrollPane);
 		springLayout.putConstraint(SpringLayout.WEST, ButtonsPanel, 0, SpringLayout.WEST, frame.getContentPane());
@@ -110,41 +119,40 @@ public class OutpostScreen {
 			}
 		});
 		ButtonsPanel.add(btnCancel);
-		
+		frame.pack();
 		for (Consumable item : consumables) {
-			JPanel BandagePanel = new JPanel();
-			springLayout.putConstraint(SpringLayout.NORTH, BandagePanel, 44, SpringLayout.NORTH, frame.getContentPane());
-			springLayout.putConstraint(SpringLayout.WEST, BandagePanel, 0, SpringLayout.WEST, frame.getContentPane());
-			springLayout.putConstraint(SpringLayout.SOUTH, BandagePanel, 88, SpringLayout.NORTH, frame.getContentPane());
-			springLayout.putConstraint(SpringLayout.EAST, BandagePanel, 800, SpringLayout.WEST, frame.getContentPane());
-			frame.getContentPane().add(BandagePanel);
-			BandagePanel.setLayout(new GridLayout(1, 0, 0, 0));
+			System.out.println("Adding item: " + item.getName());
+			JPanel itemPanel = new JPanel();
+			itemPanel.setLayout(new GridLayout(1, 0, 0, 0));
+			scrollPane.add(itemPanel);
 			
-			JLabel lblName = new JLabel("Bandage");
+			JLabel lblName = new JLabel(String.format("<html><p>%s</p></html>", item.getName()));
 			lblName.setHorizontalAlignment(SwingConstants.CENTER);
-			BandagePanel.add(lblName);
+			itemPanel.add(lblName);
 			
-			JLabel lblCost = new JLabel("Cost: 25");
+			JLabel lblCost = new JLabel(String.format("Cost: %d", item.getPrice()));
 			lblCost.setHorizontalAlignment(SwingConstants.CENTER);
-			BandagePanel.add(lblCost);
+			itemPanel.add(lblCost);
 			
-			JLabel lblMedical = new JLabel("Type: Medical");
-			lblMedical.setHorizontalAlignment(SwingConstants.CENTER);
-			BandagePanel.add(lblMedical);
+			JLabel lblType = new JLabel(String.format("Type: %-10s", item.getItemType()));
+			lblType.setHorizontalAlignment(SwingConstants.CENTER);
+			itemPanel.add(lblType);
 			
-			JLabel lblEffectiveness = new JLabel("Effectiveness: 25");
+			JLabel lblEffectiveness = new JLabel(String.format("Effectiveness: %d", item.getPrice()));
 			lblEffectiveness.setHorizontalAlignment(SwingConstants.CENTER);
-			BandagePanel.add(lblEffectiveness);
+			itemPanel.add(lblEffectiveness);
 			
 			
-			JLabel lblHeld = new JLabel("Held: insert");
+			JLabel lblHeld = new JLabel(String.format("Held: %d", item.getHeld()));
 			lblHeld.setHorizontalAlignment(SwingConstants.CENTER);
-			BandagePanel.add(lblHeld);
+			itemPanel.add(lblHeld);
 			
 			countEntry = new JTextField();
-			BandagePanel.add(countEntry);
+			itemPanel.add(countEntry);
 			countEntry.setColumns(10);
 		}
+		
+		
 	}
 
 }
