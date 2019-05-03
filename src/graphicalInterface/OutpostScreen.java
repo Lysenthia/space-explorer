@@ -4,10 +4,9 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -18,19 +17,21 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import backend.Consumable;
 import backend.GameState;
 import backend.Ship;
-import java.awt.Rectangle;
-import javax.swing.ScrollPaneConstants;
 
 public class OutpostScreen {
 
 	private JFrame frmPleasePurchaseA;
-	private JTextField countEntry;
+	private int cost = 0;
+	private JLabel lblCost;
 
 	/**
 	 * Launch the application.
@@ -69,6 +70,7 @@ public class OutpostScreen {
 	private void initialize() {
 		ArrayList<Consumable> consumables = GameState.getAllConsumable();
 		HashMap<JTextField, Integer> costs = new HashMap<JTextField, Integer>();
+		HashMap<JTextField, Consumable> itemRelation = new HashMap<JTextField, Consumable>();
 		ArrayList<JTextField> inputs = new ArrayList<JTextField>();
 		
 		frmPleasePurchaseA = new JFrame();
@@ -96,6 +98,10 @@ public class OutpostScreen {
 		JLabel lblCredits = new JLabel(String.format("Credits: %d", Ship.getMoney()));
 		lblCredits.setHorizontalAlignment(SwingConstants.CENTER);
 		DescriptionPanel.add(lblCredits);
+		
+		lblCost = new JLabel(String.format("Current Cost: %d", cost));
+		lblCost.setHorizontalAlignment(SwingConstants.CENTER);
+		DescriptionPanel.add(lblCost);
 		
 		JPanel itemsPanel = new JPanel();
 		springLayout.putConstraint(SpringLayout.NORTH, itemsPanel, 0, SpringLayout.SOUTH, DescriptionPanel);
@@ -146,9 +152,9 @@ public class OutpostScreen {
 			lblName.setHorizontalAlignment(SwingConstants.CENTER);
 			itemSubPanel.add(lblName);
 			
-			JLabel lblCost = new JLabel(String.format("Cost: %d", item.getPrice()));
-			lblCost.setHorizontalAlignment(SwingConstants.CENTER);
-			itemSubPanel.add(lblCost);
+			JLabel lblPrice = new JLabel(String.format("Cost: %d", item.getPrice()));
+			lblPrice.setHorizontalAlignment(SwingConstants.CENTER);
+			itemSubPanel.add(lblPrice);
 			
 			JLabel lblType = new JLabel(String.format("<html><p style='text-align: center;'>Type: %s</p></html>", item.getItemType()));
 			lblType.setHorizontalAlignment(SwingConstants.CENTER);
@@ -163,41 +169,64 @@ public class OutpostScreen {
 			lblHeld.setHorizontalAlignment(SwingConstants.CENTER);
 			itemSubPanel.add(lblHeld);
 			
-			countEntry = new JTextField();
+			JTextField countEntry = new JTextField();
 			itemSubPanel.add(countEntry);
 			countEntry.setColumns(10);
+			costs.put(countEntry, 0);
+			itemRelation.put(countEntry, item);
 			inputs.add(countEntry);
-			
-		}
-		
-		for (JTextField field : inputs) {
-			costs.put(field, 0);
-			field.addKeyListener(new KeyAdapter() {
+			countEntry.getDocument().addDocumentListener(new DocumentListener() {
 				@Override
-				public void keyTyped(KeyEvent e) {
-					System.out.println("Checking");
-					JTextField loc = (JTextField) e.getComponent();
-					System.out.println(loc.getText());
-					Scanner inputChecker = new Scanner(loc.getText() + e.getKeyChar());
+				public void changedUpdate(DocumentEvent e) {
+					//Not called
+					
+				}
+
+				@Override
+				public void insertUpdate(DocumentEvent e) {
+					JTextField loc = countEntry;
+					int price = itemRelation.get(loc).getPrice();
+					String inString = (loc.getText());
+					Scanner inputChecker = new Scanner(inString);
 					if (inputChecker.hasNextInt()) {
-						System.out.println("Has int");
 						int value = inputChecker.nextInt();
-						costs.put(loc, value);
-						int sum = sumCosts(costs);
-						if (sum <= Ship.getMoney()) {
-							System.out.println("Too big");
+						costs.put(loc, price * value);
+						cost = sumCosts(costs);
+						lblCost.setText(String.format("Current Cost: %d", cost));
+						if (cost > Ship.getMoney()) {
 							btnPurchase.setEnabled(false);
 						} else {
-							System.out.println("Ready");
+							btnPurchase.setEnabled(true);
+						}
+					} else if (inString == "") {
+						costs.put(loc, 0);
+						cost = sumCosts(costs);
+						if (cost > Ship.getMoney()) {
+							btnPurchase.setEnabled(false);
+						} else {
 							btnPurchase.setEnabled(true);
 						}
 					} else {
-						System.out.println("Not an int");
 						btnPurchase.setEnabled(false);
 					}
 					inputChecker.close();
+					
+				}
+
+				@Override
+				public void removeUpdate(DocumentEvent e) {
+					JTextField loc = countEntry;
+					costs.put(loc, 0);
+					cost = sumCosts(costs);
+					lblCost.setText(String.format("Current Cost: %d", cost));
+					if (cost > Ship.getMoney()) {
+						btnPurchase.setEnabled(false);
+					} else {
+						btnPurchase.setEnabled(true);
+					}
 				}
 			});
+			
 		}
 		
 	}
