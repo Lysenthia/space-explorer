@@ -123,7 +123,9 @@ public class CrewSelection {
 		tfNameEntry.setColumns(10);
 		
 		JComboBox<CrewClass> cbMemberClass = new JComboBox<CrewClass>();
+	
 		cbMemberClass.setModel(new DefaultComboBoxModel<CrewClass>(CrewClass.values()));
+		cbMemberClass.setToolTipText(((CrewClass)cbMemberClass.getSelectedItem()).getDescription());
 		panelMemberOptions.add(cbMemberClass);
 		
 		JPanel panelMember2 = new JPanel();
@@ -159,6 +161,7 @@ public class CrewSelection {
 		
 		JComboBox<CrewClass> cbMemberClass2 = new JComboBox<CrewClass>();
 		cbMemberClass2.setModel(new DefaultComboBoxModel<CrewClass>(CrewClass.values()));
+		cbMemberClass2.setToolTipText(((CrewClass)cbMemberClass2.getSelectedItem()).getDescription());
 		panelMember2Options.add(cbMemberClass2);
 		
 		JPanel panelMember3 = new JPanel();
@@ -194,6 +197,7 @@ public class CrewSelection {
 		
 		JComboBox<CrewClass> cbMemberClass3 = new JComboBox<CrewClass>();
 		cbMemberClass3.setModel(new DefaultComboBoxModel<CrewClass>(CrewClass.values()));
+		cbMemberClass3.setToolTipText(((CrewClass)cbMemberClass3.getSelectedItem()).getDescription());
 		panelMember3Options.add(cbMemberClass3);
 		
 		JPanel panelMember4 = new JPanel();
@@ -229,6 +233,7 @@ public class CrewSelection {
 		
 		JComboBox<CrewClass> cbMemberClass4 = new JComboBox<CrewClass>();
 		cbMemberClass4.setModel(new DefaultComboBoxModel<CrewClass>(CrewClass.values()));
+		cbMemberClass4.setToolTipText(((CrewClass)cbMemberClass4.getSelectedItem()).getDescription());
 		panelMember4Options.add(cbMemberClass4);
 		
 		JPanel panelOptions = new JPanel();
@@ -272,6 +277,30 @@ public class CrewSelection {
 		crewImageCB.add(cbImageSelect4);
 		
 		frame.pack();
+		
+		cbMemberClass.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				cbMemberClass.setToolTipText(((CrewClass)cbMemberClass.getSelectedItem()).getDescription());
+			}
+		});
+		
+		cbMemberClass2.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				cbMemberClass2.setToolTipText(((CrewClass)cbMemberClass2.getSelectedItem()).getDescription());
+			}
+		});
+		
+		cbMemberClass3.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				cbMemberClass3.setToolTipText(((CrewClass)cbMemberClass3.getSelectedItem()).getDescription());
+			}
+		});
+		
+		cbMemberClass4.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				cbMemberClass4.setToolTipText(((CrewClass)cbMemberClass4.getSelectedItem()).getDescription());
+			}
+		});
 		
 		for (JLabel lbl : crewImageLabels) {
 			lbl.setIcon(new ImageIcon(CrewMemberImages.getDefaultImage().getContents(lbl.getWidth(), lbl.getHeight())));

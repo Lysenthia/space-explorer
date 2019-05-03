@@ -10,44 +10,47 @@ public enum CrewClass {
 	/**
 	 * Guard archetype
 	 */
-	GUARD("Guard"),
+	GUARD("Guard", "Has a chance to prevent items being stolen when space pirates attack."),
 	
 	/**
 	 * Cook archetype
 	 */
-	COOK("Cook"),
+	COOK("Cook", "Decreases your crew's hunger level slightly each day"),
 	
 	/**
 	 * Scout archetype
 	 */
-	SCOUT("Scout"),
+	SCOUT("Scout", "Will always find an item when searching a planet for resources"),
 	
 	/**
 	 * Engineer archetype
 	 */
-	ENGINEER("Shields Engineer"),
+	ENGINEER("Shields Engineer", "Repairs the ship's shields slightly more than other classes"),
 	
 	/**
 	 * Cyborg archetype
 	 */
-	CYBORG("Cyborg"),
+	CYBORG("Cyborg", "Not affected by hunger or tiredness"),
 	
 	/**
 	 * Medic archetype
 	 */
-	MEDIC("Medic");
+	MEDIC("Medic", "Heals your crew's health slightly each day");
 	
 	/**
 	 * The name of the class that will be seen by the player 
 	 */
 	private final String className;
 	
+	private final String classDescription;
+	
 	/**
 	 * Construct a class archetype with a player visible name
 	 * @param name the name of the class that will be seen by the player
 	 */
-	private CrewClass(String name) {
+	private CrewClass(String name, String description) {
 		this.className = name;
+		this.classDescription = description;
 	}
 	
 	/**
@@ -66,4 +69,7 @@ public enum CrewClass {
 		return this.className;
 	}
 	
+	public String getDescription() {
+		return this.classDescription;
+	}
 }

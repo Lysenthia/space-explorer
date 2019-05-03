@@ -94,6 +94,7 @@ public class StartupScreen {
 		daysLabel.setLabelFor(DaysTextField);
 		
 		DaysTextField = new JTextField();
+		DaysTextField.setToolTipText("Yeet");
 		DaysTextField.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		DaysTextField.setHorizontalAlignment(SwingConstants.CENTER);
 		DaysTextField.setText("Please select a day");
@@ -136,6 +137,7 @@ public class StartupScreen {
 		frmStartupScreen.pack();
 		
 		JButton continueButton = new JButton("Continue");
+		continueButton.setToolTipText("jhsajhbsbdsakjhbdsajhdsbj");
 		continueButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				CrewSelection.callScreen();
