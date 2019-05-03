@@ -4,16 +4,24 @@ import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
+
+import backend.CrewMember;
+import backend.Ship;
+import backendGUIExtensions.CrewMemberExtended;
+import java.awt.Dimension;
 
 public class StatusScreen {
 
-	private JFrame frmStatusscreen;
+	private JFrame frame;
 
 	/**
 	 * Launch the application.
@@ -23,7 +31,7 @@ public class StatusScreen {
 			public void run() {
 				try {
 					StatusScreen window = new StatusScreen();
-					window.frmStatusscreen.setVisible(true);
+					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -43,149 +51,149 @@ public class StatusScreen {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmStatusscreen = new JFrame();
-		frmStatusscreen.setTitle("StatusScreen");
-		frmStatusscreen.setBounds(100, 100, 800, 600);
-		frmStatusscreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmStatusscreen.getContentPane().setLayout(new GridLayout(0, 1, 0, 0));
+		ArrayList<CrewMember> crew = Ship.getShipCrew();
+		ArrayList<JLabel> lblImages = new ArrayList<JLabel>();
+		
+		
+		frame = new JFrame();
+		frame.setPreferredSize(new Dimension(800, 600));
+		frame.setTitle("StatusScreen");
+		frame.setBounds(100, 100, 800, 600);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		SpringLayout springLayout = new SpringLayout();
+		frame.getContentPane().setLayout(springLayout);
 		
 		JPanel CrewMemberPanel = new JPanel();
-		frmStatusscreen.getContentPane().add(CrewMemberPanel);
-		CrewMemberPanel.setLayout(new GridLayout(0, 6, 0, 0));
-		
-		JLabel lblCrewMember = new JLabel("<html><p><center>Crew Member: <br>{name} <html><p> ");
-		lblCrewMember.setHorizontalAlignment(SwingConstants.CENTER);
-		CrewMemberPanel.add(lblCrewMember);
-		
-		JLabel lblHealth = new JLabel("Health: {000}");
-		lblHealth.setHorizontalAlignment(SwingConstants.CENTER);
-		CrewMemberPanel.add(lblHealth);
-		
-		JLabel lblActionPoints = new JLabel("Action Points: {0}");
-		lblActionPoints.setHorizontalAlignment(SwingConstants.CENTER);
-		CrewMemberPanel.add(lblActionPoints);
-		
-		JLabel lblHunger = new JLabel("Hunger: {000}");
-		lblHunger.setHorizontalAlignment(SwingConstants.CENTER);
-		CrewMemberPanel.add(lblHunger);
-		
-		JLabel lblTiredness = new JLabel("Tiredness: {000}");
-		lblTiredness.setHorizontalAlignment(SwingConstants.CENTER);
-		CrewMemberPanel.add(lblTiredness);
-		
-		JLabel lblNewLabel = new JLabel("<html><p><center> Space Plague Status: False <html><p><center>");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		CrewMemberPanel.add(lblNewLabel);
-		
-		JPanel panel = new JPanel();
-		frmStatusscreen.getContentPane().add(panel);
-		panel.setLayout(new GridLayout(0, 6, 0, 0));
-		
-		JLabel label = new JLabel("<html><p><center>Crew Member: <br>{name} <html><p> ");
-		label.setHorizontalAlignment(SwingConstants.CENTER);
-		panel.add(label);
-		
-		JLabel label_1 = new JLabel("Health: {000}");
-		label_1.setHorizontalAlignment(SwingConstants.CENTER);
-		panel.add(label_1);
-		
-		JLabel label_2 = new JLabel("Action Points: {0}");
-		label_2.setHorizontalAlignment(SwingConstants.CENTER);
-		panel.add(label_2);
-		
-		JLabel label_3 = new JLabel("Hunger: {000}");
-		label_3.setHorizontalAlignment(SwingConstants.CENTER);
-		panel.add(label_3);
-		
-		JLabel label_4 = new JLabel("Tiredness: {000}");
-		label_4.setHorizontalAlignment(SwingConstants.CENTER);
-		panel.add(label_4);
-		
-		JLabel label_5 = new JLabel("<html><p><center> Space Plague Status: False <html><p><center>");
-		label_5.setHorizontalAlignment(SwingConstants.CENTER);
-		panel.add(label_5);
-		
-		JPanel panel_1 = new JPanel();
-		frmStatusscreen.getContentPane().add(panel_1);
-		panel_1.setLayout(new GridLayout(0, 6, 0, 0));
-		
-		JLabel label_6 = new JLabel("<html><p><center>Crew Member: <br>{name} <html><p> ");
-		label_6.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_1.add(label_6);
-		
-		JLabel label_7 = new JLabel("Health: {000}");
-		label_7.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_1.add(label_7);
-		
-		JLabel label_8 = new JLabel("Action Points: {0}");
-		label_8.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_1.add(label_8);
-		
-		JLabel label_9 = new JLabel("Hunger: {000}");
-		label_9.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_1.add(label_9);
-		
-		JLabel label_10 = new JLabel("Tiredness: {000}");
-		label_10.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_1.add(label_10);
-		
-		JLabel label_11 = new JLabel("<html><p><center> Space Plague Status: False <html><p><center>");
-		label_11.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_1.add(label_11);
-		
-		JPanel panel_2 = new JPanel();
-		frmStatusscreen.getContentPane().add(panel_2);
-		panel_2.setLayout(new GridLayout(0, 6, 0, 0));
-		
-		JLabel label_12 = new JLabel("<html><p><center>Crew Member: <br>{name} <html><p> ");
-		label_12.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_2.add(label_12);
-		
-		JLabel label_13 = new JLabel("Health: {000}");
-		label_13.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_2.add(label_13);
-		
-		JLabel label_14 = new JLabel("Action Points: {0}");
-		label_14.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_2.add(label_14);
-		
-		JLabel label_15 = new JLabel("Hunger: {000}");
-		label_15.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_2.add(label_15);
-		
-		JLabel label_16 = new JLabel("Tiredness: {000}");
-		label_16.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_2.add(label_16);
-		
-		JLabel label_17 = new JLabel("<html><p><center> Space Plague Status: False <html><p><center>");
-		label_17.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_2.add(label_17);
-		
-		JPanel panel_4 = new JPanel();
-		frmStatusscreen.getContentPane().add(panel_4);
-		panel_4.setLayout(new GridLayout(1, 0, 0, 0));
-		
-		JButton btnNewButton = new JButton("Use an item");
-		panel_4.add(btnNewButton);
-		
-		JButton btnNewButton_1 = new JButton("Rest a crew member");
-		panel_4.add(btnNewButton_1);
-		
-		JButton btnRepairShields = new JButton("Repair shields");
-		panel_4.add(btnRepairShields);
+		springLayout.putConstraint(SpringLayout.NORTH, CrewMemberPanel, 1, SpringLayout.NORTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, CrewMemberPanel, 0, SpringLayout.WEST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, CrewMemberPanel, 400, SpringLayout.NORTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, CrewMemberPanel, 800, SpringLayout.WEST, frame.getContentPane());
+		frame.getContentPane().add(CrewMemberPanel);
+		SpringLayout sl_crewMember = new SpringLayout();
+		CrewMemberPanel.setLayout(sl_crewMember);
 		
 		JPanel panel_3 = new JPanel();
-		frmStatusscreen.getContentPane().add(panel_3);
+		springLayout.putConstraint(SpringLayout.NORTH, panel_3, 0, SpringLayout.SOUTH, CrewMemberPanel);
+		springLayout.putConstraint(SpringLayout.WEST, panel_3, 0, SpringLayout.WEST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, panel_3, 571, SpringLayout.NORTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, panel_3, 800, SpringLayout.WEST, frame.getContentPane());
+		frame.getContentPane().add(panel_3);
 		panel_3.setLayout(new GridLayout(0, 1, 0, 0));
 		
+		JPanel panel_4 = new JPanel();
+		panel_3.add(panel_4);
+		springLayout.putConstraint(SpringLayout.NORTH, panel_4, 0, SpringLayout.SOUTH, CrewMemberPanel);
+		springLayout.putConstraint(SpringLayout.WEST, panel_4, 0, SpringLayout.WEST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, panel_4, 381, SpringLayout.NORTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, panel_4, 800, SpringLayout.WEST, frame.getContentPane());
+		panel_4.setLayout(new GridLayout(1, 0, 0, 0));
+				
+		JButton btnNewButton = new JButton("Use an item");
+		panel_4.add(btnNewButton);
+				
+		JButton btnNewButton_1 = new JButton("Rest a crew member");
+		panel_4.add(btnNewButton_1);
+			
+		JButton btnRepairShields = new JButton("Repair shields");
+		panel_4.add(btnRepairShields);
+				
+		//Cancel button
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				MainScreen.callScreen();
-				frmStatusscreen.dispose();
+				frame.dispose();
 			}
 		});
 		panel_3.add(btnCancel);
+		
+		frame.pack();		
+		
+		for (int i = 0; i < crew.size(); i++) {
+			int widthMinor = i * (frame.getWidth() / crew.size());
+			int widthMajor = (i + 1) * (frame.getWidth() / crew.size());
+			int panelWidth = frame.getWidth() / crew.size();
+			JPanel temp = new JPanel();
+			sl_crewMember.putConstraint(SpringLayout.NORTH, temp, 0, SpringLayout.NORTH, CrewMemberPanel);
+			sl_crewMember.putConstraint(SpringLayout.WEST, temp, widthMinor, SpringLayout.WEST, CrewMemberPanel);
+			sl_crewMember.putConstraint(SpringLayout.SOUTH, temp, 400, SpringLayout.NORTH, CrewMemberPanel);
+			sl_crewMember.putConstraint(SpringLayout.EAST, temp, widthMajor, SpringLayout.WEST, CrewMemberPanel);
+			CrewMemberPanel.add(temp);
+			SpringLayout sl_temp = new SpringLayout();
+			temp.setLayout(sl_temp);
+			
+			JLabel image = new JLabel("image");
+			sl_temp.putConstraint(SpringLayout.NORTH, image, 1, SpringLayout.NORTH, temp);
+			sl_temp.putConstraint(SpringLayout.WEST, image, 0, SpringLayout.WEST, temp);
+			sl_temp.putConstraint(SpringLayout.SOUTH, image, 256, SpringLayout.NORTH, temp);
+			sl_temp.putConstraint(SpringLayout.EAST, image, panelWidth, SpringLayout.WEST, temp);
+			image.setHorizontalAlignment(SwingConstants.CENTER);
+			temp.add(image);
+			lblImages.add(image);
+			
+			JLabel name = new JLabel("name");
+			sl_temp.putConstraint(SpringLayout.NORTH, name, 0, SpringLayout.SOUTH, image);
+			sl_temp.putConstraint(SpringLayout.WEST, name, 0, SpringLayout.WEST, temp);
+			sl_temp.putConstraint(SpringLayout.SOUTH, name, 20, SpringLayout.SOUTH, image);
+			sl_temp.putConstraint(SpringLayout.EAST, name, panelWidth, SpringLayout.WEST, temp);
+			name.setHorizontalAlignment(SwingConstants.CENTER);
+			name.setText(String.format("Name: %s", crew.get(i).getName()));
+			temp.add(name);
+			
+			JLabel health = new JLabel("health");
+			sl_temp.putConstraint(SpringLayout.NORTH, health, 0, SpringLayout.SOUTH, name);
+			sl_temp.putConstraint(SpringLayout.WEST, health, 0, SpringLayout.WEST, temp);
+			sl_temp.putConstraint(SpringLayout.SOUTH, health, 20, SpringLayout.SOUTH, name);
+			sl_temp.putConstraint(SpringLayout.EAST, health, panelWidth, SpringLayout.WEST, temp);
+			health.setText(String.format("Health: %d", crew.get(i).getHealth()));
+			health.setHorizontalAlignment(SwingConstants.CENTER);
+			temp.add(health);
+			
+			JLabel actionPoints = new JLabel("actionPoints");
+			sl_temp.putConstraint(SpringLayout.NORTH, actionPoints, 0, SpringLayout.SOUTH, health);
+			sl_temp.putConstraint(SpringLayout.WEST, actionPoints, 0, SpringLayout.WEST, temp);
+			sl_temp.putConstraint(SpringLayout.SOUTH, actionPoints, 20, SpringLayout.SOUTH, health);
+			sl_temp.putConstraint(SpringLayout.EAST, actionPoints, panelWidth, SpringLayout.WEST, temp);
+			actionPoints.setText(String.format("AP: %d", crew.get(i).getActionPoints()));
+			actionPoints.setHorizontalAlignment(SwingConstants.CENTER);
+			temp.add(actionPoints);
+			
+			JLabel Hunger = new JLabel("Hunger");
+			sl_temp.putConstraint(SpringLayout.NORTH, Hunger, 0, SpringLayout.SOUTH, actionPoints);
+			sl_temp.putConstraint(SpringLayout.WEST, Hunger, 0, SpringLayout.WEST, temp);
+			sl_temp.putConstraint(SpringLayout.SOUTH, Hunger, 20, SpringLayout.SOUTH, actionPoints);
+			sl_temp.putConstraint(SpringLayout.EAST, Hunger, panelWidth, SpringLayout.WEST, temp);
+			Hunger.setText(String.format("Hunger: %d", crew.get(i).getHunger()));
+			Hunger.setHorizontalAlignment(SwingConstants.CENTER);
+			temp.add(Hunger);
+			
+			JLabel Tiredness = new JLabel("Tiredness");
+			sl_temp.putConstraint(SpringLayout.NORTH, Tiredness, 0, SpringLayout.SOUTH, Hunger);
+			sl_temp.putConstraint(SpringLayout.WEST, Tiredness, 0, SpringLayout.WEST, temp);
+			sl_temp.putConstraint(SpringLayout.SOUTH, Tiredness, 20, SpringLayout.SOUTH, Hunger);
+			sl_temp.putConstraint(SpringLayout.EAST, Tiredness, panelWidth, SpringLayout.WEST, temp);
+			Tiredness.setText(String.format("Tiredness: %d", crew.get(i).getTiredness()));
+			Tiredness.setHorizontalAlignment(SwingConstants.CENTER);
+			temp.add(Tiredness);
+			
+			JLabel SpacePlagueStatus = new JLabel("SpacePlagueStatus");
+			sl_temp.putConstraint(SpringLayout.NORTH, SpacePlagueStatus, 0, SpringLayout.SOUTH, Tiredness);
+			sl_temp.putConstraint(SpringLayout.WEST, SpacePlagueStatus, 0, SpringLayout.WEST, temp);
+			sl_temp.putConstraint(SpringLayout.SOUTH, SpacePlagueStatus, 20, SpringLayout.SOUTH, Tiredness);
+			sl_temp.putConstraint(SpringLayout.EAST, SpacePlagueStatus, panelWidth, SpringLayout.WEST, temp);
+			SpacePlagueStatus.setText(String.format("Has Space Plague: %b", crew.get(i).hasSpacePlague()));
+			SpacePlagueStatus.setHorizontalAlignment(SwingConstants.CENTER);
+			temp.add(SpacePlagueStatus);
+			
+		}
+		frame.pack();
+		for (int i = 0; i < lblImages.size(); i++) {
+			JLabel image = lblImages.get(i);
+			image.setIcon(new ImageIcon(((CrewMemberExtended)crew.get(i)).getImage().getContents(image.getWidth(), image.getHeight())));
+		}
 	}
+	
+	
+	
 
 }
