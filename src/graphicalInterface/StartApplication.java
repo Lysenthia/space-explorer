@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import backend.Consumable;
 import backend.GameState;
+import backend.Ship;
 import backendGUIExtensions.CosnumableReader;
 import backendGUIExtensions.CrewMemberImages;
 import backendGUIExtensions.GUIImage;
@@ -26,6 +27,7 @@ public class StartApplication {
 	}
 
 	public static void main(String[] args) {
+		Ship.addMoney(500);
 		try {
 			CrewMemberImages.fetchImages();
 		} catch (IOException e) {
