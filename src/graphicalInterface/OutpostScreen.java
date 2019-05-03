@@ -32,6 +32,9 @@ public class OutpostScreen {
 	private JFrame frmPleasePurchaseA;
 	private int cost = 0;
 	private JLabel lblCost;
+	private JButton btnPurchase;
+	private HashMap<JTextField, HashMap<String, Object>> itemData = new HashMap<JTextField, HashMap<String, Object>>();
+	private ArrayList<JTextField> inputs = new ArrayList<JTextField>();
 
 	/**
 	 * Launch the application.
@@ -56,10 +59,20 @@ public class OutpostScreen {
 		initialize();
 	}
 
-	private int sumCosts(HashMap<JTextField, Integer> costs) {
+	private void updateCost() {
+		cost = sumCosts();
+		lblCost.setText(String.format("Current Cost: %d", cost));
+		if (cost > Ship.getMoney()) {
+			btnPurchase.setEnabled(false);
+		} else {
+			btnPurchase.setEnabled(true);
+		}
+	}
+	
+	private int sumCosts() {
 		int sum = 0;
-		for (JTextField field : costs.keySet()) {
-			sum += costs.get(field);
+		for (JTextField field : itemData.keySet()) {
+			sum += (int) itemData.get(field).get("cost");
 		}
 		return sum;
 	}
@@ -69,9 +82,6 @@ public class OutpostScreen {
 	 */
 	private void initialize() {
 		ArrayList<Consumable> consumables = GameState.getAllConsumable();
-		HashMap<JTextField, Integer> costs = new HashMap<JTextField, Integer>();
-		HashMap<JTextField, Consumable> itemRelation = new HashMap<JTextField, Consumable>();
-		ArrayList<JTextField> inputs = new ArrayList<JTextField>();
 		
 		frmPleasePurchaseA = new JFrame();
 		frmPleasePurchaseA.setTitle("Please purchase a few items");
@@ -129,7 +139,7 @@ public class OutpostScreen {
 		frmPleasePurchaseA.getContentPane().add(ButtonsPanel);
 		ButtonsPanel.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		JButton btnPurchase = new JButton("Purchase");
+		btnPurchase = new JButton("Purchase");
 		btnPurchase.setEnabled(false);
 		ButtonsPanel.add(btnPurchase);
 		
@@ -172,9 +182,14 @@ public class OutpostScreen {
 			JTextField countEntry = new JTextField();
 			itemSubPanel.add(countEntry);
 			countEntry.setColumns(10);
-			costs.put(countEntry, 0);
-			itemRelation.put(countEntry, item);
 			inputs.add(countEntry);
+			
+			HashMap<String, Object> lblMapping = new HashMap<String,Object>();
+			lblMapping.put("item", item);
+			lblMapping.put("wanted", 0);
+			lblMapping.put("cost", 0);
+			itemData.put(countEntry, lblMapping);
+			
 			countEntry.getDocument().addDocumentListener(new DocumentListener() {
 				@Override
 				public void changedUpdate(DocumentEvent e) {
@@ -185,27 +200,15 @@ public class OutpostScreen {
 				@Override
 				public void insertUpdate(DocumentEvent e) {
 					JTextField loc = countEntry;
-					int price = itemRelation.get(loc).getPrice();
+					HashMap<String, Object> lblMapping = itemData.get(loc);
+					int price = ((Consumable) lblMapping.get("item")).getPrice();
 					String inString = (loc.getText());
 					Scanner inputChecker = new Scanner(inString);
 					if (inputChecker.hasNextInt()) {
-						int value = inputChecker.nextInt();
-						costs.put(loc, price * value);
-						cost = sumCosts(costs);
-						lblCost.setText(String.format("Current Cost: %d", cost));
-						if (cost > Ship.getMoney()) {
-							btnPurchase.setEnabled(false);
-						} else {
-							btnPurchase.setEnabled(true);
-						}
-					} else if (inString == "") {
-						costs.put(loc, 0);
-						cost = sumCosts(costs);
-						if (cost > Ship.getMoney()) {
-							btnPurchase.setEnabled(false);
-						} else {
-							btnPurchase.setEnabled(true);
-						}
+						int wanted = inputChecker.nextInt();
+						lblMapping.put("cost", price * wanted);
+						lblMapping.put("wanted", wanted);
+						updateCost();
 					} else {
 						btnPurchase.setEnabled(false);
 					}
@@ -216,14 +219,23 @@ public class OutpostScreen {
 				@Override
 				public void removeUpdate(DocumentEvent e) {
 					JTextField loc = countEntry;
-					costs.put(loc, 0);
-					cost = sumCosts(costs);
-					lblCost.setText(String.format("Current Cost: %d", cost));
-					if (cost > Ship.getMoney()) {
-						btnPurchase.setEnabled(false);
+					HashMap<String, Object> lblMapping = itemData.get(loc);
+					int price = ((Consumable) lblMapping.get("item")).getPrice();
+					String inString = (loc.getText());
+					Scanner inputChecker = new Scanner(inString);
+					if (inputChecker.hasNextInt()) {
+						int wanted = inputChecker.nextInt();
+						lblMapping.put("cost", price * wanted);
+						lblMapping.put("wanted", wanted);
+						updateCost();
+					} else if (inString == "") {
+						lblMapping.put("cost", 0);
+						lblMapping.put("wanted", 0);
+						updateCost();
 					} else {
-						btnPurchase.setEnabled(true);
+						btnPurchase.setEnabled(false);
 					}
+					inputChecker.close();
 				}
 			});
 			
