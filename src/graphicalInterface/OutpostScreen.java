@@ -24,7 +24,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import backend.Consumable;
-import backend.GameState;
+import backend.Outpost;
 import backend.Ship;
 
 public class OutpostScreen {
@@ -32,9 +32,11 @@ public class OutpostScreen {
 	private JFrame frmPleasePurchaseA;
 	private int cost = 0;
 	private JLabel lblCost;
+	private JLabel lblCredits;
 	private JButton btnPurchase;
 	private HashMap<JTextField, HashMap<String, Object>> itemData = new HashMap<JTextField, HashMap<String, Object>>();
-	private ArrayList<JTextField> inputs = new ArrayList<JTextField>();
+	private Outpost outpost = StartApplication.getOutpost();
+	private ArrayList<Consumable> consumables = outpost.getStock();
 
 	/**
 	 * Launch the application.
@@ -76,12 +78,22 @@ public class OutpostScreen {
 		}
 		return sum;
 	}
+
+	protected void purchaseItems() {
+		for (JTextField field : itemData.keySet()) {
+			HashMap<String, Object> item = itemData.get(field);
+			outpost.purchaseItem((Consumable) item.get("item"), (int) item.get("wanted"));
+			field.setText("0");
+			((JLabel) item.get("heldLbl")).setText(String.format("Held: %d", ((Consumable) item.get("item")).getHeld()));
+		}
+		lblCost.setText("Items purchased!");
+		lblCredits.setText(String.format("Credits: %d", Ship.getMoney()));
+	}
 	
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		ArrayList<Consumable> consumables = GameState.getAllConsumable();
 		
 		frmPleasePurchaseA = new JFrame();
 		frmPleasePurchaseA.setTitle("Please purchase a few items");
@@ -100,12 +112,12 @@ public class OutpostScreen {
 		frmPleasePurchaseA.getContentPane().add(DescriptionPanel);
 		DescriptionPanel.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		JLabel lblDesciption = new JLabel("Welcome to Outpost 9!");
+		JLabel lblDesciption = new JLabel(String.format("Welcome to %s!", outpost.getName()));
 		lblDesciption.setFont(new Font("Dialog", Font.BOLD, 14));
 		lblDesciption.setHorizontalAlignment(SwingConstants.CENTER);
 		DescriptionPanel.add(lblDesciption);
 		
-		JLabel lblCredits = new JLabel(String.format("Credits: %d", Ship.getMoney()));
+		lblCredits = new JLabel(String.format("Credits: %d", Ship.getMoney()));
 		lblCredits.setHorizontalAlignment(SwingConstants.CENTER);
 		DescriptionPanel.add(lblCredits);
 		
@@ -142,6 +154,11 @@ public class OutpostScreen {
 		btnPurchase = new JButton("Purchase");
 		btnPurchase.setEnabled(false);
 		ButtonsPanel.add(btnPurchase);
+		btnPurchase.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			purchaseItems();
+			}
+		});
 		
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
@@ -182,12 +199,12 @@ public class OutpostScreen {
 			JTextField countEntry = new JTextField();
 			itemSubPanel.add(countEntry);
 			countEntry.setColumns(10);
-			inputs.add(countEntry);
 			
 			HashMap<String, Object> lblMapping = new HashMap<String,Object>();
 			lblMapping.put("item", item);
 			lblMapping.put("wanted", 0);
 			lblMapping.put("cost", 0);
+			lblMapping.put("heldLbl", lblHeld);
 			itemData.put(countEntry, lblMapping);
 			
 			countEntry.getDocument().addDocumentListener(new DocumentListener() {
@@ -242,5 +259,4 @@ public class OutpostScreen {
 		}
 		
 	}
-
 }
