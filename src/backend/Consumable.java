@@ -36,7 +36,6 @@ public abstract class Consumable {
 	 * @param itemType the type of item (i.e medical, cure, food)
 	 * @param effectivness the effectiveness of the consumable
 	 */
-	
 	public Consumable(String name, int price, int effectiveness, String itemType) {
 		this.name = name;
 		this.price = price;

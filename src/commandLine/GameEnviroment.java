@@ -53,12 +53,24 @@ public class GameEnviroment {
 		return out;
 	}
 	
+	/**
+	 * Prints a given array list to the console
+	 * @param list the array list to print
+	 */
 	private static void printList(ArrayList<?> list) {
 		for (Object object : list) {
 			System.out.println(object);
 		}
 	}
 	
+	/**
+	 * Lets the player select an option based on the given parameters
+	 * @param input the Scanner shared between methods
+	 * @param messages the list of methods telling the player their options
+	 * @param lowerBound the lower bound that the chosen option must be greater than
+	 * @param upperBound the upper bound that the chosen option must be less than
+	 * @return the selected option
+	 */
 	private static int choose(Scanner input, ArrayList<String> messages, int lowerBound, int upperBound) {
 		int choice = 0;
 		String line = input.nextLine();
@@ -75,6 +87,14 @@ public class GameEnviroment {
 		return choice;
 	}
 	
+	/**
+	 * Lets the player select an option based on the given parameters
+	 * @param input the Scanner shared between methods
+	 * @param messages the list of methods telling the player their options
+	 * @param bound the bound that the chosen option must be greater or less than depending on isLowerBound
+	 * @param isLowerBound true if the given bound is used as a lower bound; false otherwise
+	 * @return the selected option
+	 */
 	private static int choose(Scanner input, ArrayList<String> messages, int bound, boolean isLowerBound) {
 		int choice = 0;
 		String line = input.nextLine();

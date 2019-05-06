@@ -12,9 +12,22 @@ import org.yaml.snakeyaml.Yaml;
 
 import backend.*;
 
+/**
+ * Allows for the reading of the consumables.yaml in the resources folder
+ * @author hoo42
+ * @author rvo16
+ */
 public class CosnumableReader {
+	/**
+	 * The path to the resources folder
+	 */
 	private static Path resourceFolder = Paths.get(System.getProperty("user.dir")+"/resources/");
 
+	/**
+	 * Parses and returns the consumables.yaml file, returning an ArrayList of the consumables found within
+	 * @return an ArrayList of consumables found in the consumables.yaml file
+	 * @throws IOException if an error is encountered whilst fetching or parsing the file
+	 */
 	public static ArrayList<Consumable> fetchConsumables() throws IOException {
 		LinkedHashMap<String, LinkedHashMap<String, ArrayList<LinkedHashMap<String, Object>>>> output;
 		ArrayList<Consumable> consumables = new ArrayList<Consumable>();
