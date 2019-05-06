@@ -18,7 +18,7 @@ public class GameEnviroment {
 	 * @return true if the string contains the correct number of integers;
 	 * 		   false otherwise
 	 */
-	public static boolean hasInteger(String s, int size) {
+	private static boolean hasInteger(String s, int size) {
 		Scanner reader = new Scanner(s.trim());
 		int i = 0;
 		while (reader.hasNextInt() && i < size) {
@@ -39,7 +39,7 @@ public class GameEnviroment {
 	 * @param size the maximum number of integers to extract
 	 * @return an array containing the extracted integers (May be smaller than size)
 	 */
-	public static int[] extractInt(String s, int size) {
+	private static int[] extractInt(String s, int size) {
 		Scanner reader = new Scanner(s.trim());
 		int[] list = new int[size];
 		int i = 0;
@@ -51,6 +51,28 @@ public class GameEnviroment {
 		int[] out = new int[i];
 		System.arraycopy(list, 0, out, 0, i);
 		return out;
+	}
+	
+	private static void printList(ArrayList<?> list) {
+		for (Object object : list) {
+			System.out.println(object);
+		}
+	}
+	
+	private static int choose(Scanner input, ArrayList<String> messages, int lowerBound, int upperBound) {
+		int choice = 0;
+		String line = input.nextLine();
+		if (hasInteger(line, 1)) {
+			choice = extractInt(line, 1)[0];
+		}
+		while (choice < lowerBound || choice > upperBound) {
+			printList(messages);
+			line = input.nextLine();
+			if (hasInteger(line, 1)) {
+				choice = extractInt(line, 1)[0];
+			}
+		}
+		return choice;
 	}
 
 	/**
@@ -102,19 +124,11 @@ public class GameEnviroment {
 	 * @param input the Scanner shared by various methods
 	 */
 	private static void getEndDay(Scanner input) {
-		System.out.println("\nHow many days would you like to play for? (between 3 and 10 days): ");
-		int days = 0;
-		String line = input.nextLine();
-		if (hasInteger(line, 1)) {
-			days = extractInt(line, 1)[0];
-		}
-		while (days < 3 || days > 10) {
-			System.out.println("Please enter an integer between 3 and 10 inclusive: ");
-			line = input.nextLine();
-			if (hasInteger(line, 1)) {
-				days = extractInt(line, 1)[0];
-			}
-		}
+		ArrayList<String> messages = new ArrayList<String>();
+		messages.add("\nHow many days would you like to play for? (between 3 and 10 days): ");
+		printList(messages);
+		messages.add("Please enter an integer between 3 and 10 inclusive: ");
+		int days = choose(input, messages, 3, 10);
 		GameState.setEndDay(days);
 		System.out.println(String.format("End day has been set to %d\n%d parts must be found\n", GameState.getEndDay(), GameState.getPartsNeeded()));
 	}
@@ -124,6 +138,7 @@ public class GameEnviroment {
 	 * @param input the Scanner shared between methods
 	 */
 	private static void getCrewMembers(Scanner input) {
+		//TODO
 		ArrayList<String> usedNames = new ArrayList<String>();
 		int size = possibleCrew.size();
 		boolean ready = false;
@@ -162,20 +177,23 @@ public class GameEnviroment {
 	}
 	
 	/**
-	 * Prints the possible actions for the player to the console
+	 * Returns an ArrayList of possible actions for the player
+	 * @return an ArrayList of possible actions for the player
 	 */
-	private static void printActions() {
-		System.out.println("What would you like to do? ");
-		System.out.println("0: Go to a new planet");
-		System.out.println("1: Check on your crew and access your inventory");
-		System.out.println(String.format("2: Go to %s", outpost.getName()));
-		System.out.println("3: Transition to a new day");
+	private static ArrayList<String> getActions() {
+		ArrayList<String> actions = new ArrayList<String>();
+		actions.add("What would you like to do? ");
+		actions.add("0: Go to a new planet");
+		actions.add("1: Check on your crew and access your inventory");
+		actions.add(String.format("2: Go to %s", outpost.getName()));
+		actions.add("3: Transition to a new day");
 		if (Ship.getOrbiting() != null) {
-			System.out.println(String.format("4: Search %s for supplies", Ship.getOrbiting().getName()));
-			System.out.println("5: Quit game");
+			actions.add(String.format("4: Search %s for supplies", Ship.getOrbiting().getName()));
+			actions.add("5: Quit game");
 		} else {
-			System.out.println("4: Quit game");
+			actions.add("4: Quit game");
 		}
+		return actions;
 	}
 	
 	/**
@@ -230,11 +248,13 @@ public class GameEnviroment {
 	 * Prints a given ArrayList of planets with numbering and whether or not a part has been found on that planet
 	 * @param planetsToPrint the ArrayList of planets to print
 	 */
-	private static void printPlanets(ArrayList<Planet> planetsToPrint) {
-		for (int i = 0; i < planetsToPrint.size(); i++) {
-			Planet cur = planetsToPrint.get(i);
-			System.out.println(String.format("%d:\tName: %s\tPart Found: %b", i, cur.getName(), cur.getPartFound()));
+	private static ArrayList<String> getFormattedPlanets(ArrayList<Planet> planets) {
+		ArrayList<String> formattedPlanets = new ArrayList<String>();
+		for (int i = 0; i < planets.size(); i++) {
+			Planet cur = planets.get(i);
+			formattedPlanets.add(String.format("%d:\tName: %s\tPart Found: %b", i, cur.getName(), cur.getPartFound()));
 		}
+		return formattedPlanets;
 	}
 	
 	/**
@@ -244,25 +264,14 @@ public class GameEnviroment {
 	 */
 	private static Planet selectPlanet(Scanner input) {
 		ArrayList<Planet> possibleDestinations = new ArrayList<Planet>(planets);
+		ArrayList<String> messages = new ArrayList<String>();
 		possibleDestinations.remove(Ship.getOrbiting());
-		System.out.println("Please select a planet to travel to:");
-		printPlanets(possibleDestinations);
-		System.out.println(String.format("%d: Cancel", possibleDestinations.size()));
-		int choice = 0;
-		String line = input.nextLine();
-		if (hasInteger(line, 1)) {
-			choice = extractInt(line, 1)[0];
-		}
-		while (choice < 0 || choice > possibleDestinations.size()) {
-			System.out.println("Please select a planet to travel to:");
-			printPlanets(possibleDestinations);
-			System.out.println(String.format("%d: Cancel", possibleDestinations.size()));
-			System.out.println(String.format("Please enter an integer between 0 and %d inclusive: ", possibleDestinations.size()));
-			line = input.nextLine();
-			if (hasInteger(line, 1)) {
-				choice = extractInt(line, 1)[0];
-			}
-		}
+		messages.add("Please select a planet to travel to:");
+		messages.addAll(getFormattedPlanets(possibleDestinations));
+		messages.add(String.format("%d: Cancel", possibleDestinations.size()));
+		printList(messages);
+		System.out.println(String.format("Please enter an integer between 0 and %d inclusive: ", possibleDestinations.size()));
+		int choice = choose(input, messages, 0, possibleDestinations.size());
 		if (choice == possibleDestinations.size()) {
 			return null;
 		} else {
@@ -308,78 +317,46 @@ public class GameEnviroment {
 	
 	private static void useItem(Scanner input) {
 		ArrayList<Consumable> inventory = Ship.getInventory();
+		ArrayList<CrewMember> crew = Ship.getShipCrew();
+		ArrayList<String> messages = new ArrayList<String>();
 		int i = 0;
 		if (inventory.size() == 0) {
 			System.out.println("\nYour inventory is empty.");
 		}
 		else {
-			System.out.println();
-			System.out.println("======INVENTORY======");
-		for (i = 0; i < inventory.size(); i++) {
-			Consumable item = inventory.get(i);
-			System.out.println(String.format("%d:\tName: %-30sCost: %-8dType: %-20s\tEffectivness: %-8dHeld: %d", i, item.getName(), item.getPrice(), item.getItemType(), item.getEffectiveness(), item.getHeld()));
-		}
-		System.out.println("Please select an item to use: ");
-		
-		int choice = 0;
-		String line = input.nextLine();
-		if (hasInteger(line, 1)) {
-			choice = extractInt(line, 1)[0];
-		}
-		while (choice < 0 || choice > inventory.size()) {
-			System.out.println("Please select an item to use: ");
-			System.out.println();
-			System.out.println("======INVENTORY======");
-		for (i = 0; i < inventory.size(); i++) {
-			Consumable item = inventory.get(i);
-			System.out.println(String.format("%d:\tName: %-30sCost: %-8dType: %-20s\tEffectivness: %-8dHeld: %d", i, item.getName(), item.getPrice(), item.getItemType(), item.getEffectiveness(), item.getHeld()));
-		}
-			System.out.println(String.format("%d: Cancel", inventory.size()));
-			System.out.println(String.format("Please enter an integer between 0 and %d inclusive: ", inventory.size()));
-			line = input.nextLine();
-			if (hasInteger(line, 1)) {
-				choice = extractInt(line, 1)[0];
+			messages.add("Please select an item to use: \n");
+			messages.add("======INVENTORY======");
+			for (i = 0; i < inventory.size(); i++) {
+				Consumable item = inventory.get(i);
+				messages.add(String.format("%d:\tName: %-30sCost: %-8dType: %-20s\tEffectivness: %-8dHeld: %d", i, item.getName(), item.getPrice(), item.getItemType(), item.getEffectiveness(), item.getHeld()));
 			}
-		}
-		if (choice == inventory.size()) {
-			return;
-		} else {
-			Consumable item = inventory.get(choice);
-			System.out.println("Please select a crew member to use the item on: ");
-			ArrayList<CrewMember> crew = Ship.getShipCrew();
-			
-			for (i = 0; i < crew.size(); i++) {
-				CrewMember member = crew.get(i);
-				System.out.println(String.format("%s: Crew Member: %-15s Tiredness: %-5d Action points: %-5s", i, member.getName(), member.getTiredness(), member.getActionPoints()));
-			}
-			choice = 0;
-			String line1 = input.nextLine();
-			if (hasInteger(line1, 1)) {
-				choice = extractInt(line1, 1)[0];
-			}
-			while (choice < 0 || choice > crew.size()) {
-				System.out.println("Please select a crew member to use the item on: ");
+			messages.add(String.format("%d: Cancel", inventory.size()));
+			printList(messages);
+			messages.add(String.format("Please enter an integer between 0 and %d inclusive: ", inventory.size()));
+			int choice = choose(input, messages, 0, inventory.size());
+			if (choice == inventory.size()) {
+				return;
+			} else {
+				messages.clear();
+				Consumable item = inventory.get(choice);
+				messages.add("Please select a crew member to use the item on: ");
 				for (i = 0; i < crew.size(); i++) {
 					CrewMember member = crew.get(i);
-					System.out.println(String.format("%s: Crew Member: %-15s Tiredness: %-5d Action points: %-5s", i, member.getName(), member.getTiredness(), member.getActionPoints()));
+					messages.add(String.format("%s: Crew Member: %-15s Tiredness: %-5d Action points: %-5s", i, member.getName(), member.getTiredness(), member.getActionPoints()));
 				}
-				System.out.println(String.format("Please enter an integer between 0 and %d inclusive: ", crew.size()));
-				
-				line = input.nextLine();
-				if (hasInteger(line, 1)) {
-					choice = extractInt(line, 1)[0];
+				printList(messages);
+				messages.add(String.format("Please enter an integer between 0 and %d inclusive: ", crew.size()));
+				choice = choose(input, messages, 0, crew.size());
+				CrewMember member = crew.get(choice);
+				boolean used = item.use(member);
+				if (used) {
+					System.out.println(String.format("Crew member %s has used item %s", member.getName(), item.getName()));
 				}
+				else {
+					System.out.println(String.format("Crew member %s has no need to use this item", member.getName()));
+				}
+
 			}
-			CrewMember member = crew.get(choice);
-			boolean used = item.use(member);
-			if (used) {
-				System.out.println(String.format("Crew member %s has used item %s", member.getName(), item.getName()));
-			}
-			else {
-				System.out.println(String.format("Crew member %s has no need to use this item", member.getName()));
-			}
-			
-		}
 		}
 	}
 	
@@ -685,20 +662,10 @@ public class GameEnviroment {
 			System.out.println(String.format("Currently orbiting the planet %s", Ship.getOrbiting().getName()));
 			maxChoice = 5;
 		}
-		printActions();
-		int choice = 0;
-		String line = input.nextLine();
-		if (hasInteger(line, 1)) {
-			choice = extractInt(line, 1)[0];
-		}
-		while (choice < 0 || choice > maxChoice) {
-			printActions();
-			System.out.println(String.format("Please enter an integer between 0 and %d inclusive: ", maxChoice));
-			line = input.nextLine();
-			if (hasInteger(line, 1)) {
-				choice = extractInt(line, 1)[0];
-			}
-		}
+		ArrayList<String> messages = getActions();
+		printList(messages);
+		messages.add(String.format("Please enter an integer between 0 and %d inclusive: ", maxChoice));
+		int choice = choose(input, messages, 0, maxChoice);
 		switch (choice) {
 		case 0:
 			pilotShip(input);

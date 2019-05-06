@@ -2,22 +2,28 @@ package graphicalInterface;
 
 import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Rectangle;
+import java.util.ArrayList;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
-import javax.swing.border.EmptyBorder;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+
+import backend.CrewMember;
+import backend.Ship;
 
 public class PlanetSearchScreen {
 
-	private JFrame frmPlanetSearchScreen;
+	private JFrame frame;
+	private ArrayList<CrewMember> crew = Ship.getShipCrew();
+	private final ButtonGroup buttonGroup = new ButtonGroup();
 
 	/**
 	 * Launch the application.
@@ -27,7 +33,7 @@ public class PlanetSearchScreen {
 			public void run() {
 				try {
 					PlanetSearchScreen window = new PlanetSearchScreen();
-					window.frmPlanetSearchScreen.setVisible(true);
+					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -46,178 +52,96 @@ public class PlanetSearchScreen {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmPlanetSearchScreen = new JFrame();
-		frmPlanetSearchScreen.setPreferredSize(new Dimension(800, 600));
-		frmPlanetSearchScreen.setResizable(false);
-		frmPlanetSearchScreen.getContentPane().setBackground(UIManager.getColor("ColorChooser.background"));
-		frmPlanetSearchScreen.setTitle("Planet Search Screen");
-		frmPlanetSearchScreen.setBounds(20, 20, 903, 669);
-		frmPlanetSearchScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame = new JFrame();
+		frame.setBounds(new Rectangle(0, 0, 800, 600));
+		frame.setPreferredSize(new Dimension(800, 600));
+		frame.setResizable(false);
+		frame.getContentPane().setBackground(UIManager.getColor("ColorChooser.background"));
+		frame.setTitle("Planet Search Screen");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		
-		frmPlanetSearchScreen.setTitle("Planet Search Screen");
-		frmPlanetSearchScreen.getContentPane().setLayout(new GridLayout(0, 1, 0, 0));
+		frame.setTitle("Planet Search Screen");
+		SpringLayout springLayout = new SpringLayout();
+		frame.getContentPane().setLayout(springLayout);
 		
-		JPanel DescriptionPanel = new JPanel();
-		frmPlanetSearchScreen.getContentPane().add(DescriptionPanel);
-		FlowLayout fl_DescriptionPanel = new FlowLayout(FlowLayout.CENTER, 10, 10);
-		DescriptionPanel.setLayout(fl_DescriptionPanel);
+		JLabel lblDescription = new JLabel("Please select a crew member to search the planet");
+		springLayout.putConstraint(SpringLayout.SOUTH, lblDescription, 30, SpringLayout.NORTH, frame.getContentPane());
+		lblDescription.setHorizontalAlignment(SwingConstants.CENTER);
+		springLayout.putConstraint(SpringLayout.NORTH, lblDescription, 0, SpringLayout.NORTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, lblDescription, 0, SpringLayout.WEST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, lblDescription, 0, SpringLayout.EAST, frame.getContentPane());
+		frame.getContentPane().add(lblDescription);
 		
-		JLabel lblPleaseSelectAPlanet = new JLabel("Please select a plane to travel to");
-		DescriptionPanel.add(lblPleaseSelectAPlanet);
-		lblPleaseSelectAPlanet.setHorizontalAlignment(SwingConstants.CENTER);
+		JPanel crewMembersPanel = new JPanel();
+		springLayout.putConstraint(SpringLayout.NORTH, crewMembersPanel, 0, SpringLayout.SOUTH, lblDescription);
+		springLayout.putConstraint(SpringLayout.WEST, crewMembersPanel, 0, SpringLayout.WEST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, crewMembersPanel, 450, SpringLayout.NORTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, crewMembersPanel, 0, SpringLayout.EAST, frame.getContentPane());
+		frame.getContentPane().add(crewMembersPanel);
+		crewMembersPanel.setLayout(new GridLayout(1, 0, 0, 0));
 		
-		JPanel MercuryPanel = new JPanel();
-		frmPlanetSearchScreen.getContentPane().add(MercuryPanel);
-		MercuryPanel.setLayout(new GridLayout(0, 3, 0, 0));
+		JPanel buttonsPanel = new JPanel();
+		springLayout.putConstraint(SpringLayout.NORTH, buttonsPanel, 0, SpringLayout.SOUTH, crewMembersPanel);
 		
-		JButton btnMercury = new JButton("Mercury");
-		btnMercury.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		MercuryPanel.add(btnMercury);
+		JPanel panel = new JPanel();
+		crewMembersPanel.add(panel);
+		SpringLayout sl_panel = new SpringLayout();
+		panel.setLayout(sl_panel);
 		
-		JLabel lblDescriptionGoesHere = new JLabel("Description goes here");
-		lblDescriptionGoesHere.setHorizontalAlignment(SwingConstants.CENTER);
-		MercuryPanel.add(lblDescriptionGoesHere);
-		
-		JLabel lblPartsFoundFalse = new JLabel("Parts Found: False");
-		lblPartsFoundFalse.setHorizontalAlignment(SwingConstants.CENTER);
-		MercuryPanel.add(lblPartsFoundFalse);
-		
-		JPanel VenusPanel = new JPanel();
-		frmPlanetSearchScreen.getContentPane().add(VenusPanel);
-		VenusPanel.setLayout(new GridLayout(0, 3, 0, 0));
-		
-		JButton btnVenus = new JButton("Venus");
-		VenusPanel.add(btnVenus);
-		
-		JLabel label = new JLabel("Description goes here");
-		label.setHorizontalAlignment(SwingConstants.CENTER);
-		VenusPanel.add(label);
-		
-		JLabel label_1 = new JLabel("Parts Found: False");
-		label_1.setHorizontalAlignment(SwingConstants.CENTER);
-		VenusPanel.add(label_1);
-		
-		JPanel EarthPanel = new JPanel();
-		frmPlanetSearchScreen.getContentPane().add(EarthPanel);
-		EarthPanel.setLayout(new GridLayout(0, 3, 0, 0));
-		
-		JButton btnEarth = new JButton("Earth");
-		EarthPanel.add(btnEarth);
-		
-		JLabel label_2 = new JLabel("Description goes here");
-		label_2.setHorizontalAlignment(SwingConstants.CENTER);
-		EarthPanel.add(label_2);
-		
-		JLabel label_3 = new JLabel("Parts Found: False");
-		label_3.setHorizontalAlignment(SwingConstants.CENTER);
-		EarthPanel.add(label_3);
-		
-		JPanel MarsPanel = new JPanel();
-		frmPlanetSearchScreen.getContentPane().add(MarsPanel);
-		MarsPanel.setLayout(new GridLayout(0, 3, 0, 0));
-		
-		JButton btnMars = new JButton("Mars");
-		MarsPanel.add(btnMars);
-		
-		JLabel label_4 = new JLabel("Description goes here");
-		label_4.setHorizontalAlignment(SwingConstants.CENTER);
-		MarsPanel.add(label_4);
-		
-		JLabel label_5 = new JLabel("Parts Found: False");
-		label_5.setHorizontalAlignment(SwingConstants.CENTER);
-		MarsPanel.add(label_5);
-		
-		JPanel JupiterPanel = new JPanel();
-		frmPlanetSearchScreen.getContentPane().add(JupiterPanel);
-		JupiterPanel.setLayout(new GridLayout(0, 3, 0, 0));
-		
-		JButton btnJupiter = new JButton("Jupiter");
-		JupiterPanel.add(btnJupiter);
-		
-		JLabel label_6 = new JLabel("Description goes here");
-		label_6.setHorizontalAlignment(SwingConstants.CENTER);
-		JupiterPanel.add(label_6);
-		
-		JLabel label_7 = new JLabel("Parts Found: False");
-		label_7.setHorizontalAlignment(SwingConstants.CENTER);
-		JupiterPanel.add(label_7);
-		
-		JPanel SaturnPanel = new JPanel();
-		frmPlanetSearchScreen.getContentPane().add(SaturnPanel);
-		SaturnPanel.setLayout(new GridLayout(0, 3, 0, 0));
-		
-		JButton brnSaturn = new JButton("Saturn");
-		SaturnPanel.add(brnSaturn);
-		
-		JLabel label_8 = new JLabel("Description goes here");
-		label_8.setHorizontalAlignment(SwingConstants.CENTER);
-		SaturnPanel.add(label_8);
-		
-		JLabel label_9 = new JLabel("Parts Found: False");
-		label_9.setHorizontalAlignment(SwingConstants.CENTER);
-		SaturnPanel.add(label_9);
-		
-		JPanel UranusPanel = new JPanel();
-		frmPlanetSearchScreen.getContentPane().add(UranusPanel);
-		UranusPanel.setLayout(new GridLayout(0, 3, 0, 0));
-		
-		JButton btnUranus = new JButton("Uranus");
-		UranusPanel.add(btnUranus);
-		
-		JLabel label_10 = new JLabel("Description goes here");
-		label_10.setHorizontalAlignment(SwingConstants.CENTER);
-		UranusPanel.add(label_10);
-		
-		JLabel label_11 = new JLabel("Parts Found: False");
-		label_11.setHorizontalAlignment(SwingConstants.CENTER);
-		UranusPanel.add(label_11);
-		
-		JPanel NeptunePanel = new JPanel();
-		frmPlanetSearchScreen.getContentPane().add(NeptunePanel);
-		NeptunePanel.setLayout(new GridLayout(0, 3, 0, 0));
-		
-		JButton btnNeptune = new JButton("Neptune");
-		NeptunePanel.add(btnNeptune);
-		
-		JLabel label_12 = new JLabel("Description goes here");
-		label_12.setHorizontalAlignment(SwingConstants.CENTER);
-		NeptunePanel.add(label_12);
-		
-		JLabel label_13 = new JLabel("Parts Found: False");
-		label_13.setHorizontalAlignment(SwingConstants.CENTER);
-		NeptunePanel.add(label_13);
-		
-		JPanel PlutoPanel = new JPanel();
-		frmPlanetSearchScreen.getContentPane().add(PlutoPanel);
-		PlutoPanel.setLayout(new GridLayout(0, 3, 0, 0));
-		
-		JButton btnPluto = new JButton("Neptune");
-		PlutoPanel.add(btnPluto);
-		
-		JLabel label_14 = new JLabel("Description goes here");
-		label_14.setHorizontalAlignment(SwingConstants.CENTER);
-		PlutoPanel.add(label_14);
-		
-		JLabel label_15 = new JLabel("Parts Found: False");
-		label_15.setHorizontalAlignment(SwingConstants.CENTER);
-		PlutoPanel.add(label_15);
-		
-		JPanel CancelPanel = new JPanel();
-		CancelPanel.setBorder(new EmptyBorder(10, 0, 0, 0));
-		frmPlanetSearchScreen.getContentPane().add(CancelPanel);
-		CancelPanel.setLayout(new GridLayout(0, 1, 0, 0));
+		JButton btnConfirm = new JButton("Confirm");
+		buttonsPanel.add(btnConfirm);
 		
 		JButton btnCancel = new JButton("Cancel");
-		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				MainScreen.callScreen();
-				frmPlanetSearchScreen.dispose();
-			}
-		});
-		CancelPanel.add(btnCancel);
+		buttonsPanel.add(btnCancel);
+		
+		frame.pack();
+		for (CrewMember member : crew) {
+			JLabel lblImage = new JLabel("Image");
+			sl_panel.putConstraint(SpringLayout.NORTH, lblImage, 0, SpringLayout.NORTH, panel);
+			sl_panel.putConstraint(SpringLayout.WEST, lblImage, 0, SpringLayout.WEST, panel);
+			sl_panel.putConstraint(SpringLayout.SOUTH, lblImage, 256, SpringLayout.NORTH, panel);
+			sl_panel.putConstraint(SpringLayout.EAST, lblImage, 800, SpringLayout.WEST, panel);
+			lblImage.setHorizontalAlignment(SwingConstants.CENTER);
+			panel.add(lblImage);
+			
+			JLabel lblName = new JLabel(String.format("Name: %s", member.getName()));
+			sl_panel.putConstraint(SpringLayout.NORTH, lblName, 0, SpringLayout.SOUTH, lblImage);
+			sl_panel.putConstraint(SpringLayout.WEST, lblName, 0, SpringLayout.WEST, panel);
+			sl_panel.putConstraint(SpringLayout.SOUTH, lblName, 40, SpringLayout.SOUTH, lblImage);
+			sl_panel.putConstraint(SpringLayout.EAST, lblName, 800, SpringLayout.WEST, panel);
+			lblName.setHorizontalAlignment(SwingConstants.CENTER);
+			panel.add(lblName);
+			
+			JLabel lblClass = new JLabel(String.format("Class: %s", member.getMemberClass()));
+			sl_panel.putConstraint(SpringLayout.NORTH, lblClass, 0, SpringLayout.SOUTH, lblName);
+			sl_panel.putConstraint(SpringLayout.WEST, lblClass, 0, SpringLayout.WEST, panel);
+			sl_panel.putConstraint(SpringLayout.SOUTH, lblClass, 40, SpringLayout.SOUTH, lblName);
+			sl_panel.putConstraint(SpringLayout.EAST, lblClass, 800, SpringLayout.WEST, panel);
+			lblClass.setHorizontalAlignment(SwingConstants.CENTER);
+			panel.add(lblClass);
+			
+			JLabel lblActionPoints = new JLabel("AP: 2");
+			sl_panel.putConstraint(SpringLayout.NORTH, lblActionPoints, 0, SpringLayout.SOUTH, lblClass);
+			sl_panel.putConstraint(SpringLayout.WEST, lblActionPoints, 0, SpringLayout.WEST, panel);
+			sl_panel.putConstraint(SpringLayout.SOUTH, lblActionPoints, 40, SpringLayout.SOUTH, lblClass);
+			sl_panel.putConstraint(SpringLayout.EAST, lblActionPoints, 800, SpringLayout.WEST, panel);
+			lblActionPoints.setHorizontalAlignment(SwingConstants.CENTER);
+			panel.add(lblActionPoints);
+			
+			JRadioButton rdbtnSelected = new JRadioButton("");
+			sl_panel.putConstraint(SpringLayout.NORTH, rdbtnSelected, 0, SpringLayout.SOUTH, lblActionPoints);
+			sl_panel.putConstraint(SpringLayout.WEST, rdbtnSelected, 0, SpringLayout.WEST, panel);
+			sl_panel.putConstraint(SpringLayout.SOUTH, rdbtnSelected, 40, SpringLayout.SOUTH, lblActionPoints);
+			sl_panel.putConstraint(SpringLayout.EAST, rdbtnSelected, 800, SpringLayout.WEST, panel);
+			buttonGroup.add(rdbtnSelected);
+			rdbtnSelected.setHorizontalAlignment(SwingConstants.CENTER);
+			panel.add(rdbtnSelected);
+			springLayout.putConstraint(SpringLayout.WEST, buttonsPanel, 0, SpringLayout.WEST, frame.getContentPane());
+			springLayout.putConstraint(SpringLayout.SOUTH, buttonsPanel, 0, SpringLayout.SOUTH, frame.getContentPane());
+			springLayout.putConstraint(SpringLayout.EAST, buttonsPanel, 0, SpringLayout.EAST, frame.getContentPane());
+			frame.getContentPane().add(buttonsPanel);
+			buttonsPanel.setLayout(new GridLayout(0, 2, 0, 0));
+		}
 	}
 }
