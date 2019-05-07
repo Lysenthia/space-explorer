@@ -79,6 +79,16 @@ public final class Ship {
 		return shipCrew;
 	}
 	
+	public static ArrayList<CrewMember> getReadyCrew() {
+		ArrayList<CrewMember> readyCrew = new ArrayList<CrewMember>();
+		for (CrewMember member : Ship.getShipCrew()) {
+			if (member.getActionPoints() > 0) {
+				readyCrew.add(member);
+			}
+		}
+		return readyCrew;
+	}
+	
 	/**
 	 * Adds a new crew member to the ship crew
 	 * @param member the member to be added to the ship crew

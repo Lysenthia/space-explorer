@@ -31,9 +31,9 @@ import backendGUIExtensions.PlanetExtended;
 
 public class PilotScreen {
 
-	private JFrame frame;
+	private JFrame frmPleaseSelect;
 	private int selectedCount = 0;
-	private ArrayList<CrewMember> crew = Ship.getShipCrew();
+	private ArrayList<CrewMember> crew = Ship.getReadyCrew();
 	
 	private void pilotShip(CrewMember p1, CrewMember p2, Planet planet) {
 		Ship.pilot(p1, p2, planet);
@@ -47,7 +47,7 @@ public class PilotScreen {
 			public void run() {
 				try {
 					PilotScreen window = new PilotScreen();
-					window.frame.setVisible(true);
+					window.frmPleaseSelect.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -72,23 +72,24 @@ public class PilotScreen {
 		ButtonGroup radioButtons = new ButtonGroup();
 		ArrayList<JLabel> lblImages = new ArrayList<JLabel>();
 		
-		frame = new JFrame();
-		frame.setResizable(false);
-		frame.getContentPane().setPreferredSize(new Dimension(800, 600));
-		frame.setPreferredSize(new Dimension(800, 600));
-		frame.setBounds(new Rectangle(50, 50, 800, 600));
-		frame.setAlwaysOnTop(true);
-		frame.setBounds(100, 100, 800, 600);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmPleaseSelect = new JFrame();
+		frmPleaseSelect.setTitle("Please select 2 crew members and a destination");
+		frmPleaseSelect.setResizable(false);
+		frmPleaseSelect.getContentPane().setPreferredSize(new Dimension(800, 600));
+		frmPleaseSelect.setPreferredSize(new Dimension(800, 600));
+		frmPleaseSelect.setBounds(new Rectangle(50, 50, 800, 600));
+		frmPleaseSelect.setAlwaysOnTop(true);
+		frmPleaseSelect.setBounds(100, 100, 800, 600);
+		frmPleaseSelect.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		SpringLayout springLayout = new SpringLayout();
-		frame.getContentPane().setLayout(springLayout);
+		frmPleaseSelect.getContentPane().setLayout(springLayout);
 		
 		JPanel pilots = new JPanel();
-		springLayout.putConstraint(SpringLayout.NORTH, pilots, 1, SpringLayout.NORTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, pilots, 0, SpringLayout.WEST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, pilots, 316, SpringLayout.NORTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, pilots, 800, SpringLayout.WEST, frame.getContentPane());
-		frame.getContentPane().add(pilots);
+		springLayout.putConstraint(SpringLayout.NORTH, pilots, 1, SpringLayout.NORTH, frmPleaseSelect.getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, pilots, 0, SpringLayout.WEST, frmPleaseSelect.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, pilots, 316, SpringLayout.NORTH, frmPleaseSelect.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, pilots, 800, SpringLayout.WEST, frmPleaseSelect.getContentPane());
+		frmPleaseSelect.getContentPane().add(pilots);
 		SpringLayout sl_pilots = new SpringLayout();
 		pilots.setLayout(sl_pilots);
 		
@@ -96,10 +97,10 @@ public class PilotScreen {
 		
 		JPanel planets = new JPanel();
 		springLayout.putConstraint(SpringLayout.NORTH, planets, 0, SpringLayout.SOUTH, pilots);
-		springLayout.putConstraint(SpringLayout.WEST, planets, 0, SpringLayout.WEST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, planets, 0, SpringLayout.WEST, frmPleaseSelect.getContentPane());
 		springLayout.putConstraint(SpringLayout.SOUTH, planets, 150, SpringLayout.SOUTH, pilots);
-		springLayout.putConstraint(SpringLayout.EAST, planets, 800, SpringLayout.WEST, frame.getContentPane());
-		frame.getContentPane().add(planets);
+		springLayout.putConstraint(SpringLayout.EAST, planets, 800, SpringLayout.WEST, frmPleaseSelect.getContentPane());
+		frmPleaseSelect.getContentPane().add(planets);
 		planets.setLayout(new GridLayout(1, 0, 0, 0));
 		
 		JPanel buttonPanel = new JPanel();
@@ -112,10 +113,10 @@ public class PilotScreen {
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		planets.add(scrollPane);
 		
-		springLayout.putConstraint(SpringLayout.WEST, buttonPanel, 0, SpringLayout.WEST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, buttonPanel, 0, SpringLayout.SOUTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, buttonPanel, 800, SpringLayout.WEST, frame.getContentPane());
-		frame.getContentPane().add(buttonPanel);
+		springLayout.putConstraint(SpringLayout.WEST, buttonPanel, 0, SpringLayout.WEST, frmPleaseSelect.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, buttonPanel, 0, SpringLayout.SOUTH, frmPleaseSelect.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, buttonPanel, 800, SpringLayout.WEST, frmPleaseSelect.getContentPane());
+		frmPleaseSelect.getContentPane().add(buttonPanel);
 		buttonPanel.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		JButton confirm = new JButton("Confirm");
@@ -139,7 +140,7 @@ public class PilotScreen {
 					Planet planet = planetsList.get(Integer.parseInt(selection));
 					pilotShip(pilot1, pilot2, planet);
 					MainScreen.callScreen();
-					frame.dispose();
+					frmPleaseSelect.dispose();
 				}
 			}
 		});
@@ -151,18 +152,18 @@ public class PilotScreen {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				MainScreen.callScreen();
-				frame.dispose();
+				frmPleaseSelect.dispose();
 			}
 		});
 		buttonPanel.add(cancel);
 
-		frame.pack();
+		frmPleaseSelect.pack();
 		
 		//Populate Crew Members
 		for (int i = 0; i < crew.size(); i++) {
-			int widthMinor = i * (frame.getWidth() / crew.size());
-			int widthMajor = (i + 1) * (frame.getWidth() / crew.size());
-			int panelWidth = frame.getWidth() / crew.size();
+			int widthMinor = i * (frmPleaseSelect.getWidth() / crew.size());
+			int widthMajor = (i + 1) * (frmPleaseSelect.getWidth() / crew.size());
+			int panelWidth = frmPleaseSelect.getWidth() / crew.size();
 			JPanel temp = new JPanel();
 			sl_pilots.putConstraint(SpringLayout.NORTH, temp, 0, SpringLayout.NORTH, pilots);
 			sl_pilots.putConstraint(SpringLayout.WEST, temp, widthMinor, SpringLayout.WEST, pilots);
@@ -222,7 +223,7 @@ public class PilotScreen {
 			});
 			temp.add(selected);
 		}
-		frame.pack();
+		frmPleaseSelect.pack();
 		for (int i = 0; i < lblImages.size(); i++) {
 			JLabel image = lblImages.get(i);
 			image.setIcon(new ImageIcon(((CrewMemberExtended)crew.get(i)).getImage().getContents(image.getWidth(), image.getHeight())));
@@ -241,7 +242,7 @@ public class PilotScreen {
 			planetsInternal.add(planetRadio);
 			radioButtons.add(planetRadio);
 		}
-		frame.pack();
+		frmPleaseSelect.pack();
 		
 	}
 }

@@ -320,14 +320,9 @@ public class GameEnviroment {
 	 * @param input the Scanner shared between methods
 	 */
 	private static void pilotShip(Scanner input) {
-		ArrayList<CrewMember> possiblePilots = new ArrayList<CrewMember>();
+		ArrayList<CrewMember> possiblePilots = Ship.getReadyCrew();
 		ArrayList<CrewMember> pilots;
 		Planet destination;
-		for (CrewMember member : Ship.getShipCrew()) {
-			if (member.getActionPoints() > 0) {
-				possiblePilots.add(member);
-			}
-		}
 		if (possiblePilots.size() >= 2) {
 			pilots = getPilots(input, possiblePilots);
 			if (pilots == null) {

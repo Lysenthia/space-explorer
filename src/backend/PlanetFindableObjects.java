@@ -27,8 +27,8 @@ public enum PlanetFindableObjects {
 	
 	/**
 	 * Randomly selects an item that can be found on a planet
-	 * @param reduced true if the option to find nothing is not allowed, false otherwise
-	 * @param  
+	 * @param isScout true if the option to find nothing is not allowed; false otherwise
+	 * @param partFound true if a part has already been found on the planet; false otherwise
 	 * @return a randomly selected item
 	 */
 	public static PlanetFindableObjects selectRandom(boolean isScout, boolean partFound) {

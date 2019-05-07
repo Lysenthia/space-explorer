@@ -18,6 +18,8 @@ import backend.Ship;
 import backendGUIExtensions.PlanetExtended;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MainScreen {
 
@@ -51,6 +53,8 @@ public class MainScreen {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		//TODO Remove ability to select actions if no ready crew members
+		
 		frame = new JFrame();
 		frame.setPreferredSize(new Dimension(800, 600));
 		frame.setTitle("Please select an action");
@@ -165,6 +169,13 @@ public class MainScreen {
 		rightOptions.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JButton btnSearch = new JButton("Search the planet");
+		btnSearch.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				PlanetSearchScreen.callScreen();
+				frame.dispose();
+			}
+		});
 		btnSearch.setEnabled(false);
 		rightOptions.add(btnSearch);
 		
