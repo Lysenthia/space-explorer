@@ -18,6 +18,7 @@ import javax.swing.border.EmptyBorder;
 
 import backend.CrewMember;
 import backend.GameState;
+import backend.PossibleEndings;
 import backend.Ship;
 import backendGUIExtensions.PlanetExtended;
 
@@ -27,8 +28,22 @@ public class MainScreen {
 	private String orbiting = "<html><p>Currently Orbiting: %s</p></html>";
 	private ArrayList<CrewMember> readyCrew = Ship.getReadyCrew();
 
-	private static boolean checkEnding() {
-		return false;
+	private static boolean gameFinished() {
+		boolean finished = false;
+		 if (GameState.getPartsFound() == GameState.getPartsNeeded()) {
+				GameState.setEnding(PossibleEndings.VICTORY);
+				finished = true;
+		 } else if (Ship.getShipCrew().size() == 0) {
+			GameState.setEnding(PossibleEndings.CREW_DEAD);
+			finished = true;
+		} else if (Ship.getShipCrew().size() == 1) {
+			GameState.setEnding(PossibleEndings.LOST_IN_SPACE);
+			finished = true;
+		} else if (Ship.getShields() <= 0) {
+			GameState.setEnding(PossibleEndings.SHIP_DESTROYED);
+			finished = true;
+		}
+		return finished;
 	}
 	
 	/**
@@ -38,8 +53,12 @@ public class MainScreen {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainScreen window = new MainScreen();
-					window.frame.setVisible(true);
+					if (gameFinished()) {
+						EndingScreen.callScreen();
+					} else {
+						MainScreen window = new MainScreen();
+						window.frame.setVisible(true);
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
