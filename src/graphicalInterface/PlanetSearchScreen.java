@@ -5,8 +5,8 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.Rectangle;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
@@ -109,9 +109,9 @@ public class PlanetSearchScreen {
 		buttonsPanel.add(btnConfirm);
 		
 		JButton btnCancel = new JButton("Cancel");
-		btnCancel.addMouseListener(new MouseAdapter() {
+		btnCancel.addActionListener(new ActionListener() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void actionPerformed(ActionEvent e) {
 				MainScreen.callScreen();
 				frame.dispose();
 			}
@@ -131,9 +131,9 @@ public class PlanetSearchScreen {
 		searchResultsPanel.add(resultPanel);
 		
 		JButton btnSearchConfirm = new JButton("Confirm");
-		btnSearchConfirm.addMouseListener(new MouseAdapter() {
+		btnSearchConfirm.addActionListener(new ActionListener() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void actionPerformed(ActionEvent e) {
 				MainScreen.callScreen();
 				frame.dispose();
 			}
@@ -198,7 +198,7 @@ public class PlanetSearchScreen {
 			lblClass.setHorizontalAlignment(SwingConstants.CENTER);
 			panel.add(lblClass);
 			
-			JLabel lblActionPoints = new JLabel("AP: 2");
+			JLabel lblActionPoints = new JLabel(String.format("AP: %s", member.getActionPoints()));
 			sl_panel.putConstraint(SpringLayout.NORTH, lblActionPoints, 0, SpringLayout.SOUTH, lblClass);
 			sl_panel.putConstraint(SpringLayout.WEST, lblActionPoints, 0, SpringLayout.WEST, panel);
 			sl_panel.putConstraint(SpringLayout.SOUTH, lblActionPoints, 35, SpringLayout.SOUTH, lblClass);
@@ -224,9 +224,9 @@ public class PlanetSearchScreen {
 			JLabel lblImage = crewMemberImages.get(i);
 			lblImage.setIcon(new ImageIcon(((CrewMemberExtended)crew.get(i)).getImage().getContents(lblImage.getWidth(), lblImage.getHeight())));
 		}
-		btnConfirm.addMouseListener(new MouseAdapter() {
+		btnConfirm.addActionListener(new ActionListener() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void actionPerformed(ActionEvent e) {
 				//TODO Complete implementation
 				String selected = buttonGroup.getSelection().getActionCommand();
 				Planet planet = Ship.getOrbiting();

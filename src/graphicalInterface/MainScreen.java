@@ -13,6 +13,7 @@ import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import backend.CrewMember;
 import backend.GameState;
 import backend.Ship;
 import backendGUIExtensions.PlanetExtended;
@@ -20,11 +21,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class MainScreen {
 
 	private JFrame frame;
 	private String orbiting = "<html><p>Currently Orbiting: %s</p></html>";
+	private ArrayList<CrewMember> readyCrew = Ship.getReadyCrew();
 
 	/**
 	 * Launch the application.
@@ -96,7 +99,7 @@ public class MainScreen {
 		orbitalStatusPanel.add(lblPlanetName);
 		lblPlanetName.setBorder(new EmptyBorder(0, 50, 0, 50));
 		
-		JLabel lblPlanetPartFound = new JLabel("Part Found: False");
+		JLabel lblPlanetPartFound = new JLabel("Part found on planet goes here");
 		lblPlanetPartFound.setHorizontalAlignment(SwingConstants.CENTER);
 		orbitalStatusPanel.add(lblPlanetPartFound);
 		
@@ -169,9 +172,9 @@ public class MainScreen {
 		rightOptions.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JButton btnSearch = new JButton("Search the planet");
-		btnSearch.addMouseListener(new MouseAdapter() {
+		btnSearch.addActionListener(new ActionListener() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void actionPerformed(ActionEvent e) {
 				PlanetSearchScreen.callScreen();
 				frame.dispose();
 			}
@@ -210,6 +213,15 @@ public class MainScreen {
 			lblPlanetPartFound.setText(String.format("Part Found: %s", Ship.getOrbiting().getPartFound()));
 			planetDescription.setText(String.format("<html><p>%s</html></p>", Ship.getOrbiting().getDescription()));
 			btnSearch.setEnabled(true);
+		}
+		
+		if (readyCrew.size() < 2) {
+			btnPilot.setEnabled(false);
+			btnPilot.setText("Not enough crew with AP to pilot the ship");
+			if (readyCrew.size() < 1) {
+				btnSearch.setEnabled(false);
+				btnSearch.setText("Not enough crew with AP to search the planet");
+			}
 		}
 	}
 

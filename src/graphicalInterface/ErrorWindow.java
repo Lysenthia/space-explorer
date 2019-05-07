@@ -3,8 +3,8 @@ package graphicalInterface;
 import java.awt.CardLayout;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -81,17 +81,17 @@ public class ErrorWindow {
 		buttonPanel.add(btnConfirm);
 		
 		JButton btnTrace = new JButton("See Stack Trace");
-		btnTrace.addMouseListener(new MouseAdapter() {
+		btnTrace.addActionListener(new ActionListener() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void actionPerformed(ActionEvent e) {
 				CardLayout layout = (CardLayout) messagePanel.getLayout();
 				layout.last(messagePanel);
 			}
 		});
 		buttonPanel.add(btnTrace);
-		btnConfirm.addMouseListener(new MouseAdapter() {
+		btnConfirm.addActionListener(new ActionListener() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}
 		});

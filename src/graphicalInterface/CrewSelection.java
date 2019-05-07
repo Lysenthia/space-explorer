@@ -23,6 +23,8 @@ import backendGUIExtensions.CrewMemberExtended;
 import backendGUIExtensions.CrewMemberImages;
 import backendGUIExtensions.GUIImage;
 import java.awt.event.ItemListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -413,9 +415,9 @@ public class CrewSelection {
 			}
 		});
 		
-		btnContinue.addMouseListener(new MouseAdapter() {
+		btnContinue.addActionListener(new ActionListener() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void actionPerformed(ActionEvent e) {
 				int crewSize = sliderCrewCount.getValue();
 				switch (crewSize) {
 				case 4:
