@@ -21,6 +21,7 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
 import backend.CrewMember;
+import backend.GameState;
 import backend.Planet;
 import backend.PlanetSearchOutput;
 import backend.Ship;
@@ -246,7 +247,12 @@ public class PlanetSearchScreen {
 					break;
 				case PART:
 					lblFoundType.setText(String.format("%s a part for the %s's hyperdrive!", member.getName(), Ship.getName()));
-					
+					int parts = GameState.getPartsNeeded() - GameState.getPartsFound();
+					if (parts == 0) {
+						lblFoundDescription.setText("Congratulations! You found all the parts needed to fix the hyperdrive!");
+					} else {
+						lblFoundDescription.setText(String.format("Remaining parts needed: %d", parts));
+					}
 					break;
 				}
 				CardLayout layout = (CardLayout) frame.getContentPane().getLayout();
