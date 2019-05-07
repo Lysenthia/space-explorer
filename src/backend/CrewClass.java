@@ -20,7 +20,7 @@ public enum CrewClass {
 	/**
 	 * Scout archetype
 	 */
-	SCOUT("Scout", "Will always find an item when searching a planet for resources"),
+	SCOUT("Scout", "Will always find something when searching a planet for resources"),
 	
 	/**
 	 * Engineer archetype
