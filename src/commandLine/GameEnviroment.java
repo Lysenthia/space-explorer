@@ -4,12 +4,22 @@ import backend.*;
 import java.util.ArrayList;
 
 public class GameEnviroment {
-	
+	/**
+	 * The possible crew members that the player can select at the start of the game
+	 */
 	private static ArrayList<CrewMember> possibleCrew = new ArrayList<CrewMember>();
+	/**
+	 * The outpost that the player can visit
+	 */
 	private static Outpost outpost;
+	/**
+	 * The planets that the ship can orbit
+	 */
 	private static ArrayList<Planet> planets = new ArrayList<Planet>();
+	/**
+	 * True if the game has reached an ending; false otherwise
+	 */
 	private static boolean finished = false;
-	private static PossibleEndings ending;
 	
 	/**
 	 * Checks if a string contains a given number of integers
@@ -518,7 +528,7 @@ public class GameEnviroment {
 		System.out.println(String.format("Advanced to day %d", GameState.getCurrentDay()));
 		if (GameState.getCurrentDay() >= GameState.getEndDay()) {
 			finished = true;
-			ending = PossibleEndings.OUT_OF_TIME;
+			GameState.setEnding(PossibleEndings.OUT_OF_TIME);
 		} else {
 			if (deadCrew.size() > 1) {
 				System.out.println("Due to the effects of the space plague, the following crew members have died:");
@@ -535,7 +545,7 @@ public class GameEnviroment {
 				System.out.println("Impact with an asteroid caused your ship to sustain 50% damage to its shields.");
 				if (Ship.getShields() <= 0) {
 					finished = true;
-					ending = PossibleEndings.SHIP_DESTROYED;
+					GameState.setEnding(PossibleEndings.SHIP_DESTROYED);
 				} else {
 					System.out.println(String.format("The %s's shields are now at %d", Ship.getName(), Ship.getShields()));
 				}
@@ -605,7 +615,7 @@ public class GameEnviroment {
 				System.out.println(String.format("%s managed to find a part for the %s's hyperdrive! Note: You can no longer find hyperdrive parts on %s", searcher.getName(), Ship.getName(), Ship.getOrbiting().getName()));
 				if (GameState.getPartsNeeded() == GameState.getPartsFound()) {
 					finished = true;
-					ending = PossibleEndings.VICTORY;
+					GameState.setEnding(PossibleEndings.VICTORY);
 				} else {
 					System.out.println(String.format("Parts left to find: %d", GameState.getPartsNeeded() - GameState.getPartsFound()));
 				}
@@ -654,7 +664,7 @@ public class GameEnviroment {
 			}
 		case 5:
 			finished = true;
-			ending = PossibleEndings.QUIT;
+			GameState.setEnding(PossibleEndings.QUIT);
 			break;
 		}
 	}
@@ -663,7 +673,7 @@ public class GameEnviroment {
 	 * Ends the game
 	 */
 	private static void invokeEnding() {
-		switch (ending) {
+		switch (GameState.getEnding()) {
 		case CREW_DEAD:
 			System.out.println(String.format("With the death of all the %s's crew, she is left floating through space, a desolate reminder of the perils of space travel...", Ship.getName()));
 			System.out.println("GAMEOVER");

@@ -29,7 +29,7 @@ import backend.Ship;
 
 public class OutpostScreen {
 
-	private JFrame frmPleasePurchaseA;
+	private JFrame frame;
 	private int cost = 0;
 	private JLabel lblCost;
 	private JLabel lblCredits;
@@ -46,7 +46,7 @@ public class OutpostScreen {
 			public void run() {
 				try {
 					OutpostScreen window = new OutpostScreen();
-					window.frmPleasePurchaseA.setVisible(true);
+					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -64,7 +64,7 @@ public class OutpostScreen {
 	private void updateCost() {
 		cost = sumCosts();
 		lblCost.setText(String.format("Current Cost: %d", cost));
-		if (cost > Ship.getMoney()) {
+		if (cost > Ship.getMoney() || Ship.getMoney() == 0) {
 			btnPurchase.setEnabled(false);
 		} else {
 			btnPurchase.setEnabled(true);
@@ -80,14 +80,17 @@ public class OutpostScreen {
 	}
 
 	protected void purchaseItems() {
+		int prePurchase = Ship.getMoney();
 		for (JTextField field : itemData.keySet()) {
 			HashMap<String, Object> item = itemData.get(field);
 			outpost.purchaseItem((Consumable) item.get("item"), (int) item.get("wanted"));
 			field.setText("0");
 			((JLabel) item.get("heldLbl")).setText(String.format("Held: %d", ((Consumable) item.get("item")).getHeld()));
 		}
-		lblCost.setText("Items purchased!");
-		lblCredits.setText(String.format("Credits: %d", Ship.getMoney()));
+		if (prePurchase != Ship.getMoney()) {
+			lblCost.setText("Items purchased!");
+			lblCredits.setText(String.format("Credits: %d", Ship.getMoney()));
+		}
 	}
 	
 	/**
@@ -95,21 +98,21 @@ public class OutpostScreen {
 	 */
 	private void initialize() {
 		
-		frmPleasePurchaseA = new JFrame();
-		frmPleasePurchaseA.setTitle("Please purchase a few items");
-		frmPleasePurchaseA.setResizable(false);
-		frmPleasePurchaseA.setPreferredSize(new Dimension(800, 600));
-		frmPleasePurchaseA.setBounds(100, 100, 800, 600);
-		frmPleasePurchaseA.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame = new JFrame();
+		frame.setTitle("Please purchase a few items");
+		frame.setResizable(false);
+		frame.setPreferredSize(new Dimension(800, 600));
+		frame.setBounds(100, 100, 800, 600);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		SpringLayout springLayout = new SpringLayout();
-		frmPleasePurchaseA.getContentPane().setLayout(springLayout);
+		frame.getContentPane().setLayout(springLayout);
 		
 		JPanel DescriptionPanel = new JPanel();
-		springLayout.putConstraint(SpringLayout.NORTH, DescriptionPanel, 1, SpringLayout.NORTH, frmPleasePurchaseA.getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, DescriptionPanel, 0, SpringLayout.WEST, frmPleasePurchaseA.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, DescriptionPanel, 100, SpringLayout.NORTH, frmPleasePurchaseA.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, DescriptionPanel, 800, SpringLayout.WEST, frmPleasePurchaseA.getContentPane());
-		frmPleasePurchaseA.getContentPane().add(DescriptionPanel);
+		springLayout.putConstraint(SpringLayout.NORTH, DescriptionPanel, 1, SpringLayout.NORTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, DescriptionPanel, 0, SpringLayout.WEST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, DescriptionPanel, 100, SpringLayout.NORTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, DescriptionPanel, 800, SpringLayout.WEST, frame.getContentPane());
+		frame.getContentPane().add(DescriptionPanel);
 		DescriptionPanel.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JLabel lblDesciption = new JLabel(String.format("Welcome to %s!", outpost.getName()));
@@ -127,13 +130,13 @@ public class OutpostScreen {
 		
 		JPanel itemsPanel = new JPanel();
 		springLayout.putConstraint(SpringLayout.NORTH, itemsPanel, 0, SpringLayout.SOUTH, DescriptionPanel);
-		springLayout.putConstraint(SpringLayout.WEST, itemsPanel, 0, SpringLayout.WEST, frmPleasePurchaseA.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, itemsPanel, 800, SpringLayout.WEST, frmPleasePurchaseA.getContentPane());
-		frmPleasePurchaseA.getContentPane().add(itemsPanel);
+		springLayout.putConstraint(SpringLayout.WEST, itemsPanel, 0, SpringLayout.WEST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, itemsPanel, 800, SpringLayout.WEST, frame.getContentPane());
+		frame.getContentPane().add(itemsPanel);
 		
 		JPanel ButtonsPanel = new JPanel();
-		springLayout.putConstraint(SpringLayout.NORTH, ButtonsPanel, 420, SpringLayout.NORTH, frmPleasePurchaseA.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, ButtonsPanel, 0, SpringLayout.SOUTH, frmPleasePurchaseA.getContentPane());
+		springLayout.putConstraint(SpringLayout.NORTH, ButtonsPanel, 420, SpringLayout.NORTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, ButtonsPanel, 0, SpringLayout.SOUTH, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.SOUTH, itemsPanel, 0, SpringLayout.NORTH, ButtonsPanel);
 		itemsPanel.setLayout(new GridLayout(0, 1, 0, 0));
 		
@@ -146,9 +149,9 @@ public class OutpostScreen {
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setPreferredSize(new Dimension(800, 600));
 		itemsPanel.add(scrollPane);
-		springLayout.putConstraint(SpringLayout.WEST, ButtonsPanel, 0, SpringLayout.WEST, frmPleasePurchaseA.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, ButtonsPanel, 800, SpringLayout.WEST, frmPleasePurchaseA.getContentPane());
-		frmPleasePurchaseA.getContentPane().add(ButtonsPanel);
+		springLayout.putConstraint(SpringLayout.WEST, ButtonsPanel, 0, SpringLayout.WEST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, ButtonsPanel, 800, SpringLayout.WEST, frame.getContentPane());
+		frame.getContentPane().add(ButtonsPanel);
 		ButtonsPanel.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		btnPurchase = new JButton("Purchase");
@@ -164,11 +167,11 @@ public class OutpostScreen {
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			MainScreen.callScreen();
-			frmPleasePurchaseA.dispose();
+			frame.dispose();
 			}
 		});
 		ButtonsPanel.add(btnCancel);
-		frmPleasePurchaseA.pack();
+		frame.pack();
 		for (int i = 0; i < consumables.size(); i++) {
 			Consumable item = consumables.get(i);
 			JPanel itemSubPanel = new JPanel();
@@ -211,7 +214,6 @@ public class OutpostScreen {
 				@Override
 				public void changedUpdate(DocumentEvent e) {
 					//Not called
-					
 				}
 
 				@Override
@@ -245,7 +247,7 @@ public class OutpostScreen {
 						lblMapping.put("cost", price * wanted);
 						lblMapping.put("wanted", wanted);
 						updateCost();
-					} else if (inString == "") {
+					} else if (inString.equals("")) {
 						lblMapping.put("cost", 0);
 						lblMapping.put("wanted", 0);
 						updateCost();

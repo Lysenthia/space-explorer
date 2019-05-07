@@ -9,14 +9,33 @@ import java.util.ArrayList;
  */
 
 public class GameState {
+	/**
+	 * The current day the game is at
+	 */
 	private static int currentDay = 1;
+	/**
+	 * The day at which the game will end
+	 */
 	private static int endDay;
+	/**
+	 * The number of parts that the player has currently found
+	 */
 	private static int partsFound = 0;
+	/**
+	 * The number of parts that the player must find
+	 */
 	private static int partsNeeded;
+	/**
+	 * An array list of all possible consumables in the game, even if they are not stocked at an outpost
+	 */
 	private static ArrayList<Consumable> allConsumables = new ArrayList<Consumable>();
+	/**
+	 * The ending that the player has reached
+	 */
+	private static PossibleEndings ending;
 	
 	/**
-	 * Causes a runtime error if someone tries to create an instance of this class
+	 * Causes an error if someone tries to create an instance of this class
 	 */
 	private GameState() {}
 	
@@ -137,6 +156,22 @@ public class GameState {
 	 */
 	public static void setAllConsumables(ArrayList<Consumable> consumables) {
 		allConsumables = consumables;
+	}
+
+	/**
+	 * Returns the ending that the player reached
+	 * @return the ending that the player reached
+	 */
+	public static PossibleEndings getEnding() {
+		return ending;
+	}
+
+	/**
+	 * Sets the ending that the player has reached
+	 * @param endingToSet the ending that the player has reached
+	 */
+	public static void setEnding(PossibleEndings endingToSet) {
+		ending = endingToSet;
 	}
 	
 }
