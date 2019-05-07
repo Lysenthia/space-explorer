@@ -217,7 +217,7 @@ public final class Ship {
 	}
 	
 	/**
-	 * Clears the inventory of all items
+	 * Resets the stored variables to their default values
 	 * Not for using during games, as it bypasses checks
 	 */
 	public static void clearAll() {

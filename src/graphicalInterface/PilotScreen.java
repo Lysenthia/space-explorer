@@ -33,6 +33,7 @@ public class PilotScreen {
 
 	private JFrame frame;
 	private int selectedCount = 0;
+	private ArrayList<CrewMember> crew = Ship.getShipCrew();
 	
 	private void pilotShip(CrewMember p1, CrewMember p2, Planet planet) {
 		Ship.pilot(p1, p2, planet);
@@ -65,7 +66,6 @@ public class PilotScreen {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		ArrayList<CrewMember> crew = Ship.getShipCrew();
 		ArrayList<JCheckBox> selectedCrew = new ArrayList<JCheckBox>();
 		ArrayList<PlanetExtended> planetsList = StartApplication.getPlanets();
 		planetsList.remove((PlanetExtended)Ship.getOrbiting());

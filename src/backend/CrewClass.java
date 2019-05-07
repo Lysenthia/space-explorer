@@ -42,6 +42,9 @@ public enum CrewClass {
 	 */
 	private final String className;
 	
+	/**
+	 * A description of the class
+	 */
 	private final String classDescription;
 	
 	/**
@@ -69,6 +72,10 @@ public enum CrewClass {
 		return this.className;
 	}
 	
+	/**
+	 * Returns the description of the class
+	 * @return the description of the class
+	 */
 	public String getDescription() {
 		return this.classDescription;
 	}
