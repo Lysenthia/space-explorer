@@ -401,6 +401,10 @@ public class GameEnviroment {
 		}
 	}
 	
+	/**
+	 * Player selected action: Lets the player rest a selected crew member
+	 * @param input the Scanner shared between methods
+	 */
 	private static void restCrewMember(Scanner input) {
 		ArrayList<CrewMember> crew = Ship.getShipCrew();
 		ArrayList<String> messages = new ArrayList<String>();
