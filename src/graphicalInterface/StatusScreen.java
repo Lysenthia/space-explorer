@@ -92,6 +92,12 @@ public class StatusScreen {
 		panel_4.add(btnNewButton);
 				
 		JButton btnNewButton_1 = new JButton("Rest a crew member");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				RestScreen.callScreen();
+				frame.dispose();
+			}
+		});
 		panel_4.add(btnNewButton_1);
 			
 		JButton btnRepairShields = new JButton("Repair shields");
