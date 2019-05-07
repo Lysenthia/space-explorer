@@ -419,27 +419,27 @@ public class CrewSelection {
 				int crewSize = sliderCrewCount.getValue();
 				switch (crewSize) {
 				case 4:
-					if (tfNameEntry4.getText().replaceAll("\\s+","") == "") {
+					if (tfNameEntry4.getText().replaceAll("\\s*","").equals("") || tfNameEntry4.getText() == null) {
 						Ship.addCrewMember(new CrewMemberExtended("Eve", (CrewClass)cbMemberClass4.getSelectedItem(), (GUIImage)cbImageSelect4.getSelectedItem()));
 					} else {
 						Ship.addCrewMember(new CrewMemberExtended(tfNameEntry4.getText(), (CrewClass)cbMemberClass4.getSelectedItem(), (GUIImage)cbImageSelect4.getSelectedItem()));
 					}
 				case 3:
-					if (tfNameEntry3.getText().replaceAll("\\s+","") == "") {
+					if (tfNameEntry3.getText().replaceAll("\\s*","").equals("") || tfNameEntry3.getText() == null) {
 						Ship.addCrewMember(new CrewMemberExtended("Charlie", (CrewClass)cbMemberClass3.getSelectedItem(), (GUIImage)cbImageSelect3.getSelectedItem()));
 					} else {
 						Ship.addCrewMember(new CrewMemberExtended(tfNameEntry3.getText(), (CrewClass)cbMemberClass3.getSelectedItem(), (GUIImage)cbImageSelect3.getSelectedItem()));
 					}
 				case 2:
-					if (tfNameEntry.getText().replaceAll("\\s+","") == "") {
-						Ship.addCrewMember(new CrewMemberExtended("Alice", (CrewClass)cbMemberClass.getSelectedItem(), (GUIImage)cbImageSelect.getSelectedItem()));
-					} else {
-						Ship.addCrewMember(new CrewMemberExtended(tfNameEntry.getText(), (CrewClass)cbMemberClass.getSelectedItem(), (GUIImage)cbImageSelect.getSelectedItem()));
-					}
-					if (tfNameEntry2.getText().replaceAll("\\s+","") == "") {
+					if (tfNameEntry2.getText().replaceAll("\\s*","").equals("") || tfNameEntry2.getText() == null) {
 						Ship.addCrewMember(new CrewMemberExtended("Bob", (CrewClass)cbMemberClass2.getSelectedItem(), (GUIImage)cbImageSelect2.getSelectedItem()));
 					} else {
 						Ship.addCrewMember(new CrewMemberExtended(tfNameEntry2.getText(), (CrewClass)cbMemberClass2.getSelectedItem(), (GUIImage)cbImageSelect2.getSelectedItem()));
+					}
+					if (tfNameEntry.getText().replaceAll("\\s*","").equals("") || tfNameEntry.getText() == null) {
+						Ship.addCrewMember(new CrewMemberExtended("Alice", (CrewClass)cbMemberClass.getSelectedItem(), (GUIImage)cbImageSelect.getSelectedItem()));
+					} else {
+						Ship.addCrewMember(new CrewMemberExtended(tfNameEntry.getText(), (CrewClass)cbMemberClass.getSelectedItem(), (GUIImage)cbImageSelect.getSelectedItem()));
 					}
 				}
 				

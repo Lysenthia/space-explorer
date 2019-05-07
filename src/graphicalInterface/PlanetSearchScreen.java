@@ -234,16 +234,23 @@ public class PlanetSearchScreen {
 				switch (found.FOUND) {
 				case ITEM:
 					lblFoundType.setText(String.format("%s found a %s", member.getName(), found.ITEM.getName()));
+					lblFoundDescription.setText(String.format("The number of %s held is now %d", found.ITEM.getName(), found.ITEM.getHeld()));
 					break;
 				case MONEY:
-					lblFoundType.setText(String.format("%s found some money", member.getName()));
+					lblFoundType.setText(String.format("%s found %d credits", member.getName(), found.MONEY));
+					lblFoundDescription.setText(String.format("The number of credits held is now %d", Ship.getMoney()));
 					break;
 				case NOTHING:
-					lblFoundType.setText(String.format("%s found nothing", member.getName(), found.ITEM.getName()));
+					lblFoundType.setText(String.format("%s found nothing", member.getName()));
+					lblFoundDescription.setText("Now that's just plain sad");
 					break;
 				case PART:
+					lblFoundType.setText(String.format("%s a part for the %s's hyperdrive!", member.getName(), Ship.getName()));
+					
 					break;
 				}
+				CardLayout layout = (CardLayout) frame.getContentPane().getLayout();
+				layout.last(frame.getContentPane());
 			}
 		});
 	}
