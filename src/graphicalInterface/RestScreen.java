@@ -19,6 +19,7 @@ import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 
 import backend.CrewMember;
+import backend.Planet;
 import backend.Ship;
 import backendGUIExtensions.CrewMemberExtended;
 
@@ -26,6 +27,8 @@ public class RestScreen {
 
 	private JFrame frmRestScreen;
 	private int selectedCount = 0;
+	private ArrayList<CrewMember> crew = Ship.getReadyCrew();
+	
 
 	/**
 	 * Launch the application.
@@ -93,13 +96,28 @@ public class RestScreen {
 		springLayout.putConstraint(SpringLayout.EAST, panel_4, 800, SpringLayout.WEST, frmRestScreen.getContentPane());
 		panel_4.setLayout(new GridLayout(1, 0, 0, 0));
 				
-		JButton btnNewButton_1 = new JButton("Rest a crew member");
-		btnNewButton_1.addActionListener(new ActionListener() {
+		JButton btnRest = new JButton("Rest a crew member");
+		btnRest.setEnabled(false);
+		btnRest.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				//TODO
+				if (selectedCount == 1) {
+					CrewMember member = null;
+					for (int i = 0; i < selectedCrew.size(); i++) {
+						JCheckBox check = selectedCrew.get(i);
+						if (check.isSelected()) {
+							if (member == null) {
+								member = crew.get(i);
+								member.sleep();
+							}
+						}
+					}
+					StatusScreen.callScreen();
+					frmRestScreen.dispose();
+				}
 			}
 		});
-		panel_4.add(btnNewButton_1);
+		panel_4.add(btnRest);
 				
 		//Cancel button
 		JButton btnCancel = new JButton("Cancel");
@@ -176,6 +194,11 @@ public class RestScreen {
 						selectedCount += 1;
 					} else if (event.getStateChange() == ItemEvent.DESELECTED) {
 						selectedCount -= 1;
+					}
+					if (selectedCount == 1) {
+						btnRest.setEnabled(true);
+					} else {
+						btnRest.setEnabled(false);
 					}
 				}
 			});
