@@ -5,10 +5,13 @@ import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -16,12 +19,16 @@ import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 
 import backend.CrewMember;
+import backend.Planet;
 import backend.Ship;
 import backendGUIExtensions.CrewMemberExtended;
 
 public class RestScreen {
 
 	private JFrame frmRestScreen;
+	private int selectedCount = 0;
+	private ArrayList<CrewMember> crew = Ship.getReadyCrew();
+	
 
 	/**
 	 * Launch the application.
@@ -52,9 +59,11 @@ public class RestScreen {
 	private void initialize() {
 		ArrayList<CrewMember> crew = Ship.getShipCrew();
 		ArrayList<JLabel> lblImages = new ArrayList<JLabel>();
+		ArrayList<JCheckBox> selectedCrew = new ArrayList<JCheckBox>();
 		
 		
 		frmRestScreen = new JFrame();
+		frmRestScreen.setResizable(false);
 		frmRestScreen.setPreferredSize(new Dimension(800, 600));
 		frmRestScreen.setTitle("Rest Screen");
 		frmRestScreen.setBounds(100, 100, 800, 600);
@@ -71,29 +80,44 @@ public class RestScreen {
 		SpringLayout sl_crewMember = new SpringLayout();
 		CrewMemberPanel.setLayout(sl_crewMember);
 		
-		JPanel panel_3 = new JPanel();
-		springLayout.putConstraint(SpringLayout.NORTH, panel_3, 0, SpringLayout.SOUTH, CrewMemberPanel);
-		springLayout.putConstraint(SpringLayout.WEST, panel_3, 0, SpringLayout.WEST, frmRestScreen.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, panel_3, 571, SpringLayout.NORTH, frmRestScreen.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, panel_3, 800, SpringLayout.WEST, frmRestScreen.getContentPane());
-		frmRestScreen.getContentPane().add(panel_3);
-		panel_3.setLayout(new GridLayout(0, 1, 0, 0));
+		JPanel MenuPanel = new JPanel();
+		springLayout.putConstraint(SpringLayout.NORTH, MenuPanel, 0, SpringLayout.SOUTH, CrewMemberPanel);
+		springLayout.putConstraint(SpringLayout.WEST, MenuPanel, 0, SpringLayout.WEST, frmRestScreen.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, MenuPanel, 571, SpringLayout.NORTH, frmRestScreen.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, MenuPanel, 800, SpringLayout.WEST, frmRestScreen.getContentPane());
+		frmRestScreen.getContentPane().add(MenuPanel);
+		MenuPanel.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JPanel panel_4 = new JPanel();
-		panel_3.add(panel_4);
+		MenuPanel.add(panel_4);
 		springLayout.putConstraint(SpringLayout.NORTH, panel_4, 0, SpringLayout.SOUTH, CrewMemberPanel);
 		springLayout.putConstraint(SpringLayout.WEST, panel_4, 0, SpringLayout.WEST, frmRestScreen.getContentPane());
 		springLayout.putConstraint(SpringLayout.SOUTH, panel_4, 381, SpringLayout.NORTH, frmRestScreen.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, panel_4, 800, SpringLayout.WEST, frmRestScreen.getContentPane());
 		panel_4.setLayout(new GridLayout(1, 0, 0, 0));
 				
-		JButton btnNewButton_1 = new JButton("Rest a crew member");
-		btnNewButton_1.addActionListener(new ActionListener() {
+		JButton btnRest = new JButton("Rest a crew member");
+		btnRest.setEnabled(false);
+		btnRest.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				//TODO
+				if (selectedCount == 1) {
+					CrewMember member = null;
+					for (int i = 0; i < selectedCrew.size(); i++) {
+						JCheckBox check = selectedCrew.get(i);
+						if (check.isSelected()) {
+							if (member == null) {
+								member = crew.get(i);
+								member.sleep();
+							}
+						}
+					}
+					StatusScreen.callScreen();
+					frmRestScreen.dispose();
+				}
 			}
 		});
-		panel_4.add(btnNewButton_1);
+		panel_4.add(btnRest);
 				
 		//Cancel button
 		JButton btnCancel = new JButton("Cancel");
@@ -103,7 +127,7 @@ public class RestScreen {
 				frmRestScreen.dispose();
 			}
 		});
-		panel_3.add(btnCancel);
+		MenuPanel.add(btnCancel);
 		
 		frmRestScreen.pack();		
 		
@@ -156,6 +180,29 @@ public class RestScreen {
 			Tiredness.setText(String.format("Tiredness: %d", crew.get(i).getTiredness()));
 			Tiredness.setHorizontalAlignment(SwingConstants.CENTER);
 			temp.add(Tiredness);
+			
+			JCheckBox selected = new JCheckBox("Rest");
+			sl_temp.putConstraint(SpringLayout.NORTH, selected, 0, SpringLayout.SOUTH, Tiredness);
+			sl_temp.putConstraint(SpringLayout.WEST, selected, 0, SpringLayout.WEST, temp);
+			sl_temp.putConstraint(SpringLayout.SOUTH, selected, 20, SpringLayout.SOUTH, Tiredness);
+			sl_temp.putConstraint(SpringLayout.EAST, selected, panelWidth, SpringLayout.WEST, temp);
+			selected.setHorizontalAlignment(SwingConstants.CENTER);
+			selectedCrew.add(selected);
+			selected.addItemListener(new ItemListener() {
+				public void itemStateChanged(ItemEvent event) {
+					if (event.getStateChange() == ItemEvent.SELECTED) {
+						selectedCount += 1;
+					} else if (event.getStateChange() == ItemEvent.DESELECTED) {
+						selectedCount -= 1;
+					}
+					if (selectedCount == 1) {
+						btnRest.setEnabled(true);
+					} else {
+						btnRest.setEnabled(false);
+					}
+				}
+			});
+			temp.add(selected);
 			
 			
 		}
