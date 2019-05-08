@@ -56,6 +56,7 @@ public class StatusScreen {
 		
 		
 		frame = new JFrame();
+		frame.setResizable(false);
 		frame.setPreferredSize(new Dimension(800, 600));
 		frame.setTitle("StatusScreen");
 		frame.setBounds(100, 100, 800, 600);
