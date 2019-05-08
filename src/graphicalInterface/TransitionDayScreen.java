@@ -1,9 +1,20 @@
 package graphicalInterface;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.GridLayout;
+import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SpringLayout;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 import backend.CrewClass;
 import backend.CrewMember;
@@ -12,23 +23,6 @@ import backend.PossibleEndings;
 import backend.RandomEvent;
 import backend.RandomEventOutput;
 import backend.Ship;
-
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Rectangle;
-import java.awt.Dimension;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.SpringLayout;
-import javax.swing.JLabel;
-import javax.swing.JTextPane;
-import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
-import java.awt.SystemColor;
-import javax.swing.UIManager;
-import javax.swing.JTextArea;
 
 public class TransitionDayScreen {
 
@@ -148,6 +142,7 @@ public class TransitionDayScreen {
 				}
 				break;
 			case NOTHING:
+				message += "Whilst floating in space, nothing of interest happened aboard the ship";
 				break;
 			case SPACE_PIRATES:
 				message += "Whilst floating in space, a space pirate managed to sneak onboard your ship<br>";

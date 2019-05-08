@@ -111,12 +111,12 @@ public class GameState {
 			switch (member.getMemberClass()) {
 			case COOK:
 				for (CrewMember crew : Ship.getShipCrew()) {
-					crew.decreaseHunger(10);
+					crew.activateCookEffect();
 				}
 				break;
 			case MEDIC:
 				for (CrewMember crew : Ship.getShipCrew()) {
-					crew.increaseHealth(10);
+					crew.activateMedicEffect();
 				}
 				break;
 			default:

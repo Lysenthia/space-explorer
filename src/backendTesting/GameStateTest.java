@@ -1,12 +1,19 @@
 package backendTesting;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import backend.*;
 import java.util.ArrayList;
 
 class GameStateTest {
 
+	@BeforeEach
+	void beforeEach() {
+		GameState.clear();
+		Ship.clearAll();
+	}
 	@Test
 	void testSetEndDay() {
 		GameState.setEndDay(3);
@@ -64,14 +71,51 @@ class GameStateTest {
 
 	@Test
 	void testTransitionDay() {
-		//TODO Complete after fully implementing transition day
 		CrewMember alice = new CrewMember("Alice", CrewClass.SCOUT);
+		CrewMember bob = new CrewMember("Bob", CrewClass.COOK);
+		CrewMember charlie = new CrewMember("Charlie", CrewClass.MEDIC);
+		CrewMember dave = new CrewMember("Dave", CrewClass.CYBORG);
 		Ship.addCrewMember(alice);
-		alice.decreaseHealth(100);
+		Ship.addCrewMember(bob);
+		Ship.addCrewMember(charlie);
+		Ship.addCrewMember(dave);
+		alice.setHealth(-15);
+		bob.decreaseHealth(20);
+		dave.giveSpacePlague();
 		int day = GameState.getCurrentDay();
 		ArrayList<CrewMember> dead = GameState.transitionDay();
 		assertEquals(GameState.getCurrentDay(), day + 1);
 		assertEquals(dead.contains(alice), true);
+		assertEquals(dead.size(), 1);
+		assertEquals(bob.getHealth(), 90);
+		assertEquals(charlie.getHunger(), 25);
+		assertEquals(dave.getHunger(), 0);
+		assertEquals(dave.getHealth(), 75);
+		dead = GameState.transitionDay();
+		assertEquals(dead.size(), 0);
+		assertEquals(bob.getHealth(), 100);
+		assertEquals(charlie.getHunger(), 40);
+		assertEquals(dave.getHunger(), 0);
+		assertEquals(dave.getHealth(), 60);
+	}
+	
+	@Test
+	void testSetAllConsumables() {
+		ArrayList<Consumable> items = new ArrayList<Consumable>();
+		MedicalItem medical = new MedicalItem("medical", 1, 1);
+		CureItem cure = new CureItem("cure", 1, 1);
+		items.add(cure);
+		FoodItem food = new FoodItem("Bandage", 1, 1);
+		items.add(food);
+		assertEquals(GameState.getAllConsumable().size(), 0);
+		GameState.addConsumable(food);
+		assertEquals(GameState.getAllConsumable().size(), 1);
+		GameState.setAllConsumables(items);
+		assertEquals(GameState.getAllConsumable().size(), 2);
+		items.add(medical);
+		GameState.setAllConsumables(items);
+		assertEquals(GameState.getAllConsumable().size(), 3);
+		
 	}
 
 }

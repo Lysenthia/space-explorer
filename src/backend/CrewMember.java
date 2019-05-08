@@ -311,12 +311,20 @@ public class CrewMember {
 			this.actionPoints = 2;
 		}
 		if (this.hasSpacePlague()) {
-			this.decreaseHealth(35);
+			this.decreaseHealth(25);
 		}
 		if (this.health <= 0) {
 			return true;
 		} else {
 			return false;
 		}
+	}
+	
+	public void activateCookEffect() {
+		this.decreaseHunger(10);
+	}
+	
+	public void activateMedicEffect() {
+		this.increaseHealth(10);
 	}
 }
