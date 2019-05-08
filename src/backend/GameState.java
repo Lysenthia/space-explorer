@@ -126,10 +126,10 @@ public class GameState {
 		for (CrewMember member : Ship.getShipCrew()) {
 			dead = member.transitionDay();
 			if (dead) {
-				Ship.removeCrewMember(member);
 				deadCrew.add(member);
 			}
 		}
+		deadCrew.forEach(member -> Ship.removeCrewMember(member));
 		return deadCrew;
 	}
 	

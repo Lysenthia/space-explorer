@@ -65,9 +65,13 @@ class GameStateTest {
 	@Test
 	void testTransitionDay() {
 		//TODO Complete after fully implementing transition day
+		CrewMember alice = new CrewMember("Alice", CrewClass.SCOUT);
+		Ship.addCrewMember(alice);
+		alice.decreaseHealth(100);
 		int day = GameState.getCurrentDay();
-		GameState.transitionDay();
+		ArrayList<CrewMember> dead = GameState.transitionDay();
 		assertEquals(GameState.getCurrentDay(), day + 1);
+		assertEquals(dead.contains(alice), true);
 	}
 
 }

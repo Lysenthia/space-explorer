@@ -186,6 +186,12 @@ public class MainScreen {
 		leftOptions.add(btnOutpost);
 		
 		JButton btnDay = new JButton("Transition to a new day");
+		btnDay.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TransitionDayScreen.callScreen();
+				frame.dispose();
+			}
+		});
 		leftOptions.add(btnDay);
 		
 		JPanel rightOptions = new JPanel();
