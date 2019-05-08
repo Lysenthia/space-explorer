@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
@@ -112,6 +113,8 @@ public class RestScreen {
 							}
 						}
 					}
+					//Dialog box to notify player of action
+					JOptionPane.showMessageDialog(frmRestScreen, String.format("Crewmember %s has rested and now feels less tired!" , member.getName()));
 					StatusScreen.callScreen();
 					frmRestScreen.dispose();
 				}
