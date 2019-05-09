@@ -163,7 +163,7 @@ class CrewMemberTest {
 				} else if (var.FOUND == PlanetFindableObjects.PART) {
 					assertTrue(kerbin.getPartFound());
 				} else if (var.FOUND == PlanetFindableObjects.NOTHING) {
-					assertTrue(member.getMemberClass() != CrewClass.SCOUT);
+					assertNotSame(member.getMemberClass(), CrewClass.SCOUT);
 				}
 			}
 		}
