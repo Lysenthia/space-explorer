@@ -97,6 +97,14 @@ class GameStateTest {
 		assertEquals(charlie.getHunger(), 40);
 		assertEquals(dave.getHunger(), 0);
 		assertEquals(dave.getHealth(), 60);
+		charlie.increaseHunger(100);
+		dead = GameState.transitionDay();
+		assertEquals(dead.size(), 0);
+		assertEquals(bob.getHealth(), 100);
+		assertEquals(charlie.getHunger(), 100);
+		assertEquals(charlie.getHealth(), 85);
+		assertEquals(dave.getHunger(), 0);
+		assertEquals(dave.getHealth(), 45);
 	}
 	
 	@Test

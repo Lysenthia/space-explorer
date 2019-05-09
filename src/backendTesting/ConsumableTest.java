@@ -60,5 +60,21 @@ class ConsumableTest {
 		assertEquals(basic.getHeld(), 5);
 		assertEquals(advanced.getHeld(), 100);
 	}
+	
+	@Test
+	void testGetEffectiveness() {
+		assertEquals(basic.getEffectiveness(), 50);
+		assertEquals(advanced.getEffectiveness(), 100);
+	}
+	
+	@Test
+	void testGetItemType() {
+		MedicalItem medical = new MedicalItem("bandaid", 10, 10);
+		FoodItem food = new FoodItem("bread", 30, 30);
+		assertEquals(basic.getItemType(), "Space Plague Cure");
+		assertEquals(advanced.getItemType(), "Space Plague Cure");
+		assertEquals(medical.getItemType(), "Medical");
+		assertEquals(food.getItemType(), "Food");
+	}
 
 }

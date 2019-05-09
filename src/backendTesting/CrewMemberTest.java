@@ -73,6 +73,17 @@ class CrewMemberTest {
 		var = alice.decreaseHealth(90);
 		assertEquals(var, true);
 	}
+	
+	@Test
+	void testReduceTiredness() {
+		assertEquals(alice.getTiredness(), 0);
+		alice.addTiredness(50);
+		assertEquals(alice.getTiredness(), 50);
+		alice.reduceTiredness(20);
+		assertEquals(alice.getTiredness(), 30);
+		alice.reduceTiredness(100);
+		assertEquals(alice.getTiredness(), 0);
+	}
 
 	@Test
 	void testDecreaseHunger() {
@@ -135,21 +146,25 @@ class CrewMemberTest {
 
 	@Test
 	void testSearchPlanet() {
-		Planet kerbin = new Planet("Kerbin", "Little Green Men and Women");
+		CrewMember bob = new CrewMember("Bob", CrewClass.ENGINEER);
+		CrewMember[] crew = {alice, bob};
 		MedicalItem elixir = new MedicalItem("Elixir", 10, 100);
 		GameState.addConsumable(elixir);
 		PlanetSearchOutput var;
-		for (int i = 0; i < 20; i++) {
-			var = alice.searchPlanet(kerbin);
-			assertEquals(Arrays.asList(PlanetFindableObjects.values()).contains(var.FOUND), true);
-			if (var.FOUND == PlanetFindableObjects.ITEM) {
-				assertEquals(GameState.getAllConsumable().contains(var.ITEM), true);
-			} else if (var.FOUND == PlanetFindableObjects.MONEY) {
-				assertEquals(var.MONEY <= 100, true);
-			} else if (var.FOUND == PlanetFindableObjects.PART) {
-				assertEquals(kerbin.getPartFound(), true);
-			} else if (var.FOUND == PlanetFindableObjects.NOTHING) {
-				assertEquals(alice.getMemberClass() != CrewClass.SCOUT, true);
+		for (CrewMember member : crew) {
+			for (int i = 0; i < 20; i++) {
+				Planet kerbin = new Planet("Kerbin", "Little Green Men and Women");
+				var = member.searchPlanet(kerbin);
+				assertEquals(Arrays.asList(PlanetFindableObjects.values()).contains(var.FOUND), true);
+				if (var.FOUND == PlanetFindableObjects.ITEM) {
+					assertEquals(GameState.getAllConsumable().contains(var.ITEM), true);
+				} else if (var.FOUND == PlanetFindableObjects.MONEY) {
+					assertEquals(var.MONEY <= 100, true);
+				} else if (var.FOUND == PlanetFindableObjects.PART) {
+					assertEquals(kerbin.getPartFound(), true);
+				} else if (var.FOUND == PlanetFindableObjects.NOTHING) {
+					assertEquals(member.getMemberClass() != CrewClass.SCOUT, true);
+				}
 			}
 		}
 	}
