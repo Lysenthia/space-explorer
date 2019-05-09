@@ -114,7 +114,7 @@ public class RestScreen {
 						}
 					}
 					//Dialog box to notify player of action
-					JOptionPane.showMessageDialog(frmRestScreen, String.format("Crewmember %s has rested and now feels less tired!" , member.getName()));
+					JOptionPane.showMessageDialog(frmRestScreen, String.format("Crewmember %s has rested and feels less tired!" , member.getName()));
 					StatusScreen.callScreen();
 					frmRestScreen.dispose();
 				}
