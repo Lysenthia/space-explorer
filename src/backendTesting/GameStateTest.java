@@ -85,7 +85,7 @@ class GameStateTest {
 		int day = GameState.getCurrentDay();
 		ArrayList<CrewMember> dead = GameState.transitionDay();
 		assertEquals(GameState.getCurrentDay(), day + 1);
-		assertEquals(dead.contains(alice), true);
+		assertTrue(dead.contains(alice));
 		assertEquals(dead.size(), 1);
 		assertEquals(bob.getHealth(), 90);
 		assertEquals(charlie.getHunger(), 25);

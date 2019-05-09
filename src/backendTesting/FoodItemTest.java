@@ -23,21 +23,21 @@ class FoodItemTest {
 		assertEquals(bob.getHunger(), 0);
 		alice.increaseHunger(75);
 		var = basic.use(alice);
-		assertEquals(var, true);
+		assertTrue(var);
 		assertEquals(alice.getHunger(), 50);
 		assertEquals(basic.getHeld(), 19);
 		var = advanced.use(alice);
-		assertEquals(var, true);
+		assertTrue(var);
 		assertEquals(alice.getHunger(), 0);
 		assertEquals(advanced.getHeld(), 19);
 		var = ok.use(bob);
-		assertEquals(var, false);
+		assertFalse(var);
 		assertEquals(bob.getHunger(), 0);
 		assertEquals(ok.getHeld(), 20);
 		bob.increaseHunger(10000);
 		assertEquals(bob.getHunger(), 100);
 		var = ok.use(bob);
-		assertEquals(var, true);
+		assertTrue(var);
 		assertEquals(bob.getHunger(), 0);
 		assertEquals(ok.getHeld(), 19);
 	}

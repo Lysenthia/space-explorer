@@ -22,21 +22,21 @@ class MedicalItemTest {
 		assertEquals(bob.getHealth(), 100);
 		alice.decreaseHealth(75);
 		var = basic.use(alice);
-		assertEquals(var, true);
+		assertTrue(var);
 		assertEquals(alice.getHealth(), 75);
 		assertEquals(basic.getHeld(), 19);
 		bob.decreaseHealth(10);
 		var = advanced.use(bob);
-		assertEquals(var, true);
+		assertTrue(var);
 		assertEquals(bob.getHealth(), 100);
 		alice.increaseHealth(50);
 		var = ok.use(alice);
-		assertEquals(var, false);
+		assertFalse(var);
 		assertEquals(alice.getHealth(), 100);
 		assertEquals(ok.getHeld(), 20);
 		alice.decreaseHealth(1);
 		var = ok.use(alice);
-		assertEquals(var, true);
+		assertTrue(var);
 		assertEquals(alice.getHealth(), 100);
 		assertEquals(ok.getHeld(), 19);
 	}

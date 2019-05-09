@@ -50,11 +50,11 @@ class ShipTest {
 		crew.add(alice);
 		added = Ship.addCrewMember(alice);
 		assertEquals(Ship.getShipCrew(), crew);
-		assertEquals(added, true);
+		assertTrue(added);
 		crew.add(bob);
 		added = Ship.addCrewMember(bob);
 		assertEquals(Ship.getShipCrew(), crew);
-		assertEquals(added, true);
+		assertTrue(added);
 	}
 
 	@Test
@@ -65,9 +65,9 @@ class ShipTest {
 		crew.add(alice);
 		added = Ship.addCrewMember(alice);
 		assertEquals(Ship.getShipCrew(), crew);
-		assertEquals(added, true);
+		assertTrue(added);
 		added = Ship.addCrewMember(alice);
-		assertEquals(added, false);
+		assertFalse(added);
 	}
 
 	@Test
@@ -86,13 +86,13 @@ class ShipTest {
 		crew.remove(bob);
 		removed = Ship.removeCrewMember(bob);
 		assertEquals(Ship.getShipCrew(), crew);
-		assertEquals(removed, true);
+		assertTrue(removed);
 		removed = Ship.removeCrewMember(bob);
 		assertEquals(Ship.getShipCrew(), crew);
-		assertEquals(removed, false);
+		assertFalse(removed);
 		removed = Ship.removeCrewMember(charlie);
 		assertEquals(Ship.getShipCrew(), crew);
-		assertEquals(removed, false);
+		assertFalse(removed);
 	}
 
 	@Test
@@ -124,12 +124,12 @@ class ShipTest {
 	void testInInventory() {
 		MedicalItem elixir = new MedicalItem("Elixir", 50, 50);
 		MedicalItem potion = new MedicalItem("Potion", 20, 20);
-		assertEquals(Ship.inInventory(potion), false);
-		assertEquals(Ship.inInventory(elixir), false);
+		assertFalse(Ship.inInventory(potion));
+		assertFalse(Ship.inInventory(elixir));
 		elixir.increaseHeld(1);
-		assertEquals(Ship.inInventory(elixir), true);
+		assertTrue(Ship.inInventory(elixir));
 		Ship.addToInventory(potion);
-		assertEquals(Ship.inInventory(potion), false);
+		assertFalse(Ship.inInventory(potion));
 	}
 
 	@Test
@@ -141,8 +141,8 @@ class ShipTest {
 		assertEquals(Ship.getInventory().size(), 1);
 		Ship.addToInventory(potion);
 		assertEquals(Ship.getInventory().size(), 1);
-		assertEquals(Ship.getInventory().contains(elixir), true);
-		assertEquals(Ship.getInventory().contains(potion), false);
+		assertTrue(Ship.getInventory().contains(elixir));
+		assertFalse(Ship.getInventory().contains(potion));
 	}
 
 	@Test
@@ -167,7 +167,7 @@ class ShipTest {
 		assertEquals(Ship.getShields(), 100);
 		boolean var = Ship.damageShields(25);
 		assertEquals(Ship.getShields(), 75);
-		assertEquals(var, false);
+		assertFalse(var);
 		Ship.repairShields(10);
 		assertEquals(Ship.getShields(), 85);
 		Ship.repairShields(1000);
@@ -179,10 +179,10 @@ class ShipTest {
 		assertEquals(Ship.getShields(), 100);
 		boolean var = Ship.damageShields(25);
 		assertEquals(Ship.getShields(), 75);
-		assertEquals(var, false);
+		assertFalse(var);
 		var = Ship.damageShields(75);
 		assertEquals(Ship.getShields(), 0);
-		assertEquals(var, true);
+		assertTrue(var);
 	}
 
 	@Test
@@ -190,7 +190,7 @@ class ShipTest {
 		CrewMember alice = new CrewMember("Alice", CrewClass.SCOUT);
 		CrewMember bob = new CrewMember("Bob", CrewClass.ENGINEER);
 		Planet kerbin = new Planet("Kerbin", "Little green gem");
-		assertEquals(Ship.getOrbiting(), null);
+		assertNull(Ship.getOrbiting());
 		Ship.pilot(alice, bob, kerbin);
 		assertEquals(Ship.getOrbiting(), kerbin);
 	}

@@ -21,21 +21,21 @@ class CureItemTest {
 		bob.giveSpacePlague();
 		assertEquals(basic.getHeld(), 100);
 		assertEquals(advanced.getHeld(), 2);
-		assertEquals(alice.hasSpacePlague(), true);
-		assertEquals(bob.hasSpacePlague(), true);
+		assertTrue(alice.hasSpacePlague());
+		assertTrue(bob.hasSpacePlague());
 		var = advanced.use(alice);
-		assertEquals(var, true);
-		assertEquals(alice.hasSpacePlague(), false);
+		assertTrue(var);
+		assertFalse(alice.hasSpacePlague());
 		assertEquals(advanced.getHeld(), 1);
 		var = advanced.use(alice);
-		assertEquals(var, false);
-		assertEquals(alice.hasSpacePlague(), false);
+		assertFalse(var);
+		assertFalse(alice.hasSpacePlague());
 		assertEquals(advanced.getHeld(), 1);
 		for (int i = 0; i < 100; i++) {
 			var = basic.use(bob);
-			assertEquals(var, true);
+			assertTrue(var);
 		}
-		assertEquals(bob.hasSpacePlague(), true);
+		assertTrue(bob.hasSpacePlague());
 		assertEquals(basic.getHeld(), 0);
 	}
 

@@ -27,15 +27,15 @@ class PlanetTest {
 
 	@Test
 	void testGetPartFound() {
-		assertEquals(kerbin.getPartFound(), false);
+		assertFalse(kerbin.getPartFound());
 		kerbin.findPart();
-		assertEquals(kerbin.getPartFound(), true);
+		assertTrue(kerbin.getPartFound());
 	}
 
 	@Test
 	void testFindPart() {
 		kerbin.findPart();
-		assertEquals(kerbin.getPartFound(), true);
+		assertTrue(kerbin.getPartFound());
 	}
 
 }

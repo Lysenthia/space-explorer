@@ -68,10 +68,10 @@ class CrewMemberTest {
 	void testDecreaseHealth() {
 		boolean var;
 		var = alice.decreaseHealth(20);
-		assertEquals(var, false);
+		assertFalse(var);
 		assertEquals(alice.getHealth(), 80);
 		var = alice.decreaseHealth(90);
-		assertEquals(var, true);
+		assertTrue(var);
 	}
 	
 	@Test
@@ -106,20 +106,20 @@ class CrewMemberTest {
 	@Test
 	void testGiveSpacePlague() {
 		alice.giveSpacePlague();
-		assertEquals(alice.hasSpacePlague(), true);
+		assertTrue(alice.hasSpacePlague());
 	}
 
 	@Test
 	void testRemoveSpacePlague() {
 		alice.giveSpacePlague();
-		assertEquals(alice.hasSpacePlague(), true);
+		assertTrue(alice.hasSpacePlague());
 		alice.removeSpacePlague();
-		assertEquals(alice.hasSpacePlague(), false);
+		assertFalse(alice.hasSpacePlague());
 	}
 	
 	@Test
 	void testHasSpacePlague() {
-		assertEquals(alice.hasSpacePlague(), false);
+		assertFalse(alice.hasSpacePlague());
 	}
 
 	@Test
@@ -152,18 +152,18 @@ class CrewMemberTest {
 		GameState.addConsumable(elixir);
 		PlanetSearchOutput var;
 		for (CrewMember member : crew) {
-			for (int i = 0; i < 20; i++) {
+			for (int i = 0; i < 50; i++) {
 				Planet kerbin = new Planet("Kerbin", "Little Green Men and Women");
 				var = member.searchPlanet(kerbin);
-				assertEquals(Arrays.asList(PlanetFindableObjects.values()).contains(var.FOUND), true);
+				assertTrue(Arrays.asList(PlanetFindableObjects.values()).contains(var.FOUND));
 				if (var.FOUND == PlanetFindableObjects.ITEM) {
-					assertEquals(GameState.getAllConsumable().contains(var.ITEM), true);
+					assertTrue(GameState.getAllConsumable().contains(var.ITEM));
 				} else if (var.FOUND == PlanetFindableObjects.MONEY) {
-					assertEquals(var.MONEY <= 100, true);
+					assertTrue(var.MONEY <= 100);
 				} else if (var.FOUND == PlanetFindableObjects.PART) {
-					assertEquals(kerbin.getPartFound(), true);
+					assertTrue(kerbin.getPartFound());
 				} else if (var.FOUND == PlanetFindableObjects.NOTHING) {
-					assertEquals(member.getMemberClass() != CrewClass.SCOUT, true);
+					assertTrue(member.getMemberClass() != CrewClass.SCOUT);
 				}
 			}
 		}

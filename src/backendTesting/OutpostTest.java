@@ -43,13 +43,13 @@ class OutpostTest {
 		MedicalItem item = new MedicalItem("Improved Medical", 2, 2);
 		boolean added;
 		added = outpost.addStockItem(item);
-		assertEquals(added, true);
+		assertTrue(added);
 		assertEquals(outpost.getStock().size(), stock.size() + 1);
-		assertEquals(outpost.getStock().contains(item), true);
+		assertTrue(outpost.getStock().contains(item));
 		added = outpost.addStockItem(item);
-		assertEquals(added, false);
+		assertFalse(added);
 		assertEquals(outpost.getStock().size(), stock.size() + 1);
-		assertEquals(outpost.getStock().contains(item), true);
+		assertTrue(outpost.getStock().contains(item));
 	}
 
 	@Test
@@ -57,10 +57,10 @@ class OutpostTest {
 		MedicalItem item = new MedicalItem("Improved Medical", 2, 2);
 		outpost.addStockItem(item);
 		assertEquals(outpost.getStock().size(), stock.size() + 1);
-		assertEquals(outpost.getStock().contains(item), true);
+		assertTrue(outpost.getStock().contains(item));
 		outpost.removeStockItem(item);
 		assertEquals(outpost.getStock().size(), stock.size());
-		assertEquals(outpost.getStock().contains(item), false);
+		assertFalse(outpost.getStock().contains(item));
 	}
 
 	@Test
@@ -69,13 +69,13 @@ class OutpostTest {
 		boolean purchased;
 		Consumable item = stock.get(0);
 		purchased = outpost.purchaseItem(item, 1);
-		assertEquals(purchased, true);
-		assertEquals(Ship.getInventory().contains(item), true);
+		assertTrue(purchased);
+		assertTrue(Ship.getInventory().contains(item));
 		assertEquals(Ship.getMoney(), 1000 - item.getPrice());
 		assertEquals(item.getHeld(), 1);
 		purchased = outpost.purchaseItem(item, 100);
-		assertEquals(purchased, false);
-		assertEquals(Ship.getInventory().contains(item), true);
+		assertFalse(purchased);
+		assertTrue(Ship.getInventory().contains(item));
 		assertEquals(Ship.getMoney(), 1000 - item.getPrice());
 		assertEquals(item.getHeld(), 1);
 	}
