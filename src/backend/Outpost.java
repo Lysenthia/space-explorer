@@ -30,7 +30,7 @@ public class Outpost {
 	 */
 	public Outpost(String name, ArrayList<Consumable> stock, int priceMultiplier) {
 		this.name = name;
-		this.stock = stock;
+		this.stock = new ArrayList<Consumable>(stock);
 		this.priceMultiplier = priceMultiplier;
 	}
 	

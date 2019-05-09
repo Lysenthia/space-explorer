@@ -92,7 +92,7 @@ class ShipTest {
 		assertEquals(removed, false);
 		removed = Ship.removeCrewMember(charlie);
 		assertEquals(Ship.getShipCrew(), crew);
-		assertEquals(removed, true);
+		assertEquals(removed, false);
 	}
 
 	@Test
@@ -187,12 +187,29 @@ class ShipTest {
 
 	@Test
 	void testPilot() {
-		CrewMember Alice = new CrewMember("Alice", CrewClass.SCOUT);
-		CrewMember Bob = new CrewMember("Bob", CrewClass.ENGINEER);
+		CrewMember alice = new CrewMember("Alice", CrewClass.SCOUT);
+		CrewMember bob = new CrewMember("Bob", CrewClass.ENGINEER);
 		Planet kerbin = new Planet("Kerbin", "Little green gem");
 		assertEquals(Ship.getOrbiting(), null);
-		Ship.pilot(Alice, Bob, kerbin);
+		Ship.pilot(alice, bob, kerbin);
 		assertEquals(Ship.getOrbiting(), kerbin);
+	}
+	
+	@Test
+	void testGetReadyCrew() {
+		CrewMember alice = new CrewMember("Alice", CrewClass.SCOUT);
+		CrewMember bob = new CrewMember("Bob", CrewClass.ENGINEER);
+		Ship.addCrewMember(alice);
+		Ship.addCrewMember(bob);
+		assertEquals(Ship.getReadyCrew().size(), 2);
+		alice.useActionPoint();
+		assertEquals(Ship.getReadyCrew().size(), 2);
+		bob.useActionPoint();
+		assertEquals(Ship.getReadyCrew().size(), 2);
+		alice.useActionPoint();
+		assertEquals(Ship.getReadyCrew().size(), 1);
+		bob.useActionPoint();
+		assertEquals(Ship.getReadyCrew().size(), 0);
 	}
 
 }
