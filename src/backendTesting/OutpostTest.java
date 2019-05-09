@@ -55,10 +55,16 @@ class OutpostTest {
 	@Test
 	void testRemoveStockItem() {
 		MedicalItem item = new MedicalItem("Improved Medical", 2, 2);
+		boolean removed;
 		outpost.addStockItem(item);
 		assertEquals(outpost.getStock().size(), stock.size() + 1);
 		assertTrue(outpost.getStock().contains(item));
-		outpost.removeStockItem(item);
+		removed = outpost.removeStockItem(item);
+		assertTrue(removed);
+		assertEquals(outpost.getStock().size(), stock.size());
+		assertFalse(outpost.getStock().contains(item));
+		removed = outpost.removeStockItem(item);
+		assertFalse(removed);
 		assertEquals(outpost.getStock().size(), stock.size());
 		assertFalse(outpost.getStock().contains(item));
 	}

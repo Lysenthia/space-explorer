@@ -123,7 +123,31 @@ class GameStateTest {
 		items.add(medical);
 		GameState.setAllConsumables(items);
 		assertEquals(GameState.getAllConsumable().size(), 3);
-		
+	}
+	
+	@Test
+	void testAddConsumable() {
+		MedicalItem medical = new MedicalItem("medical", 1, 1);
+		GameState.addConsumable(medical);
+		assertEquals(GameState.getAllConsumable().size(), 1);
+		assertTrue(GameState.getAllConsumable().contains(medical));
+		GameState.addConsumable(medical);
+		assertEquals(GameState.getAllConsumable().size(), 1);
+	}
+	
+	@Test
+	void testGetEnding() {
+		assertNull(GameState.getEnding());
+		GameState.setEnding(PossibleEndings.CREW_DEAD);
+		assertEquals(GameState.getEnding(), PossibleEndings.CREW_DEAD);
+	}
+	
+	@Test
+	void testSetEnding() {
+		GameState.setEnding(PossibleEndings.CREW_DEAD);
+		assertEquals(GameState.getEnding(), PossibleEndings.CREW_DEAD);
+		GameState.setEnding(PossibleEndings.LOST_IN_SPACE);
+		assertEquals(GameState.getEnding(), PossibleEndings.LOST_IN_SPACE);
 	}
 
 }

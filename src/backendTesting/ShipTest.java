@@ -211,5 +211,13 @@ class ShipTest {
 		bob.useActionPoint();
 		assertEquals(Ship.getReadyCrew().size(), 0);
 	}
+	
+	@Test
+	void testForceOrbit() {
+		Planet kerbin = new Planet("Kerbin", "More boosters");
+		assertNull(Ship.getOrbiting());
+		Ship.forceOrbit(kerbin);
+		assertEquals(Ship.getOrbiting(), kerbin);
+	}
 
 }

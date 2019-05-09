@@ -148,6 +148,7 @@ public class GameState {
 		allConsumables.clear();
 		currentDay = 1;
 		partsFound = 0;
+		ending = null;
 	}
 	
 	/**
