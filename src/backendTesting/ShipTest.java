@@ -45,28 +45,37 @@ class ShipTest {
 	void testGetShipCrew() {
 		CrewMember alice = new CrewMember("Alice", CrewClass.SCOUT);
 		CrewMember bob = new CrewMember("Bob", CrewClass.ENGINEER);
+		boolean added;
 		ArrayList<CrewMember> crew = new ArrayList<CrewMember>();
 		crew.add(alice);
-		Ship.addCrewMember(alice);
+		added = Ship.addCrewMember(alice);
 		assertEquals(Ship.getShipCrew(), crew);
+		assertEquals(added, true);
 		crew.add(bob);
-		Ship.addCrewMember(bob);
+		added = Ship.addCrewMember(bob);
 		assertEquals(Ship.getShipCrew(), crew);
+		assertEquals(added, true);
 	}
 
 	@Test
 	void testAddCrewMember() {
 		CrewMember alice = new CrewMember("Alice", CrewClass.SCOUT);
 		ArrayList<CrewMember> crew = new ArrayList<CrewMember>();
+		boolean added;
 		crew.add(alice);
-		Ship.addCrewMember(alice);
+		added = Ship.addCrewMember(alice);
 		assertEquals(Ship.getShipCrew(), crew);
+		assertEquals(added, true);
+		added = Ship.addCrewMember(alice);
+		assertEquals(added, false);
 	}
 
 	@Test
 	void testRemoveCrewMember() {
 		CrewMember alice = new CrewMember("Alice", CrewClass.SCOUT);
 		CrewMember bob = new CrewMember("Bob", CrewClass.ENGINEER);
+		CrewMember charlie = new CrewMember("Charlie", CrewClass.GUARD);
+		boolean removed;
 		ArrayList<CrewMember> crew = new ArrayList<CrewMember>();
 		crew.add(alice);
 		Ship.addCrewMember(alice);
@@ -75,8 +84,15 @@ class ShipTest {
 		Ship.addCrewMember(bob);
 		assertEquals(Ship.getShipCrew(), crew);
 		crew.remove(bob);
-		Ship.removeCrewMember(bob);
+		removed = Ship.removeCrewMember(bob);
 		assertEquals(Ship.getShipCrew(), crew);
+		assertEquals(removed, true);
+		removed = Ship.removeCrewMember(bob);
+		assertEquals(Ship.getShipCrew(), crew);
+		assertEquals(removed, false);
+		removed = Ship.removeCrewMember(charlie);
+		assertEquals(Ship.getShipCrew(), crew);
+		assertEquals(removed, true);
 	}
 
 	@Test
