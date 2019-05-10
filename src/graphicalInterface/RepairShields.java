@@ -7,12 +7,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 
@@ -23,7 +24,7 @@ import backendGUIExtensions.CrewMemberExtended;
 public class RepairShields {
 
 	private JFrame frmRepairShields;
-
+	private final ButtonGroup buttonGroup = new ButtonGroup();
 	/**
 	 * Launch the application.
 	 */
@@ -150,22 +151,18 @@ public class RepairShields {
 			temp.add(actionPoints);
 			
 			
-			JLabel Tiredness = new JLabel("Tiredness");
-			sl_temp.putConstraint(SpringLayout.NORTH, Tiredness, 0, SpringLayout.SOUTH, actionPoints);
-			sl_temp.putConstraint(SpringLayout.WEST, Tiredness, 0, SpringLayout.WEST, temp);
-			sl_temp.putConstraint(SpringLayout.SOUTH, Tiredness, 20, SpringLayout.SOUTH, actionPoints);
-			sl_temp.putConstraint(SpringLayout.EAST, Tiredness, panelWidth, SpringLayout.WEST, temp);
-			Tiredness.setText(String.format("Tiredness: %d", crew.get(i).getTiredness()));
-			Tiredness.setHorizontalAlignment(SwingConstants.CENTER);
-			temp.add(Tiredness);
-			
-			JCheckBox selected = new JCheckBox("Rest");
-			sl_temp.putConstraint(SpringLayout.NORTH, selected, 0, SpringLayout.SOUTH, Tiredness);
-			sl_temp.putConstraint(SpringLayout.WEST, selected, 0, SpringLayout.WEST, temp);
-			sl_temp.putConstraint(SpringLayout.SOUTH, selected, 20, SpringLayout.SOUTH, Tiredness);
-			sl_temp.putConstraint(SpringLayout.EAST, selected, panelWidth, SpringLayout.WEST, temp);
-			selected.setHorizontalAlignment(SwingConstants.CENTER);
-			temp.add(selected);
+			JRadioButton rdbtnSelected = new JRadioButton("");
+			sl_temp.putConstraint(SpringLayout.NORTH, rdbtnSelected, 0, SpringLayout.SOUTH, actionPoints);
+			sl_temp.putConstraint(SpringLayout.WEST, rdbtnSelected, 0, SpringLayout.WEST, temp);
+			sl_temp.putConstraint(SpringLayout.SOUTH, rdbtnSelected, 35, SpringLayout.SOUTH, actionPoints);
+			sl_temp.putConstraint(SpringLayout.EAST, rdbtnSelected, panelWidth, SpringLayout.WEST, temp);
+			rdbtnSelected.setActionCommand(Integer.toString(i));
+			buttonGroup.add(rdbtnSelected);
+			rdbtnSelected.setHorizontalAlignment(SwingConstants.CENTER);
+			temp.add(rdbtnSelected);
+			if (i == 0) {
+				rdbtnSelected.setSelected(true);
+			}
 			
 			
 		}
