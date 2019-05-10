@@ -102,6 +102,12 @@ public class StatusScreen {
 		panel_4.add(btnNewButton_1);
 			
 		JButton btnRepairShields = new JButton("Repair shields");
+		btnRepairShields.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				RepairShields.callScreen();
+				frame.dispose();
+			}
+		});
 		panel_4.add(btnRepairShields);
 				
 		//Cancel button
