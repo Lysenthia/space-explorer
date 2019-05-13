@@ -116,16 +116,13 @@ public class UseItemScreen {
 			}
 		});
 		
-		JButton btnRest = new JButton("Repair shields");
+		JButton btnRest = new JButton("Use item");
 		MenuPanel.add(btnRest);
 		btnRest.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				String selected = buttonGroup.getSelection().getActionCommand();
-				CrewMember member = crew.get(Integer.parseInt(selected));
-				member.repairShields();
 				//Dialog box to notify player of action
-				JOptionPane.showMessageDialog(frmUseItemScreen, String.format("SOMETHING HAPPENED!"));
+				JOptionPane.showMessageDialog(frmUseItemScreen, String.format("This button just shows this message atm"));
 				UseItemScreen.callScreen();
 				frmUseItemScreen.dispose();
 			}
@@ -187,7 +184,6 @@ public class UseItemScreen {
 			actionPoints.setHorizontalAlignment(SwingConstants.CENTER);
 			temp.add(actionPoints);
 			
-			
 			JRadioButton rdbtnSelected = new JRadioButton("");
 			sl_temp.putConstraint(SpringLayout.NORTH, rdbtnSelected, 0, SpringLayout.SOUTH, actionPoints);
 			sl_temp.putConstraint(SpringLayout.WEST, rdbtnSelected, 0, SpringLayout.WEST, temp);
@@ -200,15 +196,17 @@ public class UseItemScreen {
 			if (i == 0) {
 				rdbtnSelected.setSelected(true);
 			}
-			
-			
 		}
+		
+		
+		//Code that populates the panel with crew images
 		frmUseItemScreen.pack();
 		for (int i = 0; i < lblImages.size(); i++) {
 			JLabel image = lblImages.get(i);
 			image.setIcon(new ImageIcon(((CrewMemberExtended)crew.get(i)).getImage().getContents(-1, image.getHeight())));
 		}
 		
+		//Code to populate the panel with item in the inventory
 		for (int i = 0; i < consumables.size(); i++) {
 			Consumable item = consumables.get(i);
 			JPanel itemSubPanel = new JPanel();
@@ -227,15 +225,18 @@ public class UseItemScreen {
 			lblEffectiveness.setHorizontalAlignment(SwingConstants.CENTER);
 			itemSubPanel.add(lblEffectiveness);
 			
-			
 			JLabel lblHeld = new JLabel(String.format("Held: %d", item.getHeld()));
 			lblHeld.setHorizontalAlignment(SwingConstants.CENTER);
 			itemSubPanel.add(lblHeld);
 			
-			JTextField countEntry = new JTextField();
-			itemSubPanel.add(countEntry);
-			countEntry.setColumns(10);
-			
+			JRadioButton rdbtnSelected = new JRadioButton("");
+			rdbtnSelected.setActionCommand(Integer.toString(i));
+			buttonGroup.add(rdbtnSelected);
+			rdbtnSelected.setHorizontalAlignment(SwingConstants.CENTER);
+			itemSubPanel.add(rdbtnSelected);
+			if (i == 0) {
+				rdbtnSelected.setSelected(true);
+			}
 			
 			}
 		

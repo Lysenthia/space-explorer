@@ -68,7 +68,7 @@ public class StartupScreen {
 		frmStartupScreen.setBounds(100, 100, 800, 600);
 		frmStartupScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		JLabel lblHelloAndWel = new JLabel("       Hello!      ");
+		JLabel lblHelloAndWel = new JLabel("Hello!");
 		lblHelloAndWel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblHelloAndWel.setFont(new Font("Dialog", Font.BOLD, 16));
 		frmStartupScreen.getContentPane().setLayout(new GridLayout(0, 1, 0, 0));
