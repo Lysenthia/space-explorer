@@ -138,6 +138,7 @@ public class UseItemScreen {
 		frmUseItemScreen.getContentPane().add(scrollPane);
 		
 		JPanel itemsInternal = new JPanel();
+		itemsInternal.setPreferredSize(new Dimension(800, 10));
 		itemsInternal.setBounds(new Rectangle(0, 0, 800, 0));
 		scrollPane.setRowHeaderView(itemsInternal);
 		itemsInternal.setLayout(new GridLayout(0, 1, 0, 0));

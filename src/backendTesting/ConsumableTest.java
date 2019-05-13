@@ -71,8 +71,8 @@ class ConsumableTest {
 	void testGetItemType() {
 		MedicalItem medical = new MedicalItem("bandaid", 10, 10);
 		FoodItem food = new FoodItem("bread", 30, 30);
-		assertEquals(basic.getItemType(), "Space Plague Cure");
-		assertEquals(advanced.getItemType(), "Space Plague Cure");
+		assertEquals(basic.getItemType(), "Cure");
+		assertEquals(advanced.getItemType(), "Cure");
 		assertEquals(medical.getItemType(), "Medical");
 		assertEquals(food.getItemType(), "Food");
 	}

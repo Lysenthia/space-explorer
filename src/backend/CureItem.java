@@ -16,7 +16,7 @@ public class CureItem extends Consumable {
 	 * @param effectivness sets the effectiveness of the cureItem
 	 */
 	public CureItem(String name, int price, int effectiveness) {
-		super(name, price, effectiveness, "Space Plague Cure");
+		super(name, price, effectiveness, "Cure");
 	}
 	
 	/**
