@@ -60,7 +60,7 @@ public class StartupScreen {
 		frmStartupScreen.setResizable(false);
 		frmStartupScreen.getContentPane().setBackground(UIManager.getColor("ColorChooser.background"));
 		frmStartupScreen.setTitle("Startup Screen");
-		frmStartupScreen.setBounds(20, 20, 903, 669);
+		frmStartupScreen.setBounds(100, 100, 800, 600);
 		frmStartupScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JLabel lblHelloAndWel = new JLabel("       Hello!      ");
