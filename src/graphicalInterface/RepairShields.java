@@ -83,7 +83,7 @@ public class RepairShields {
 		springLayout.putConstraint(SpringLayout.NORTH, lblNewLabel, 53, SpringLayout.NORTH, frmRepairShields.getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, lblNewLabel, 86, SpringLayout.WEST, frmRepairShields.getContentPane());
 		
-		JLabel lblNewLabel_1 = new JLabel(String.format("Ship Shields: %d %", Ship.getShields()));
+		JLabel lblNewLabel_1 = new JLabel(String.format("Ship Shields: %d", Ship.getShields()));
 		lblNewLabel_1.setFont(new Font("Dialog", Font.BOLD, 16));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		InfoPanel.add(lblNewLabel_1);
