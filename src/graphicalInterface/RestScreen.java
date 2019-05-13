@@ -5,10 +5,9 @@ import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -16,11 +15,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 
 import backend.CrewMember;
-import backend.Planet;
 import backend.Ship;
 import backendGUIExtensions.CrewMemberExtended;
 
@@ -29,6 +28,7 @@ public class RestScreen {
 	private JFrame frmRestScreen;
 	private int selectedCount = 0;
 	private ArrayList<CrewMember> crew = Ship.getReadyCrew();
+	private final ButtonGroup buttonGroup = new ButtonGroup();
 	
 
 	/**
@@ -60,7 +60,6 @@ public class RestScreen {
 	private void initialize() {
 		ArrayList<CrewMember> crew = Ship.getShipCrew();
 		ArrayList<JLabel> lblImages = new ArrayList<JLabel>();
-		ArrayList<JCheckBox> selectedCrew = new ArrayList<JCheckBox>();
 		
 		
 		frmRestScreen = new JFrame();
@@ -98,26 +97,18 @@ public class RestScreen {
 		panel_4.setLayout(new GridLayout(1, 0, 0, 0));
 				
 		JButton btnRest = new JButton("Rest a crew member");
-		btnRest.setEnabled(false);
 		btnRest.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				if (selectedCount == 1) {
-					CrewMember member = null;
-					for (int i = 0; i < selectedCrew.size(); i++) {
-						JCheckBox check = selectedCrew.get(i);
-						if (check.isSelected()) {
-							if (member == null) {
-								member = crew.get(i);
-								member.sleep();
-							}
-						}
-					}
-					//Dialog box to notify player of action
-					JOptionPane.showMessageDialog(frmRestScreen, String.format("Crewmember %s has rested and feels less tired!" , member.getName()));
-					StatusScreen.callScreen();
-					frmRestScreen.dispose();
-				}
+				
+				String selected = buttonGroup.getSelection().getActionCommand();
+				CrewMember member = crew.get(Integer.parseInt(selected));
+				member.sleep();
+				//Dialog box to notify player of action
+				JOptionPane.showMessageDialog(frmRestScreen, String.format("Crewmember %s has rested and feels less tired!" , member.getName()));
+				RestScreen.callScreen();
+				frmRestScreen.dispose();
+
 			}
 		});
 		panel_4.add(btnRest);
@@ -184,28 +175,20 @@ public class RestScreen {
 			Tiredness.setHorizontalAlignment(SwingConstants.CENTER);
 			temp.add(Tiredness);
 			
-			JCheckBox selected = new JCheckBox("Rest");
-			sl_temp.putConstraint(SpringLayout.NORTH, selected, 0, SpringLayout.SOUTH, Tiredness);
-			sl_temp.putConstraint(SpringLayout.WEST, selected, 0, SpringLayout.WEST, temp);
-			sl_temp.putConstraint(SpringLayout.SOUTH, selected, 20, SpringLayout.SOUTH, Tiredness);
-			sl_temp.putConstraint(SpringLayout.EAST, selected, panelWidth, SpringLayout.WEST, temp);
-			selected.setHorizontalAlignment(SwingConstants.CENTER);
-			selectedCrew.add(selected);
-			selected.addItemListener(new ItemListener() {
-				public void itemStateChanged(ItemEvent event) {
-					if (event.getStateChange() == ItemEvent.SELECTED) {
-						selectedCount += 1;
-					} else if (event.getStateChange() == ItemEvent.DESELECTED) {
-						selectedCount -= 1;
-					}
-					if (selectedCount == 1) {
-						btnRest.setEnabled(true);
-					} else {
-						btnRest.setEnabled(false);
-					}
-				}
-			});
-			temp.add(selected);
+			JRadioButton rdbtnSelected = new JRadioButton("");
+			sl_temp.putConstraint(SpringLayout.NORTH, rdbtnSelected, 0, SpringLayout.SOUTH, Tiredness);
+			sl_temp.putConstraint(SpringLayout.WEST, rdbtnSelected, 0, SpringLayout.WEST, temp);
+			sl_temp.putConstraint(SpringLayout.SOUTH, rdbtnSelected, 35, SpringLayout.SOUTH, Tiredness);
+			sl_temp.putConstraint(SpringLayout.EAST, rdbtnSelected, panelWidth, SpringLayout.WEST, temp);
+			rdbtnSelected.setActionCommand(Integer.toString(i));
+			buttonGroup.add(rdbtnSelected);
+			rdbtnSelected.setHorizontalAlignment(SwingConstants.CENTER);
+			temp.add(rdbtnSelected);
+			if (i == 0) {
+				rdbtnSelected.setSelected(true);
+			}
+			
+
 			
 			
 		}

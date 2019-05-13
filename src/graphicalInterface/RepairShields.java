@@ -25,6 +25,7 @@ public class RepairShields {
 
 	private JFrame frmRepairShields;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
+	
 	/**
 	 * Launch the application.
 	 */
@@ -54,6 +55,7 @@ public class RepairShields {
 	private void initialize() {
 		ArrayList<CrewMember> crew = Ship.getShipCrew();
 		ArrayList<JLabel> lblImages = new ArrayList<JLabel>();
+		
 		
 		frmRepairShields = new JFrame();
 		frmRepairShields.setResizable(false);
