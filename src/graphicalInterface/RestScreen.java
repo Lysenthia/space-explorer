@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -26,7 +25,6 @@ import backendGUIExtensions.CrewMemberExtended;
 public class RestScreen {
 
 	private JFrame frmRestScreen;
-	private int selectedCount = 0;
 	private ArrayList<CrewMember> crew = Ship.getReadyCrew();
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	
@@ -58,7 +56,6 @@ public class RestScreen {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		ArrayList<CrewMember> crew = Ship.getShipCrew();
 		ArrayList<JLabel> lblImages = new ArrayList<JLabel>();
 		
 		
@@ -108,7 +105,6 @@ public class RestScreen {
 				JOptionPane.showMessageDialog(frmRestScreen, String.format("Crewmember %s has rested and feels less tired!" , member.getName()));
 				RestScreen.callScreen();
 				frmRestScreen.dispose();
-
 			}
 		});
 		panel_4.add(btnRest);

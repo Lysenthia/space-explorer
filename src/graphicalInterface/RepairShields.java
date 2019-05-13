@@ -12,6 +12,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.SpringLayout;
@@ -67,7 +68,7 @@ public class RepairShields {
 		frmRepairShields.getContentPane().setLayout(springLayout);
 		
 		JPanel CrewMemberPanel = new JPanel();
-		springLayout.putConstraint(SpringLayout.NORTH, CrewMemberPanel, 1, SpringLayout.NORTH, frmRepairShields.getContentPane());
+		springLayout.putConstraint(SpringLayout.NORTH, CrewMemberPanel, 123, SpringLayout.NORTH, frmRepairShields.getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, CrewMemberPanel, 0, SpringLayout.WEST, frmRepairShields.getContentPane());
 		springLayout.putConstraint(SpringLayout.SOUTH, CrewMemberPanel, 400, SpringLayout.NORTH, frmRepairShields.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, CrewMemberPanel, 800, SpringLayout.WEST, frmRepairShields.getContentPane());
@@ -78,7 +79,7 @@ public class RepairShields {
 		JPanel MenuPanel = new JPanel();
 		springLayout.putConstraint(SpringLayout.NORTH, MenuPanel, 0, SpringLayout.SOUTH, CrewMemberPanel);
 		springLayout.putConstraint(SpringLayout.WEST, MenuPanel, 0, SpringLayout.WEST, frmRepairShields.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, MenuPanel, 571, SpringLayout.NORTH, frmRepairShields.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, MenuPanel, -1, SpringLayout.SOUTH, frmRepairShields.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, MenuPanel, 800, SpringLayout.WEST, frmRepairShields.getContentPane());
 		frmRepairShields.getContentPane().add(MenuPanel);
 		MenuPanel.setLayout(new GridLayout(0, 1, 0, 0));
@@ -96,6 +97,13 @@ public class RepairShields {
 		btnRest.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				String selected = buttonGroup.getSelection().getActionCommand();
+				CrewMember member = crew.get(Integer.parseInt(selected));
+				member.repairShields();
+				//Dialog box to notify player of action
+				JOptionPane.showMessageDialog(frmRepairShields, String.format("Crewmember %s has repaired the ship's shields!" , member.getName()));
+				RepairShields.callScreen();
+				frmRepairShields.dispose();
 			}
 		});
 		panel_4.add(btnRest);
