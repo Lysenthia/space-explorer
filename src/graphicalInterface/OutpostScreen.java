@@ -97,6 +97,7 @@ public class OutpostScreen {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		int itemsPanelSize = 45 * consumables.size();
 		
 		frame = new JFrame();
 		frame.setTitle("Please purchase a few items");
@@ -143,8 +144,8 @@ public class OutpostScreen {
 		itemsPanel.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JPanel itemsInternal = new JPanel();
-		itemsInternal.setBounds(new Rectangle(0, 0, 800, 0));
-		itemsInternal.setPreferredSize(new Dimension(800, 10));
+		itemsInternal.setBounds(new Rectangle(0, 0, 750, itemsPanelSize));
+		itemsInternal.setPreferredSize(new Dimension(750, itemsPanelSize));
 		itemsInternal.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JScrollPane scrollPane = new JScrollPane(itemsInternal);
