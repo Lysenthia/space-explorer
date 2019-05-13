@@ -110,21 +110,23 @@ public class OutpostScreen {
 		JPanel DescriptionPanel = new JPanel();
 		springLayout.putConstraint(SpringLayout.NORTH, DescriptionPanel, 1, SpringLayout.NORTH, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, DescriptionPanel, 0, SpringLayout.WEST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, DescriptionPanel, 100, SpringLayout.NORTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, DescriptionPanel, 80, SpringLayout.NORTH, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, DescriptionPanel, 800, SpringLayout.WEST, frame.getContentPane());
 		frame.getContentPane().add(DescriptionPanel);
 		DescriptionPanel.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JLabel lblDesciption = new JLabel(String.format("Welcome to %s!", outpost.getName()));
-		lblDesciption.setFont(new Font("Dialog", Font.BOLD, 14));
+		lblDesciption.setFont(new Font("Dialog", Font.BOLD, 16));
 		lblDesciption.setHorizontalAlignment(SwingConstants.CENTER);
 		DescriptionPanel.add(lblDesciption);
 		
 		lblCredits = new JLabel(String.format("Credits: %d", Ship.getMoney()));
+		lblCredits.setFont(new Font("Dialog", Font.BOLD, 16));
 		lblCredits.setHorizontalAlignment(SwingConstants.CENTER);
 		DescriptionPanel.add(lblCredits);
 		
 		lblCost = new JLabel(String.format("Current Cost: %d", cost));
+		lblCost.setFont(new Font("Dialog", Font.BOLD, 16));
 		lblCost.setHorizontalAlignment(SwingConstants.CENTER);
 		DescriptionPanel.add(lblCost);
 		
@@ -135,9 +137,9 @@ public class OutpostScreen {
 		frame.getContentPane().add(itemsPanel);
 		
 		JPanel ButtonsPanel = new JPanel();
+		springLayout.putConstraint(SpringLayout.SOUTH, itemsPanel, 0, SpringLayout.NORTH, ButtonsPanel);
 		springLayout.putConstraint(SpringLayout.NORTH, ButtonsPanel, 420, SpringLayout.NORTH, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.SOUTH, ButtonsPanel, 0, SpringLayout.SOUTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, itemsPanel, 0, SpringLayout.NORTH, ButtonsPanel);
 		itemsPanel.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JPanel itemsInternal = new JPanel();
