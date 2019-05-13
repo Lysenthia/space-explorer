@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -16,13 +17,16 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 
+import backend.Consumable;
 import backend.CrewMember;
 import backend.Ship;
 import backendGUIExtensions.CrewMemberExtended;
-import javax.swing.JScrollPane;
 
 public class UseItemScreen {
 
@@ -59,6 +63,7 @@ public class UseItemScreen {
 	private void initialize() {
 		ArrayList<CrewMember> crew = Ship.getReadyCrew();
 		ArrayList<JLabel> lblImages = new ArrayList<JLabel>();
+		ArrayList<Consumable> consumables = Ship.getInventory();
 		
 		
 		frmUseItemScreen = new JFrame();
@@ -128,15 +133,17 @@ public class UseItemScreen {
 		MenuPanel.add(btnCancel);
 		
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		springLayout.putConstraint(SpringLayout.NORTH, scrollPane, 0, SpringLayout.SOUTH, CrewMemberPanel);
 		springLayout.putConstraint(SpringLayout.WEST, scrollPane, 0, SpringLayout.WEST, frmUseItemScreen.getContentPane());
 		springLayout.putConstraint(SpringLayout.SOUTH, scrollPane, 0, SpringLayout.NORTH, MenuPanel);
 		springLayout.putConstraint(SpringLayout.EAST, scrollPane, 0, SpringLayout.EAST, frmUseItemScreen.getContentPane());
 		frmUseItemScreen.getContentPane().add(scrollPane);
 		
-		JPanel panel = new JPanel();
-		scrollPane.setRowHeaderView(panel);
-		panel.setLayout(new GridLayout(0, 1, 0, 0));
+		JPanel itemsInternal = new JPanel();
+		itemsInternal.setBounds(new Rectangle(0, 0, 800, 0));
+		scrollPane.setRowHeaderView(itemsInternal);
+		itemsInternal.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		frmUseItemScreen.pack();		
 		
@@ -201,5 +208,36 @@ public class UseItemScreen {
 			JLabel image = lblImages.get(i);
 			image.setIcon(new ImageIcon(((CrewMemberExtended)crew.get(i)).getImage().getContents(-1, image.getHeight())));
 		}
+		
+		for (int i = 0; i < consumables.size(); i++) {
+			Consumable item = consumables.get(i);
+			JPanel itemSubPanel = new JPanel();
+			itemSubPanel.setLayout(new GridLayout(1, 5, 0, 0));
+			itemsInternal.add(itemSubPanel);
+			
+			JLabel lblName = new JLabel(String.format("<html><p style='text-align: center;'>%s</p></html>", item.getName()));
+			lblName.setHorizontalAlignment(SwingConstants.CENTER);
+			itemSubPanel.add(lblName);
+			
+			JLabel lblType = new JLabel(String.format("<html><p style='text-align: center;'>Type: %s</p></html>", item.getItemType()));
+			lblType.setHorizontalAlignment(SwingConstants.CENTER);
+			itemSubPanel.add(lblType);
+			
+			JLabel lblEffectiveness = new JLabel(String.format("Effectiveness: %d", item.getPrice()));
+			lblEffectiveness.setHorizontalAlignment(SwingConstants.CENTER);
+			itemSubPanel.add(lblEffectiveness);
+			
+			
+			JLabel lblHeld = new JLabel(String.format("Held: %d", item.getHeld()));
+			lblHeld.setHorizontalAlignment(SwingConstants.CENTER);
+			itemSubPanel.add(lblHeld);
+			
+			JTextField countEntry = new JTextField();
+			itemSubPanel.add(countEntry);
+			countEntry.setColumns(10);
+			
+			
+			}
+		
 	}
 }
