@@ -2,6 +2,7 @@ package graphicalInterface;
 
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,13 +22,13 @@ import javax.swing.SwingConstants;
 import backend.CrewMember;
 import backend.Ship;
 import backendGUIExtensions.CrewMemberExtended;
-import java.awt.Font;
 
-public class RepairShields {
+public class UseItemScreen {
 
-	private JFrame frmRepairShields;
+	private JFrame frmUseItemScreen;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	
+
 	/**
 	 * Launch the application.
 	 */
@@ -35,8 +36,8 @@ public class RepairShields {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					RepairShields window = new RepairShields();
-					window.frmRepairShields.setVisible(true);
+					UseItemScreen window = new UseItemScreen();
+					window.frmUseItemScreen.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -47,7 +48,7 @@ public class RepairShields {
 	/**
 	 * Create the application.
 	 */
-	public RepairShields() {
+	public UseItemScreen() {
 		initialize();
 	}
 
@@ -59,63 +60,58 @@ public class RepairShields {
 		ArrayList<JLabel> lblImages = new ArrayList<JLabel>();
 		
 		
-		frmRepairShields = new JFrame();
-		frmRepairShields.setResizable(false);
-		frmRepairShields.setPreferredSize(new Dimension(800, 600));
-		frmRepairShields.setTitle("Repair Shields Screen");
-		frmRepairShields.setBounds(100, 100, 800, 600);
-		frmRepairShields.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmUseItemScreen = new JFrame();
+		frmUseItemScreen.setResizable(false);
+		frmUseItemScreen.setPreferredSize(new Dimension(800, 600));
+		frmUseItemScreen.setTitle("Repair Shields Screen");
+		frmUseItemScreen.setBounds(100, 100, 800, 600);
+		frmUseItemScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		SpringLayout springLayout = new SpringLayout();
-		frmRepairShields.getContentPane().setLayout(springLayout);
+		frmUseItemScreen.getContentPane().setLayout(springLayout);
 		
 		JPanel InfoPanel = new JPanel();
-		springLayout.putConstraint(SpringLayout.NORTH, InfoPanel, 0, SpringLayout.NORTH, frmRepairShields.getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, InfoPanel, 0, SpringLayout.WEST, frmRepairShields.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, InfoPanel, -521, SpringLayout.SOUTH, frmRepairShields.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, InfoPanel, 0, SpringLayout.EAST, frmRepairShields.getContentPane());
-		frmRepairShields.getContentPane().add(InfoPanel);
+		springLayout.putConstraint(SpringLayout.NORTH, InfoPanel, 0, SpringLayout.NORTH, frmUseItemScreen.getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, InfoPanel, 0, SpringLayout.WEST, frmUseItemScreen.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, InfoPanel, -553, SpringLayout.SOUTH, frmUseItemScreen.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, InfoPanel, 0, SpringLayout.EAST, frmUseItemScreen.getContentPane());
+		frmUseItemScreen.getContentPane().add(InfoPanel);
 		InfoPanel.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		JLabel lblNewLabel = new JLabel(String.format("Ship name: %s", Ship.getName()));
+		JLabel lblNewLabel = new JLabel("Please select a crew and an item to use");
 		lblNewLabel.setFont(new Font("Dialog", Font.BOLD, 16));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		InfoPanel.add(lblNewLabel);
-		springLayout.putConstraint(SpringLayout.NORTH, lblNewLabel, 53, SpringLayout.NORTH, frmRepairShields.getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, lblNewLabel, 86, SpringLayout.WEST, frmRepairShields.getContentPane());
-		
-		JLabel lblNewLabel_1 = new JLabel(String.format("Ship Shields: %d", Ship.getShields()));
-		lblNewLabel_1.setFont(new Font("Dialog", Font.BOLD, 16));
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		InfoPanel.add(lblNewLabel_1);
-		springLayout.putConstraint(SpringLayout.NORTH, lblNewLabel_1, 26, SpringLayout.NORTH, frmRepairShields.getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, lblNewLabel_1, 345, SpringLayout.WEST, frmRepairShields.getContentPane());
+		springLayout.putConstraint(SpringLayout.NORTH, lblNewLabel, 53, SpringLayout.NORTH, frmUseItemScreen.getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, lblNewLabel, 86, SpringLayout.WEST, frmUseItemScreen.getContentPane());
 		
 		JPanel CrewMemberPanel = new JPanel();
-		springLayout.putConstraint(SpringLayout.NORTH, CrewMemberPanel, 51, SpringLayout.NORTH, frmRepairShields.getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, CrewMemberPanel, 0, SpringLayout.WEST, frmRepairShields.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, CrewMemberPanel, 800, SpringLayout.WEST, frmRepairShields.getContentPane());
-		frmRepairShields.getContentPane().add(CrewMemberPanel);
+		springLayout.putConstraint(SpringLayout.NORTH, CrewMemberPanel, 1, SpringLayout.SOUTH, InfoPanel);
+		springLayout.putConstraint(SpringLayout.WEST, CrewMemberPanel, 10, SpringLayout.WEST, frmUseItemScreen.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, CrewMemberPanel, 251, SpringLayout.SOUTH, InfoPanel);
+		springLayout.putConstraint(SpringLayout.EAST, CrewMemberPanel, -10, SpringLayout.EAST, InfoPanel);
+		frmUseItemScreen.getContentPane().add(CrewMemberPanel);
 		SpringLayout sl_crewMember = new SpringLayout();
 		CrewMemberPanel.setLayout(sl_crewMember);
 		
 		JPanel MenuPanel = new JPanel();
-		springLayout.putConstraint(SpringLayout.SOUTH, CrewMemberPanel, 0, SpringLayout.NORTH, MenuPanel);
-		springLayout.putConstraint(SpringLayout.NORTH, MenuPanel, 400, SpringLayout.NORTH, frmRepairShields.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, MenuPanel, -1, SpringLayout.SOUTH, frmRepairShields.getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, MenuPanel, 0, SpringLayout.WEST, frmRepairShields.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, MenuPanel, 800, SpringLayout.WEST, frmRepairShields.getContentPane());
-		frmRepairShields.getContentPane().add(MenuPanel);
-		MenuPanel.setLayout(new GridLayout(0, 1, 0, 0));
-		
-		JPanel panel_4 = new JPanel();
-		MenuPanel.add(panel_4);
-		springLayout.putConstraint(SpringLayout.NORTH, panel_4, 0, SpringLayout.SOUTH, CrewMemberPanel);
-		springLayout.putConstraint(SpringLayout.WEST, panel_4, 0, SpringLayout.WEST, frmRepairShields.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, panel_4, 381, SpringLayout.NORTH, frmRepairShields.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, panel_4, 800, SpringLayout.WEST, frmRepairShields.getContentPane());
-		panel_4.setLayout(new GridLayout(1, 0, 0, 0));
+		springLayout.putConstraint(SpringLayout.NORTH, MenuPanel, 516, SpringLayout.NORTH, frmUseItemScreen.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, MenuPanel, -1, SpringLayout.SOUTH, frmUseItemScreen.getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, MenuPanel, 0, SpringLayout.WEST, frmUseItemScreen.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, MenuPanel, 800, SpringLayout.WEST, frmUseItemScreen.getContentPane());
+		frmUseItemScreen.getContentPane().add(MenuPanel);
+		MenuPanel.setLayout(new GridLayout(0, 2, 0, 0));
 				
+		//Cancel button
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				StatusScreen.callScreen();
+				frmUseItemScreen.dispose();
+			}
+		});
+		
 		JButton btnRest = new JButton("Repair shields");
+		MenuPanel.add(btnRest);
 		btnRest.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -123,29 +119,19 @@ public class RepairShields {
 				CrewMember member = crew.get(Integer.parseInt(selected));
 				member.repairShields();
 				//Dialog box to notify player of action
-				JOptionPane.showMessageDialog(frmRepairShields, String.format("Crewmember %s has repaired the ship's shields!" , member.getName()));
-				RepairShields.callScreen();
-				frmRepairShields.dispose();
-			}
-		});
-		panel_4.add(btnRest);
-				
-		//Cancel button
-		JButton btnCancel = new JButton("Cancel");
-		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				StatusScreen.callScreen();
-				frmRepairShields.dispose();
+				JOptionPane.showMessageDialog(frmUseItemScreen, String.format("SOMETHING HAPPENED!"));
+				UseItemScreen.callScreen();
+				frmUseItemScreen.dispose();
 			}
 		});
 		MenuPanel.add(btnCancel);
 		
-		frmRepairShields.pack();		
+		frmUseItemScreen.pack();		
 		
 		for (int i = 0; i < crew.size(); i++) {
-			int widthMinor = i * (frmRepairShields.getWidth() / crew.size());
-			int widthMajor = (i + 1) * (frmRepairShields.getWidth() / crew.size());
-			int panelWidth = frmRepairShields.getWidth() / crew.size();
+			int widthMinor = i * (frmUseItemScreen.getWidth() / crew.size());
+			int widthMajor = (i + 1) * (frmUseItemScreen.getWidth() / crew.size());
+			int panelWidth = frmUseItemScreen.getWidth() / crew.size();
 			JPanel temp = new JPanel();
 			sl_crewMember.putConstraint(SpringLayout.NORTH, temp, 0, SpringLayout.NORTH, CrewMemberPanel);
 			sl_crewMember.putConstraint(SpringLayout.WEST, temp, widthMinor, SpringLayout.WEST, CrewMemberPanel);
@@ -155,10 +141,10 @@ public class RepairShields {
 			SpringLayout sl_temp = new SpringLayout();
 			temp.setLayout(sl_temp);
 			
-			JLabel image = new JLabel("image");
+			JLabel image = new JLabel();
 			sl_temp.putConstraint(SpringLayout.NORTH, image, 1, SpringLayout.NORTH, temp);
 			sl_temp.putConstraint(SpringLayout.WEST, image, 0, SpringLayout.WEST, temp);
-			sl_temp.putConstraint(SpringLayout.SOUTH, image, 256, SpringLayout.NORTH, temp);
+			sl_temp.putConstraint(SpringLayout.SOUTH, image, 180, SpringLayout.NORTH, temp);
 			sl_temp.putConstraint(SpringLayout.EAST, image, panelWidth, SpringLayout.WEST, temp);
 			image.setHorizontalAlignment(SwingConstants.CENTER);
 			temp.add(image);
@@ -198,10 +184,10 @@ public class RepairShields {
 			
 			
 		}
-		frmRepairShields.pack();
+		frmUseItemScreen.pack();
 		for (int i = 0; i < lblImages.size(); i++) {
 			JLabel image = lblImages.get(i);
-			image.setIcon(new ImageIcon(((CrewMemberExtended)crew.get(i)).getImage().getContents(image.getWidth(), image.getHeight())));
+			image.setIcon(new ImageIcon(((CrewMemberExtended)crew.get(i)).getImage().getContents(-1, image.getHeight())));
 		}
 	}
 }

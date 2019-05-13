@@ -90,6 +90,12 @@ public class StatusScreen {
 		panel_4.setLayout(new GridLayout(1, 0, 0, 0));
 				
 		JButton btnNewButton = new JButton("Use an item");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				UseItemScreen.callScreen();
+				frame.dispose();
+			}
+		});
 		panel_4.add(btnNewButton);
 				
 		JButton btnNewButton_1 = new JButton("Rest a crew member");
