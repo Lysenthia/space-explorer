@@ -18,7 +18,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
@@ -32,6 +31,7 @@ public class UseItemScreen {
 
 	private JFrame frmUseItemScreen;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private final ButtonGroup itemButtonGroup = new ButtonGroup();
 	
 
 	/**
@@ -64,12 +64,12 @@ public class UseItemScreen {
 		ArrayList<CrewMember> crew = Ship.getReadyCrew();
 		ArrayList<JLabel> lblImages = new ArrayList<JLabel>();
 		ArrayList<Consumable> consumables = Ship.getInventory();
-		
+		int itemsPanelSize = 45 * consumables.size();
 		
 		frmUseItemScreen = new JFrame();
 		frmUseItemScreen.setResizable(false);
 		frmUseItemScreen.setPreferredSize(new Dimension(800, 600));
-		frmUseItemScreen.setTitle("Repair Shields Screen");
+		frmUseItemScreen.setTitle("Use Item Screen");
 		frmUseItemScreen.setBounds(100, 100, 800, 600);
 		frmUseItemScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		SpringLayout springLayout = new SpringLayout();
@@ -106,6 +106,27 @@ public class UseItemScreen {
 		springLayout.putConstraint(SpringLayout.EAST, MenuPanel, 800, SpringLayout.WEST, frmUseItemScreen.getContentPane());
 		frmUseItemScreen.getContentPane().add(MenuPanel);
 		MenuPanel.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		JPanel panel = new JPanel();
+		panel.setPreferredSize(new Dimension (800, 600));
+		panel.setBounds(0, 0, 800, 600);
+		springLayout.putConstraint(SpringLayout.NORTH, panel, 0, SpringLayout.SOUTH, CrewMemberPanel);
+		springLayout.putConstraint(SpringLayout.WEST, panel, 0, SpringLayout.WEST, frmUseItemScreen.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, panel, 0, SpringLayout.EAST, frmUseItemScreen.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, panel, 0, SpringLayout.NORTH, MenuPanel);
+		frmUseItemScreen.getContentPane().add(panel);
+		panel.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		JPanel itemsInternal = new JPanel();
+		itemsInternal.setBounds(new Rectangle(0, 0, 750, itemsPanelSize));
+		itemsInternal.setPreferredSize(new Dimension(750, itemsPanelSize));
+		itemsInternal.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		JScrollPane scrollPane = new JScrollPane(itemsInternal);
+		panel.add(scrollPane);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setPreferredSize(new Dimension(800, 600));
+		scrollPane.getVerticalScrollBar().setUnitIncrement(30);
 				
 		//Cancel button
 		JButton btnCancel = new JButton("Cancel");
@@ -128,20 +149,6 @@ public class UseItemScreen {
 			}
 		});
 		MenuPanel.add(btnCancel);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		springLayout.putConstraint(SpringLayout.NORTH, scrollPane, 0, SpringLayout.SOUTH, CrewMemberPanel);
-		springLayout.putConstraint(SpringLayout.WEST, scrollPane, 0, SpringLayout.WEST, frmUseItemScreen.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, scrollPane, 0, SpringLayout.NORTH, MenuPanel);
-		springLayout.putConstraint(SpringLayout.EAST, scrollPane, 0, SpringLayout.EAST, frmUseItemScreen.getContentPane());
-		frmUseItemScreen.getContentPane().add(scrollPane);
-		
-		JPanel itemsInternal = new JPanel();
-		itemsInternal.setPreferredSize(new Dimension(800, 10));
-		itemsInternal.setBounds(new Rectangle(0, 0, 800, 0));
-		scrollPane.setRowHeaderView(itemsInternal);
-		itemsInternal.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		frmUseItemScreen.pack();		
 		
@@ -232,7 +239,7 @@ public class UseItemScreen {
 			
 			JRadioButton rdbtnSelected = new JRadioButton("");
 			rdbtnSelected.setActionCommand(Integer.toString(i));
-			buttonGroup.add(rdbtnSelected);
+			itemButtonGroup.add(rdbtnSelected);
 			rdbtnSelected.setHorizontalAlignment(SwingConstants.CENTER);
 			itemSubPanel.add(rdbtnSelected);
 			if (i == 0) {

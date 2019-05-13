@@ -156,6 +156,7 @@ public class OutpostScreen {
 		springLayout.putConstraint(SpringLayout.EAST, ButtonsPanel, 800, SpringLayout.WEST, frame.getContentPane());
 		frame.getContentPane().add(ButtonsPanel);
 		ButtonsPanel.setLayout(new GridLayout(0, 1, 0, 0));
+		scrollPane.getVerticalScrollBar().setUnitIncrement(30);
 		
 		btnPurchase = new JButton("Purchase");
 		btnPurchase.setEnabled(false);
