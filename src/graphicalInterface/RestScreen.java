@@ -96,8 +96,7 @@ public class RestScreen {
 		JButton btnRest = new JButton("Rest a crew member");
 		btnRest.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				
+			public void actionPerformed(ActionEvent arg0) {	
 				String selected = buttonGroup.getSelection().getActionCommand();
 				CrewMember member = crew.get(Integer.parseInt(selected));
 				member.sleep();
