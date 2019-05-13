@@ -152,8 +152,8 @@ class CrewMemberTest {
 		GameState.addConsumable(elixir);
 		PlanetSearchOutput var;
 		for (CrewMember member : crew) {
+			Planet kerbin = new Planet("Kerbin", "Little Green Men and Women");
 			for (int i = 0; i < 50; i++) {
-				Planet kerbin = new Planet("Kerbin", "Little Green Men and Women");
 				var = member.searchPlanet(kerbin);
 				assertTrue(Arrays.asList(PlanetFindableObjects.values()).contains(var.FOUND));
 				if (var.FOUND == PlanetFindableObjects.ITEM) {

@@ -306,38 +306,39 @@ public class CrewSelection {
 		});
 		
 		for (JLabel lbl : crewImageLabels) {
-			lbl.setIcon(new ImageIcon(CrewMemberImages.getDefaultImage().getContents(lbl.getWidth(), lbl.getHeight())));
+			lbl.setIcon(new ImageIcon(CrewMemberImages.getDefaultImage().getContents(lbl.getHeight())));
 		}
 		
 		for (JComboBox<GUIImage> cb : crewImageCB) {
 			cb.setModel(new DefaultComboBoxModel<GUIImage>(possibleImages.toArray(new GUIImage[possibleImages.size()])));
+			cb.setSelectedItem(CrewMemberImages.getDefaultImage());
 		}
 		
 		cbImageSelect.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				GUIImage selected = (GUIImage) cbImageSelect.getSelectedItem();
-				lblImage.setIcon(new ImageIcon(selected.getContents(lblImage.getWidth(), lblImage.getHeight())));
+				lblImage.setIcon(new ImageIcon(selected.getContents(lblImage.getHeight())));
 			}
 		});
 		
 		cbImageSelect2.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				GUIImage selected = (GUIImage) cbImageSelect2.getSelectedItem();
-				lblImage2.setIcon(new ImageIcon(selected.getContents(lblImage.getWidth(), lblImage.getHeight())));
+				lblImage2.setIcon(new ImageIcon(selected.getContents(lblImage.getHeight())));
 			}
 		});
 		
 		cbImageSelect3.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				GUIImage selected = (GUIImage) cbImageSelect3.getSelectedItem();
-				lblImage3.setIcon(new ImageIcon(selected.getContents(lblImage.getWidth(), lblImage.getHeight())));
+				lblImage3.setIcon(new ImageIcon(selected.getContents(lblImage.getHeight())));
 			}
 		});
 		
 		cbImageSelect4.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				GUIImage selected = (GUIImage) cbImageSelect4.getSelectedItem();
-				lblImage4.setIcon(new ImageIcon(selected.getContents(lblImage.getWidth(), lblImage.getHeight())));
+				lblImage4.setIcon(new ImageIcon(selected.getContents(lblImage.getHeight())));
 			}
 		});
 		tfNameEntry.addMouseListener(new MouseAdapter() {

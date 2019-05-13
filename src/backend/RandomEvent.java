@@ -11,6 +11,11 @@ import java.util.ArrayList;
 public class RandomEvent {
 	
 	/**
+	 * Causes an error if someone tries to create an instance of this class
+	 */
+	private RandomEvent() {}
+	
+	/**
 	 * Ship flies through a comically unrealistic asteroid belt, damaging the shields by 50%
 	 */
 	private static void asteroidBelt() {
