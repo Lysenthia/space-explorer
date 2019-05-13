@@ -7,6 +7,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -21,12 +23,15 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import backend.GameState;
+import backend.Ship;
 
 public class StartupScreen {
 
 	private JFrame frmStartupScreen;
 	private JTextField DaysTextField;
 	private JTextField PartsTextField;
+	private JTextField tfShipName;
+	boolean nameClicked = false;
 
 	/**
 	 * Launch the application.
@@ -54,7 +59,7 @@ public class StartupScreen {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {		
+	private void initialize() {
 		frmStartupScreen = new JFrame();
 		frmStartupScreen.setPreferredSize(new Dimension(800, 600));
 		frmStartupScreen.setResizable(false);
@@ -143,15 +148,45 @@ public class StartupScreen {
 		continueButton.setToolTipText("");
 		continueButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				if (tfShipName.getText().replaceAll("\\s*","").equals("") || tfShipName.getText() == null) {
+					Ship.setName("White Whale");
+				} else {
+					Ship.setName(tfShipName.getText());
+				}
 				CrewSelection.callScreen();
 				frmStartupScreen.dispose();
 			}
 		});
+		
+		JPanel shipNamePanel = new JPanel();
+		frmStartupScreen.getContentPane().add(shipNamePanel);
+		shipNamePanel.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		JLabel lblShipName = new JLabel("Please enter a ship name");
+		lblShipName.setHorizontalAlignment(SwingConstants.CENTER);
+		shipNamePanel.add(lblShipName);
+		
+		tfShipName = new JTextField();
+		tfShipName.setHorizontalAlignment(SwingConstants.CENTER);
+		tfShipName.setText("White Whale");
+		lblShipName.setLabelFor(tfShipName);
+		shipNamePanel.add(tfShipName);
+		tfShipName.setColumns(10);
 		frmStartupScreen.getContentPane().add(continueButton);
 		
 		GameState.setEndDay(3);
 		DaysTextField.setText(Integer.toString(GameState.getEndDay()));
 		PartsTextField.setText(Integer.toString(GameState.getPartsNeeded()));
+		
+		tfShipName.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (!nameClicked) {
+					tfShipName.setText("");
+					nameClicked = true;
+				}
+			}
+		});
 		
 		slider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {

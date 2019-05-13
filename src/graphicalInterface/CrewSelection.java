@@ -99,7 +99,7 @@ public class CrewSelection {
 		SpringLayout sl_panelMember = new SpringLayout();
 		panelMember.setLayout(sl_panelMember);
 		
-		JLabel lblImage = new JLabel("Image");
+		JLabel lblImage = new JLabel();
 		sl_panelMember.putConstraint(SpringLayout.NORTH, lblImage, 0, SpringLayout.NORTH, panelMember);
 		sl_panelMember.putConstraint(SpringLayout.WEST, lblImage, 0, SpringLayout.WEST, panelMember);
 		sl_panelMember.putConstraint(SpringLayout.SOUTH, lblImage, 256, SpringLayout.NORTH, panelMember);
@@ -136,7 +136,7 @@ public class CrewSelection {
 		SpringLayout sl_panelMember2 = new SpringLayout();
 		panelMember2.setLayout(sl_panelMember2);
 		
-		JLabel lblImage2 = new JLabel("Image");
+		JLabel lblImage2 = new JLabel();
 		sl_panelMember2.putConstraint(SpringLayout.NORTH, lblImage2, 0, SpringLayout.NORTH, panelMember2);
 		sl_panelMember2.putConstraint(SpringLayout.WEST, lblImage2, 0, SpringLayout.WEST, panelMember2);
 		sl_panelMember2.putConstraint(SpringLayout.SOUTH, lblImage2, 256, SpringLayout.NORTH, panelMember2);
@@ -172,7 +172,7 @@ public class CrewSelection {
 		SpringLayout sl_panelMember3 = new SpringLayout();
 		panelMember3.setLayout(sl_panelMember3);
 		
-		JLabel lblImage3 = new JLabel("Image");
+		JLabel lblImage3 = new JLabel();
 		sl_panelMember3.putConstraint(SpringLayout.NORTH, lblImage3, 0, SpringLayout.NORTH, panelMember3);
 		sl_panelMember3.putConstraint(SpringLayout.WEST, lblImage3, 0, SpringLayout.WEST, panelMember3);
 		sl_panelMember3.putConstraint(SpringLayout.SOUTH, lblImage3, 256, SpringLayout.NORTH, panelMember3);
@@ -208,7 +208,7 @@ public class CrewSelection {
 		SpringLayout sl_panelMember4 = new SpringLayout();
 		panelMember4.setLayout(sl_panelMember4);
 		
-		JLabel lblImage4 = new JLabel("Image");
+		JLabel lblImage4 = new JLabel();
 		sl_panelMember4.putConstraint(SpringLayout.NORTH, lblImage4, 0, SpringLayout.NORTH, panelMember4);
 		sl_panelMember4.putConstraint(SpringLayout.WEST, lblImage4, 0, SpringLayout.WEST, panelMember4);
 		sl_panelMember4.putConstraint(SpringLayout.SOUTH, lblImage4, 256, SpringLayout.NORTH, panelMember4);
@@ -310,7 +310,7 @@ public class CrewSelection {
 		});
 		
 		for (JLabel lbl : crewImageLabels) {
-			lbl.setIcon(new ImageIcon(CrewMemberImages.getDefaultImage().getContents(lbl.getHeight())));
+			lbl.setIcon(new ImageIcon(CrewMemberImages.getDefaultImage().getContents(lblImage.getWidth(), -1)));
 		}
 		
 		for (JComboBox<GUIImage> cb : crewImageCB) {
@@ -321,28 +321,28 @@ public class CrewSelection {
 		cbImageSelect.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				GUIImage selected = (GUIImage) cbImageSelect.getSelectedItem();
-				lblImage.setIcon(new ImageIcon(selected.getContents(lblImage.getHeight())));
+				lblImage.setIcon(new ImageIcon(selected.getContents(lblImage.getWidth(), -1)));
 			}
 		});
 		
 		cbImageSelect2.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				GUIImage selected = (GUIImage) cbImageSelect2.getSelectedItem();
-				lblImage2.setIcon(new ImageIcon(selected.getContents(lblImage.getHeight())));
+				lblImage2.setIcon(new ImageIcon(selected.getContents(lblImage.getWidth(), -1)));
 			}
 		});
 		
 		cbImageSelect3.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				GUIImage selected = (GUIImage) cbImageSelect3.getSelectedItem();
-				lblImage3.setIcon(new ImageIcon(selected.getContents(lblImage.getHeight())));
+				lblImage3.setIcon(new ImageIcon(selected.getContents(lblImage.getWidth(), -1)));
 			}
 		});
 		
 		cbImageSelect4.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				GUIImage selected = (GUIImage) cbImageSelect4.getSelectedItem();
-				lblImage4.setIcon(new ImageIcon(selected.getContents(lblImage.getHeight())));
+				lblImage4.setIcon(new ImageIcon(selected.getContents(lblImage.getWidth(), -1)));
 			}
 		});
 		tfNameEntry.addMouseListener(new MouseAdapter() {

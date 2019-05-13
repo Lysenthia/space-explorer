@@ -59,15 +59,6 @@ public class GUIImage {
 	}
 	
 	/**
-	 * Returns the actual image scaled smoothly to a height
-	 * @param height the height to which the image should be scaled in pixels
-	 * @return an instance of the actual image scaled to the given height
-	 */
-	public Image getContents( int height) {
-		return contents.getScaledInstance(-1, height, Image.SCALE_SMOOTH);
-	}
-	
-	/**
 	 * Returns the actual image scaled smoothly to a given width and height
 	 * @param width the width to which the image should be scaled in pixels
 	 * @param height the height to which the image should be scaled in pixels
