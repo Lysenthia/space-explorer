@@ -74,12 +74,14 @@ public class StartupScreen {
 		lblWelcomeToSpace.setFont(new Font("Dialog", Font.BOLD, 16));
 		frmStartupScreen.getContentPane().add(lblWelcomeToSpace);
 		
-		JLabel lblDescription = new JLabel("<html><p>Your spaceships has been broken and its pieces are scattered throughout the surrounding planets. <br>You will need to find the missing pieces of your spaceship so that you can repair it and get home.</p></html>");
+		JLabel lblDescription = new JLabel("<html><p>   Your spaceships has been broken and its pieces are scattered throughout the surrounding <br> planets. You will need to find the missing pieces of your spaceship so that you can repair it and get home.</p></html>");
+		lblDescription.setBorder(new EmptyBorder(0, 10, 0, 10));
+		lblDescription.setFont(new Font("Dialog", Font.BOLD, 15));
 		lblDescription.setHorizontalAlignment(SwingConstants.CENTER);
 		frmStartupScreen.getContentPane().add(lblDescription);
 		
 		JLabel lblPleaseSelectThe = new JLabel("Please select the number of days you would like to play for!");
-		lblPleaseSelectThe.setFont(new Font("Dialog", Font.BOLD, 14));
+		lblPleaseSelectThe.setFont(new Font("Dialog", Font.BOLD, 15));
 		lblPleaseSelectThe.setHorizontalAlignment(SwingConstants.CENTER);
 		frmStartupScreen.getContentPane().add(lblPleaseSelectThe);
 		
@@ -121,6 +123,7 @@ public class StartupScreen {
 		partsToFindLabel.setLabelFor(PartsTextField);
 		
 		JSlider slider = new JSlider();
+		slider.setFont(new Font("Dialog", Font.BOLD, 14));
 		
 		slider.setBorder(new EmptyBorder(0, 50, 0, 50));
 		frmStartupScreen.getContentPane().add(slider);
@@ -137,7 +140,7 @@ public class StartupScreen {
 		frmStartupScreen.pack();
 		
 		JButton continueButton = new JButton("Continue");
-		continueButton.setToolTipText("jhsajhbsbdsakjhbdsajhdsbj");
+		continueButton.setToolTipText("");
 		continueButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				CrewSelection.callScreen();
