@@ -81,7 +81,7 @@ public class CrewSelection {
 		frmPleaseCustomiseYour.setPreferredSize(new Dimension(800, 600));
 		frmPleaseCustomiseYour.getContentPane().setPreferredSize(new Dimension(800, 600));
 		frmPleaseCustomiseYour.setResizable(false);
-		frmPleaseCustomiseYour.setBounds(20, 20, 800, 600);
+		frmPleaseCustomiseYour.setBounds(100, 100, 800, 600);
 		frmPleaseCustomiseYour.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		SpringLayout springLayout = new SpringLayout();
 		frmPleaseCustomiseYour.getContentPane().setLayout(springLayout);
@@ -273,6 +273,10 @@ public class CrewSelection {
 		crewClassesCB.add(cbMemberClass2);
 		crewClassesCB.add(cbMemberClass3);
 		crewClassesCB.add(cbMemberClass4);
+		cbMemberClass.setToolTipText(((CrewClass)cbMemberClass.getSelectedItem()).getDescription());
+		cbMemberClass2.setToolTipText(((CrewClass)cbMemberClass.getSelectedItem()).getDescription());
+		cbMemberClass3.setToolTipText(((CrewClass)cbMemberClass.getSelectedItem()).getDescription());
+		cbMemberClass4.setToolTipText(((CrewClass)cbMemberClass.getSelectedItem()).getDescription());
 		
 		crewImageCB.add(cbImageSelect);
 		crewImageCB.add(cbImageSelect2);

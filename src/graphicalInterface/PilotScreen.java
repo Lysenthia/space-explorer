@@ -3,7 +3,6 @@ package graphicalInterface;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -77,7 +76,6 @@ public class PilotScreen {
 		frmPleaseSelect.setResizable(false);
 		frmPleaseSelect.getContentPane().setPreferredSize(new Dimension(800, 600));
 		frmPleaseSelect.setPreferredSize(new Dimension(800, 600));
-		frmPleaseSelect.setBounds(new Rectangle(50, 50, 800, 600));
 		frmPleaseSelect.setAlwaysOnTop(true);
 		frmPleaseSelect.setBounds(100, 100, 800, 600);
 		frmPleaseSelect.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

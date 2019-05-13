@@ -4,7 +4,6 @@ import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -62,7 +61,7 @@ public class PlanetSearchScreen {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(new Rectangle(0, 0, 800, 600));
+		frame.setBounds(100, 100, 800, 600);
 		frame.setPreferredSize(new Dimension(800, 600));
 		frame.setResizable(false);
 		frame.getContentPane().setBackground(UIManager.getColor("ColorChooser.background"));
@@ -75,7 +74,7 @@ public class PlanetSearchScreen {
 		
 		JPanel selectionPanel = new JPanel();
 		selectionPanel.setPreferredSize(new Dimension(800, 600));
-		selectionPanel.setBounds(new Rectangle(0, 0, 800, 600));
+		selectionPanel.setBounds(100, 100, 800, 600);
 		frame.getContentPane().add(selectionPanel, "name_10628420325591");
 		SpringLayout sl_selection = new SpringLayout();
 		selectionPanel.setLayout(sl_selection);
