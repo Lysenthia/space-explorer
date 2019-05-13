@@ -22,6 +22,7 @@ import javax.swing.SwingConstants;
 import backend.CrewMember;
 import backend.Ship;
 import backendGUIExtensions.CrewMemberExtended;
+import javax.swing.JScrollPane;
 
 public class UseItemScreen {
 
@@ -125,6 +126,17 @@ public class UseItemScreen {
 			}
 		});
 		MenuPanel.add(btnCancel);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		springLayout.putConstraint(SpringLayout.NORTH, scrollPane, 0, SpringLayout.SOUTH, CrewMemberPanel);
+		springLayout.putConstraint(SpringLayout.WEST, scrollPane, 0, SpringLayout.WEST, frmUseItemScreen.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, scrollPane, 0, SpringLayout.NORTH, MenuPanel);
+		springLayout.putConstraint(SpringLayout.EAST, scrollPane, 0, SpringLayout.EAST, frmUseItemScreen.getContentPane());
+		frmUseItemScreen.getContentPane().add(scrollPane);
+		
+		JPanel panel = new JPanel();
+		scrollPane.setRowHeaderView(panel);
+		panel.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		frmUseItemScreen.pack();		
 		

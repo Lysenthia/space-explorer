@@ -155,7 +155,7 @@ public class RepairShields {
 			SpringLayout sl_temp = new SpringLayout();
 			temp.setLayout(sl_temp);
 			
-			JLabel image = new JLabel("image");
+			JLabel image = new JLabel();
 			sl_temp.putConstraint(SpringLayout.NORTH, image, 1, SpringLayout.NORTH, temp);
 			sl_temp.putConstraint(SpringLayout.WEST, image, 0, SpringLayout.WEST, temp);
 			sl_temp.putConstraint(SpringLayout.SOUTH, image, 256, SpringLayout.NORTH, temp);
@@ -201,7 +201,7 @@ public class RepairShields {
 		frmRepairShields.pack();
 		for (int i = 0; i < lblImages.size(); i++) {
 			JLabel image = lblImages.get(i);
-			image.setIcon(new ImageIcon(((CrewMemberExtended)crew.get(i)).getImage().getContents(image.getWidth(), image.getHeight())));
+			image.setIcon(new ImageIcon(((CrewMemberExtended)crew.get(i)).getImage().getContents(image.getWidth(), -1)));
 		}
 	}
 }
