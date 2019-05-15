@@ -100,7 +100,7 @@ public class MainScreen {
 		planetPanel.add(planetsImagePanel);
 		planetsImagePanel.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		JLabel planetImage = new JLabel("Planet Image Goes Here");
+		JLabel planetImage = new JLabel("");
 		planetImage.setPreferredSize(new Dimension(240, 240));
 		planetImage.setMaximumSize(new Dimension(240, 240));
 		planetImage.setMinimumSize(new Dimension(240, 240));
@@ -193,6 +193,14 @@ public class MainScreen {
 			}
 		});
 		leftOptions.add(btnDay);
+		
+		JButton btnSave = new JButton("Save Game");
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				SaveGameScreen.callScreen();
+			}
+		});
+		leftOptions.add(btnSave);
 		
 		JPanel rightOptions = new JPanel();
 		choicesPanel.add(rightOptions);
