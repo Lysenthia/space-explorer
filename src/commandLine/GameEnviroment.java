@@ -13,10 +13,6 @@ public class GameEnviroment {
 	 */
 	private static Outpost outpost;
 	/**
-	 * The planets that the ship can orbit
-	 */
-	private static ArrayList<Planet> planets = new ArrayList<Planet>();
-	/**
 	 * True if the game has reached an ending; false otherwise
 	 */
 	private static boolean finished = false;
@@ -143,7 +139,7 @@ public class GameEnviroment {
 		GameState.addConsumable(new CureItem("Budget Space Plague Cure", 50, 50));
 		GameState.addConsumable(new CureItem("Space Plague Cure", 100, 100));
 		outpost = new Outpost("Outpost 9", GameState.getAllConsumable(), 1);
-		
+		ArrayList<Planet> planets = new ArrayList<Planet>();
 		planets.add(new Planet("Mercury", "The closest planet to Sol. Small and very hot."));
 		planets.add(new Planet("Venus", "Second from Sol. About the size of Earth, but suffered from runaway greenhouse effect."));
 		planets.add(new Planet("Earth", "Third from Sol. The birthplace of humanity, but was abandoned due to it's increasing uninhabitability."));
@@ -153,6 +149,7 @@ public class GameEnviroment {
 		planets.add(new Planet("Uranus", "Seventh from Sol, and the butt of many poor jokes."));
 		planets.add(new Planet("Neptune", "Eight closest planet to Sol. may or may not contain diamonds."));
 		planets.add(new Planet("Pluto", "The furthest planet from Sol. Angry at it's exclusion from the title of planet, protesters bombed other space objects and used the material to beef up Pluto to a planet."));
+		GameState.setPlanets(planets);
 	}
 	
 	/**
@@ -309,7 +306,7 @@ public class GameEnviroment {
 	 * @return the Planet selected by the player
 	 */
 	private static Planet selectPlanet(Scanner input) {
-		ArrayList<Planet> possibleDestinations = new ArrayList<Planet>(planets);
+		ArrayList<Planet> possibleDestinations = new ArrayList<Planet>(GameState.getPlanets());
 		ArrayList<String> messages = new ArrayList<String>();
 		possibleDestinations.remove(Ship.getOrbiting());
 		messages.add("Please select a planet to travel to:");

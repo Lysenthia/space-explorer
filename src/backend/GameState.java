@@ -33,6 +33,10 @@ public class GameState {
 	 * The ending that the player has reached
 	 */
 	private static PossibleEndings ending;
+	/**
+	 * All planets in the game
+	 */
+	private static ArrayList<Planet> planets;
 	
 	/**
 	 * Causes an error if someone tries to create an instance of this class
@@ -173,6 +177,22 @@ public class GameState {
 	 */
 	public static void setEnding(PossibleEndings endingToSet) {
 		ending = endingToSet;
+	}
+	
+	/**
+	 * Sets the planets that are in the game
+	 * @param planetsList the planets that are in the game
+	 */
+	public static void setPlanets(ArrayList<Planet> planetsList) {
+		planets = planetsList;
+	}
+	
+	/**
+	 * Returns the array list of all planets in the game
+	 * @return the array list of all planets in the game
+	 */
+	public static ArrayList<Planet> getPlanets() {
+		return planets;
 	}
 	
 }

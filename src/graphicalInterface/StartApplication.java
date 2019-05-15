@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import backend.Consumable;
 import backend.GameState;
 import backend.Outpost;
+import backend.Planet;
 import backend.Ship;
 import backendGUIExtensions.CosnumableReader;
 import backendGUIExtensions.CrewMemberImages;
@@ -15,17 +16,12 @@ import backendGUIExtensions.PlanetExtended;
 public class StartApplication {
 	
 	private static ArrayList<GUIImage> possibleCrewImages;
-	private static ArrayList<PlanetExtended> planets;
 	private static ArrayList<Consumable> consumables;
 	private static boolean blockProcess = false;
 	private static Outpost outpost;
 	
 	public static ArrayList<GUIImage> getPossibleCrewImages() {
 		return possibleCrewImages;
-	}
-	
-	public static ArrayList<PlanetExtended> getPlanets() {
-		return planets;
 	}
 	
 	public static Outpost getOutpost() {
@@ -41,7 +37,10 @@ public class StartApplication {
 			ErrorWindow.callScreen("Error fetching crew member images", e);
 		}
 		try {
-			planets = PlanetExtended.getFromYAML();
+			ArrayList<PlanetExtended> planets = PlanetExtended.getFromYAML();
+			ArrayList<Planet> castedPlanets = new ArrayList<Planet>();
+			castedPlanets.addAll(planets);
+			GameState.setPlanets(castedPlanets);
 		} catch (IOException e) {
 			blockProcess = true;
 			ErrorWindow.callScreen("Error fetching planet data", e);

@@ -23,6 +23,7 @@ import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 
 import backend.CrewMember;
+import backend.GameState;
 import backend.Planet;
 import backend.Ship;
 import backendGUIExtensions.CrewMemberExtended;
@@ -66,7 +67,7 @@ public class PilotScreen {
 	 */
 	private void initialize() {
 		ArrayList<JCheckBox> selectedCrew = new ArrayList<JCheckBox>();
-		ArrayList<PlanetExtended> planetsList = StartApplication.getPlanets();
+		ArrayList<Planet> planetsList = GameState.getPlanets();
 		planetsList.remove((PlanetExtended)Ship.getOrbiting());
 		ButtonGroup radioButtons = new ButtonGroup();
 		ArrayList<JLabel> lblImages = new ArrayList<JLabel>();
