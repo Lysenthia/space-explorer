@@ -5,12 +5,16 @@ import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
@@ -21,6 +25,7 @@ import backend.GameState;
 import backend.PossibleEndings;
 import backend.Ship;
 import backendGUIExtensions.PlanetExtended;
+import backendGUIExtensions.SaveGame;
 
 public class MainScreen {
 
@@ -28,6 +33,24 @@ public class MainScreen {
 	private String orbiting = "<html><p>Currently Orbiting: %s</p></html>";
 	private ArrayList<CrewMember> readyCrew = Ship.getReadyCrew();
 
+	private static void saveGame() {
+		final JFileChooser chooser = new JFileChooser();
+		int selection = chooser.showSaveDialog(null);
+		if (selection == JFileChooser.APPROVE_OPTION) {
+			File selectedFile = chooser.getSelectedFile();
+			SaveGame save = new SaveGame(selectedFile.toPath());
+			try {
+				save.save();
+			} catch (IOException e) {
+				String ObjButtons[] = {"Continue"};
+				JOptionPane.showOptionDialog(null,"There was an error while trying to save the game","Save Error",JOptionPane.PLAIN_MESSAGE,JOptionPane.QUESTION_MESSAGE,null,ObjButtons,ObjButtons[0]);
+			}
+			finally {
+				MainScreen.callScreen();
+			}
+		}
+	}
+	
 	private static boolean gameFinished() {
 		boolean finished = false;
 		 if (GameState.getPartsFound() == GameState.getPartsNeeded()) {
@@ -197,7 +220,8 @@ public class MainScreen {
 		JButton btnSave = new JButton("Save Game");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				SaveGameScreen.callScreen();
+				frame.dispose();
+				saveGame();
 			}
 		});
 		leftOptions.add(btnSave);
