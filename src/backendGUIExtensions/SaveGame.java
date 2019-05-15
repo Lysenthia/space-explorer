@@ -27,6 +27,7 @@ public class SaveGame {
 	}
 	
 	public void save() throws IOException {
+		//TODO fix issue with hashmaps not being added correctly
 		HashMap<String, Object> data = new HashMap<String, Object>();
 		addPlanets();
 		addCrew();
@@ -93,5 +94,9 @@ public class SaveGame {
 		state.put("currentParts", Integer.toString(GameState.getPartsFound()));
 		state.put("shields", Integer.toString(Ship.getShields()));
 		state.put("money", Integer.toString(Ship.getMoney()));
+	}
+	
+	public void load() throws IOException {
+		//TODO
 	}
 }

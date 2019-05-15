@@ -51,6 +51,24 @@ public class MainScreen {
 		}
 	}
 	
+	private static void loadGame() {
+		final JFileChooser chooser = new JFileChooser();
+		int selection = chooser.showOpenDialog(null);
+		if (selection == JFileChooser.APPROVE_OPTION) {
+			File selectedFile = chooser.getSelectedFile();
+			SaveGame save = new SaveGame(selectedFile.toPath());
+			try {
+				save.load();
+			} catch (IOException e) {
+				String ObjButtons[] = {"Continue"};
+				JOptionPane.showOptionDialog(null,"There was an error while trying to load a save","Load Error",JOptionPane.PLAIN_MESSAGE,JOptionPane.QUESTION_MESSAGE,null,ObjButtons,ObjButtons[0]);
+			}
+			finally {
+				MainScreen.callScreen();
+			}
+		}
+	}
+	
 	private static boolean gameFinished() {
 		boolean finished = false;
 		 if (GameState.getPartsFound() == GameState.getPartsNeeded()) {
@@ -215,7 +233,6 @@ public class MainScreen {
 				frame.dispose();
 			}
 		});
-		leftOptions.add(btnDay);
 		
 		JButton btnSave = new JButton("Save Game");
 		btnSave.addActionListener(new ActionListener() {
@@ -225,6 +242,7 @@ public class MainScreen {
 			}
 		});
 		leftOptions.add(btnSave);
+		leftOptions.add(btnDay);
 		
 		JPanel rightOptions = new JPanel();
 		choicesPanel.add(rightOptions);
@@ -259,6 +277,15 @@ public class MainScreen {
 				frame.dispose();
 			}
 		});
+		
+		JButton btnLoad = new JButton("Load Game");
+		btnLoad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame.dispose();
+				loadGame();
+			}
+		});
+		rightOptions.add(btnLoad);
 		rightOptions.add(btnQuit);
 		
 		frame.pack();
