@@ -9,9 +9,18 @@ import java.awt.Rectangle;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
+
+import backend.CrewMember;
+import backend.GameState;
+import backend.PossibleEndings;
+import backend.Ship;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class EndingScreen {
 
@@ -44,6 +53,7 @@ public class EndingScreen {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		PossibleEndings ending = GameState.getEnding();
 		frame = new JFrame();
 		frame.getContentPane().setSize(new Dimension(800, 600));
 		frame.setSize(new Dimension(800, 600));
@@ -65,8 +75,8 @@ public class EndingScreen {
 		frame.getContentPane().add(splashPanel);
 		splashPanel.setLayout(new GridLayout(1, 0, 0, 0));
 		
-		JLabel lblWinLose = new JLabel("Win/Lose");
-		lblWinLose.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		JLabel lblWinLose = new JLabel("You lose");
+		lblWinLose.setFont(new Font("Tahoma", Font.PLAIN, 70));
 		lblWinLose.setHorizontalAlignment(SwingConstants.CENTER);
 		splashPanel.add(lblWinLose);
 		
@@ -91,7 +101,39 @@ public class EndingScreen {
 		buttonPanel.setLayout(new GridLayout(1, 0, 0, 0));
 		
 		JButton btnQuit = new JButton("Leave the game");
+		btnQuit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String ObjButtons[] = {"Yes", "No"};
+				int PromptResult = JOptionPane.showOptionDialog(null,"Are you sure you want to exit?","Warning",JOptionPane.DEFAULT_OPTION,JOptionPane.WARNING_MESSAGE,null,ObjButtons,ObjButtons[1]);
+		        if(PromptResult==JOptionPane.YES_OPTION) {
+		        	System.exit(0);
+		        }
+			}
+		});
 		buttonPanel.add(btnQuit);
+		
+		switch (ending) {
+		case CREW_DEAD:
+			lblDescription.setText(String.format("<html><p>With the death of all the %s's crew, she is left floating through space, a desolate reminder of the perils of space travel...</html></p>", Ship.getName()));
+			break;
+		case LOST_IN_SPACE:
+			CrewMember lastCrew = Ship.getShipCrew().get(0);
+			lblDescription.setText(String.format("<html><p style='text-align: center;'>With the death of all the %s's crew but %s, %s's future is uncertain, whether they will be rescued by another ship, starve to death, or choke and freeze as the ships life support system fails...</html></p>", Ship.getName(), lastCrew.getName(), lastCrew.getName()));
+			break;
+		case OUT_OF_TIME:
+			lblDescription.setText(String.format("<html><p style='text-align: center;'>With the crew unable to repair her Alcubierre drive in time, the %s's negative mass generator failed, causing her and her crew to vanish, never to be seen again...</html></p>", Ship.getName()));
+			break;
+		case QUIT:
+			lblDescription.setText(String.format("<html><p style='text-align: center;'>In the face of impossible odds, the %s's crew promptly gave up, and decided it would be easier to jump out of the airlock into the vacuum of space</html></p>", Ship.getName()));
+			break;
+		case SHIP_DESTROYED:
+			lblDescription.setText(String.format("<html><p style='text-align: center;'>With the failure of the %s's shields system, her structural integrity failed, causing the ship to break up and expose her entire crew to the harsh void of space, killing all of them...</html></p>", Ship.getName()));
+			break;
+		case VICTORY:
+			lblWinLose.setText("Congratulations, you win!");
+			lblDescription.setText(String.format("With the finding of the last part of her Alcubierre drive, the %s's crew were able to perform a patchwork fix, letting her crew escape back to more civilised systems where their ship could undergo permanent repairs</html></p>", Ship.getName()));
+			break;
+		}
 	}
 
 }
