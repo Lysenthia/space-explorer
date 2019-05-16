@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import backend.CrewMember;
 import backend.GameState;
@@ -34,7 +35,10 @@ public class MainScreen {
 	private ArrayList<CrewMember> readyCrew = Ship.getReadyCrew();
 
 	private static void saveGame() {
+		FileNameExtensionFilter filter = new FileNameExtensionFilter(
+		        "Save files", "ses");
 		final JFileChooser chooser = new JFileChooser();
+		chooser.setFileFilter(filter);
 		int selection = chooser.showSaveDialog(null);
 		if (selection == JFileChooser.APPROVE_OPTION) {
 			File selectedFile = chooser.getSelectedFile();
@@ -52,7 +56,10 @@ public class MainScreen {
 	}
 	
 	private static void loadGame() {
+		FileNameExtensionFilter filter = new FileNameExtensionFilter(
+		        "Save files", "ses");
 		final JFileChooser chooser = new JFileChooser();
+		chooser.setFileFilter(filter);
 		int selection = chooser.showOpenDialog(null);
 		if (selection == JFileChooser.APPROVE_OPTION) {
 			File selectedFile = chooser.getSelectedFile();

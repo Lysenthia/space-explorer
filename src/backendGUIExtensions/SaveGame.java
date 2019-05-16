@@ -1,7 +1,9 @@
 package backendGUIExtensions;
 
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -11,7 +13,10 @@ import org.yaml.snakeyaml.Yaml;
 
 import backend.Consumable;
 import backend.CrewMember;
+import backend.CureItem;
+import backend.FoodItem;
 import backend.GameState;
+import backend.MedicalItem;
 import backend.Planet;
 import backend.Ship;
 
@@ -40,7 +45,7 @@ public class SaveGame {
 		DumperOptions options = new DumperOptions();
 		options.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
 		Yaml yaml = new Yaml(options);
-		FileWriter writer = new FileWriter(this.file.toString());
+		FileWriter writer = new FileWriter(this.file.toString() + ".ses");
 		yaml.dump(data, writer);
 	}
 	
@@ -99,6 +104,10 @@ public class SaveGame {
 	}
 	
 	public void load() throws IOException {
-		//TODO
+		LinkedHashMap<String, Object> output;
+		Yaml parser = new Yaml();
+		InputStream input = new FileInputStream(this.file.toString());
+		output = parser.load(input);
+		System.out.println(output);
 	}
 }
