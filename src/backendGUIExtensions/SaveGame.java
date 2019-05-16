@@ -225,12 +225,11 @@ public class SaveGame {
 					throw new IOException("Error parsing medical items");
 				}
 				Consumable outItem;
-				//TODO Fix issue with item types
-				if (key == "medical") {
+				if (key.equals("medical")) {
 					outItem = new MedicalItem(name, price, effectiveness);
-				} else if (key == "cure") {
+				} else if (key.equals("cure")) {
 					outItem = new CureItem(name, price, effectiveness);
-				} else if (key == "food") {
+				} else if (key.equals("food")) {
 					outItem = new FoodItem(name, price, effectiveness);
 				} else {
 					System.out.println(key);
@@ -245,28 +244,27 @@ public class SaveGame {
 	
 	@SuppressWarnings("unchecked")
 	private void fetchState(LinkedHashMap<String, Object> output) throws IOException {
-		Collection<?> untypedState = (Collection<?>) output.get("state");
+		Object untypedState = output.get("state");
 		if (!(untypedState instanceof HashMap<?, ?>)) {
 			throw new IOException("Incorrect state type");
 		}
 		HashMap<String, String> typedState = (HashMap<String, String>) untypedState;
 		if (typedState.get("curDay") == null ||
 			typedState.get("endDay") == null ||
-			typedState.get("partsNeeded") == null ||
 			typedState.get("currentParts") == null ||
 			typedState.get("shields") == null ||
 			typedState.get("money") == null ||
 			typedState.get("shipName") == null) {
-			throw new IOException("Error parsing state");
+			throw new IOException("Error parsing state (null state)");
 		}
 		int endDay = Integer.parseInt(typedState.get("endDay"));
 		int curDay = Integer.parseInt(typedState.get("curDay"));
 		int partsHeld = Integer.parseInt(typedState.get("currentParts"));
 		int shields = Integer.parseInt(typedState.get("shields"));
 		int money = Integer.parseInt(typedState.get("money"));
-		if (endDay > 10 || endDay < 2 || partsHeld != (endDay * 2) / 3 ||
-			shields > 100 || shields <= 0 || money < 0) {
-			throw new IOException("Error parsing state");
+		if (endDay > 10 || endDay < 2 || partsHeld > (endDay * 2) / 3 ||
+			partsHeld < 0 || shields > 100 || shields <= 0 || money < 0) {
+			throw new IOException("Error parsing state (bad value)");
 		}
 		GameState.setCurrentDay(curDay);
 		GameState.setEndDay(endDay);
