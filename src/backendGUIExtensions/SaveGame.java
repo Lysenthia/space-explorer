@@ -125,6 +125,7 @@ public class SaveGame {
 		ArrayList<Planet> planetsList = fetchPlanets(output);
 		ArrayList<CrewMemberExtended> crewList = fetchCrew(output);
 		ArrayList<Consumable> consumablesList = fetchConsumables(output);
+		Ship.clearAll();
 		GameState.setAllConsumables(consumablesList);
 		crewList.forEach(member -> Ship.addCrewMember(member));
 		GameState.setPlanets(planetsList);
