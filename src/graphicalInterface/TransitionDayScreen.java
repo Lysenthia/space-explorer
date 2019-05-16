@@ -56,7 +56,6 @@ public class TransitionDayScreen {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		//TODO
 		RandomEventOutput event = null;
 		ArrayList<CrewMember> deadCrew = GameState.transitionDay();
 		if (Ship.getShipCrew().size() > 1) {

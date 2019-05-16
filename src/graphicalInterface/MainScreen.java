@@ -68,6 +68,7 @@ public class MainScreen {
 			try {
 				save.load();
 			} catch (IOException e) {
+				System.out.println(e);
 				String ObjButtons[] = {"Continue"};
 				JOptionPane.showOptionDialog(null,"There was an error while trying to load a save","Load Error",JOptionPane.PLAIN_MESSAGE,JOptionPane.QUESTION_MESSAGE,null,ObjButtons,ObjButtons[0]);
 			}
@@ -128,9 +129,7 @@ public class MainScreen {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
-		//TODO Remove ability to select actions if no ready crew members
-		
+	private void initialize() {		
 		frame = new JFrame();
 		frame.setPreferredSize(new Dimension(800, 600));
 		frame.setTitle("Please select an action");

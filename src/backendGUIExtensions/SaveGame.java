@@ -113,7 +113,7 @@ public class SaveGame {
 	}
 	
 	public void load() throws IOException {
-		LinkedHashMap<String, Collection<?>> output;
+		LinkedHashMap<String, Object> output;
 		Yaml parser = new Yaml();
 		InputStream input = new FileInputStream(this.file.toString());
 		output = parser.load(input);
@@ -121,7 +121,7 @@ public class SaveGame {
 		update(output);
 	}
 	
-	private void update(LinkedHashMap<String, Collection<?>> output) throws IOException {
+	private void update(LinkedHashMap<String, Object> output) throws IOException {
 		ArrayList<Planet> planetsList = fetchPlanets(output);
 		ArrayList<CrewMemberExtended> crewList = fetchCrew(output);
 		ArrayList<Consumable> consumablesList = fetchConsumables(output);
@@ -139,8 +139,8 @@ public class SaveGame {
 	 * @throws IOException if there is an error whilst parsing the planets
 	 */
 	@SuppressWarnings("unchecked")
-	private ArrayList<Planet> fetchPlanets(LinkedHashMap<String, Collection<?>> output) throws IOException {
-		Collection<?> untypedPlanets = output.get("planets");
+	private ArrayList<Planet> fetchPlanets(LinkedHashMap<String, Object> output) throws IOException {
+		Collection<?> untypedPlanets = (Collection<?>) output.get("planets");
 		ArrayList<Planet> planetsList = new ArrayList<Planet>();
 		for (Object untypedPlanet : untypedPlanets) {
 			if (!(untypedPlanet instanceof LinkedHashMap<?, ?>)) {
@@ -150,20 +150,25 @@ public class SaveGame {
 			if (typedPlanet.get("name") == null || typedPlanet.get("description") == null || typedPlanet.get("image") == null) {
 				throw new IOException("Error parsing planets");
 			}
-			planetsList.add(new PlanetExtended(typedPlanet.get("name"), typedPlanet.get("description"), typedPlanet.get("image")));
+			PlanetExtended planetOut = new PlanetExtended(typedPlanet.get("name"), typedPlanet.get("description"), typedPlanet.get("image"));
+			planetsList.add(planetOut);
+			if (typedPlanet.get("orbiting") == "true") {
+				Ship.forceOrbit(planetOut);
+			}
+			
 		}
 		return planetsList;
 	}
 	
 	@SuppressWarnings("unchecked")
-	private ArrayList<CrewMemberExtended> fetchCrew(LinkedHashMap<String, Collection<?>> output) throws IOException {
+	private ArrayList<CrewMemberExtended> fetchCrew(LinkedHashMap<String, Object> output) throws IOException {
 		ArrayList<GUIImage> crewImages = CrewMemberImages.getImages();
 		HashMap<String, GUIImage> crewImageLookup = new HashMap<String, GUIImage>();
 		for (GUIImage image : crewImages) {
 			crewImageLookup.put(image.getName().toString(), image);
 		}
 		crewImageLookup.put(null, CrewMemberImages.getDefaultImage());
-		Collection<?> untypedCrew = output.get("crew");
+		Collection<?> untypedCrew = (Collection<?>) output.get("crew");
 		ArrayList<CrewMemberExtended> crewList = new ArrayList<CrewMemberExtended>();
 		for (Object untypedMember : untypedCrew) {
 			if (!(untypedMember instanceof LinkedHashMap<?, ?>)) {
@@ -198,9 +203,9 @@ public class SaveGame {
 	}
 	
 	@SuppressWarnings("unchecked")
-	private ArrayList<Consumable> fetchConsumables(LinkedHashMap<String, Collection<?>> output) throws IOException {
+	private ArrayList<Consumable> fetchConsumables(LinkedHashMap<String, Object> output) throws IOException {
 		ArrayList<Consumable> consumables = new ArrayList<Consumable>();
-		Collection<?> untypedItems = output.get("items");
+		Object untypedItems = output.get("items");
 		if (!(untypedItems instanceof HashMap<?, ?>)) {
 			throw new IOException("Incorrect items type");
 		}
@@ -220,6 +225,7 @@ public class SaveGame {
 					throw new IOException("Error parsing medical items");
 				}
 				Consumable outItem;
+				//TODO Fix issue with item types
 				if (key == "medical") {
 					outItem = new MedicalItem(name, price, effectiveness);
 				} else if (key == "cure") {
@@ -227,6 +233,7 @@ public class SaveGame {
 				} else if (key == "food") {
 					outItem = new FoodItem(name, price, effectiveness);
 				} else {
+					System.out.println(key);
 					throw new IOException("Invalid item type");
 				}
 				outItem.increaseHeld(held);
@@ -237,8 +244,8 @@ public class SaveGame {
 	}
 	
 	@SuppressWarnings("unchecked")
-	private void fetchState(LinkedHashMap<String, Collection<?>> output) throws IOException {
-		Collection<?> untypedState = output.get("state");
+	private void fetchState(LinkedHashMap<String, Object> output) throws IOException {
+		Collection<?> untypedState = (Collection<?>) output.get("state");
 		if (!(untypedState instanceof HashMap<?, ?>)) {
 			throw new IOException("Incorrect state type");
 		}

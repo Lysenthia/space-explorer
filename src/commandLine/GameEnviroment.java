@@ -181,7 +181,6 @@ public class GameEnviroment {
 	 * @param input the Scanner shared between methods
 	 */
 	private static void getCrewMembers(Scanner input) {
-		//TODO
 		ArrayList<String> usedNames = new ArrayList<String>();
 		int size = possibleCrew.size();
 		boolean ready = false;
