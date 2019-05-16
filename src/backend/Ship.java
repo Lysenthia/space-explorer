@@ -238,4 +238,20 @@ public final class Ship {
 		Ship.orbiting = null;
 	}
 	
+	/**
+	 * Sets the shields of the ship
+	 * @param shields the shields of the ship
+	 */
+	public static void setShields(int shields) {
+		shipShields = shields;
+	}
+	
+	/**
+	 * Sets the current money held
+	 * @param amount the current money held
+	 */
+	public static void setMoney(int amount) {
+		money = amount;
+	}
+	
 }

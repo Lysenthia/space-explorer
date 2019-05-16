@@ -195,4 +195,15 @@ public class GameState {
 		return planets;
 	}
 	
+	/**
+	 * Sets the current day that the game is at
+	 * @param day the day to set the current day to
+	 */
+	public static void setCurrentDay(int day) {
+		currentDay = day;
+	}
+	
+	public static void setPartsFound(int parts) {
+		partsFound = parts;
+	}
 }

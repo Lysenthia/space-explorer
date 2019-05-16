@@ -106,10 +106,10 @@ public class SaveGame {
 	private void addGameState() {
 		state.put("curDay", Integer.toString(GameState.getCurrentDay()));
 		state.put("endDay", Integer.toString(GameState.getEndDay()));
-		state.put("partsNeeded", Integer.toString(GameState.getPartsNeeded()));
 		state.put("currentParts", Integer.toString(GameState.getPartsFound()));
 		state.put("shields", Integer.toString(Ship.getShields()));
 		state.put("money", Integer.toString(Ship.getMoney()));
+		state.put("shipName", Ship.getName());
 	}
 	
 	public void load() throws IOException {
@@ -125,6 +125,7 @@ public class SaveGame {
 		ArrayList<Planet> planetsList = fetchPlanets(output);
 		ArrayList<CrewMemberExtended> crewList = fetchCrew(output);
 		ArrayList<Consumable> consumablesList = fetchConsumables(output);
+		fetchState(output);
 		Ship.clearAll();
 		GameState.setAllConsumables(consumablesList);
 		crewList.forEach(member -> Ship.addCrewMember(member));
@@ -233,5 +234,38 @@ public class SaveGame {
 			}
 		}
 		return consumables;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private void fetchState(LinkedHashMap<String, Collection<?>> output) throws IOException {
+		Collection<?> untypedState = output.get("state");
+		if (!(untypedState instanceof HashMap<?, ?>)) {
+			throw new IOException("Incorrect state type");
+		}
+		HashMap<String, String> typedState = (HashMap<String, String>) untypedState;
+		if (typedState.get("curDay") == null ||
+			typedState.get("endDay") == null ||
+			typedState.get("partsNeeded") == null ||
+			typedState.get("currentParts") == null ||
+			typedState.get("shields") == null ||
+			typedState.get("money") == null ||
+			typedState.get("shipName") == null) {
+			throw new IOException("Error parsing state");
+		}
+		int endDay = Integer.parseInt(typedState.get("endDay"));
+		int curDay = Integer.parseInt(typedState.get("curDay"));
+		int partsHeld = Integer.parseInt(typedState.get("currentParts"));
+		int shields = Integer.parseInt(typedState.get("shields"));
+		int money = Integer.parseInt(typedState.get("money"));
+		if (endDay > 10 || endDay < 2 || partsHeld != (endDay * 2) / 3 ||
+			shields > 100 || shields <= 0 || money < 0) {
+			throw new IOException("Error parsing state");
+		}
+		GameState.setCurrentDay(curDay);
+		GameState.setEndDay(endDay);
+		GameState.setPartsFound(partsHeld);
+		Ship.setMoney(money);
+		Ship.setShields(shields);
+		Ship.setName(typedState.get("shipName"));
 	}
 }
