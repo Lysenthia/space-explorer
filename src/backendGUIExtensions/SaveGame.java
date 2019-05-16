@@ -4,8 +4,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
+import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 
 import backend.Consumable;
@@ -16,10 +17,10 @@ import backend.Ship;
 
 public class SaveGame {
 	private Path file;
-	private ArrayList<HashMap<String, String>> planets = new ArrayList<HashMap<String, String>>();
-	private ArrayList<HashMap<String, String>> crew = new ArrayList<HashMap<String, String>>();
-	private HashMap<String, ArrayList<HashMap<String, String>>> consumables = new HashMap<String, ArrayList<HashMap<String, String>>>();
-	private HashMap<String, String> state = new HashMap<String, String>();
+	private ArrayList<LinkedHashMap<String, String>> planets = new ArrayList<LinkedHashMap<String, String>>();
+	private ArrayList<LinkedHashMap<String, String>> crew = new ArrayList<LinkedHashMap<String, String>>();
+	private LinkedHashMap<String, ArrayList<LinkedHashMap<String, String>>> consumables = new LinkedHashMap<String, ArrayList<LinkedHashMap<String, String>>>();
+	private LinkedHashMap<String, String> state = new LinkedHashMap<String, String>();
 
 	
 	public SaveGame(Path file) {
@@ -27,8 +28,7 @@ public class SaveGame {
 	}
 	
 	public void save() throws IOException {
-		//TODO fix issue with hashmaps not being added correctly
-		HashMap<String, Object> data = new HashMap<String, Object>();
+		LinkedHashMap<String, Object> data = new LinkedHashMap<String, Object>();
 		addPlanets();
 		addCrew();
 		addConsumables();
@@ -37,7 +37,9 @@ public class SaveGame {
 		data.put("crew", crew);
 		data.put("items", consumables);
 		data.put("state", state);
-		Yaml yaml = new Yaml();
+		DumperOptions options = new DumperOptions();
+		options.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
+		Yaml yaml = new Yaml(options);
 		FileWriter writer = new FileWriter(this.file.toString());
 		yaml.dump(data, writer);
 	}
@@ -46,7 +48,7 @@ public class SaveGame {
 		Planet orbiting = Ship.getOrbiting();
 		for (Planet planet : GameState.getPlanets()) {
 			PlanetExtended planetExtension = (PlanetExtended) planet;
-			HashMap<String, String> savablePlanet = new HashMap<String, String>();
+			LinkedHashMap<String, String> savablePlanet = new LinkedHashMap<String, String>();
 			savablePlanet.put("name", planetExtension.getName());
 			savablePlanet.put("description", planetExtension.getDescription());
 			savablePlanet.put("image", planetExtension.getImage().getName().toString());
@@ -60,7 +62,7 @@ public class SaveGame {
 	private void addCrew() {
 		for (CrewMember member : Ship.getShipCrew()) {
 			CrewMemberExtended memberExtension = (CrewMemberExtended) member;
-			HashMap<String, String> savableMember = new HashMap<String, String>();
+			LinkedHashMap<String, String> savableMember = new LinkedHashMap<String, String>();
 			savableMember.put("name", memberExtension.getName());
 			savableMember.put("class", memberExtension.getMemberClass().toString());
 			savableMember.put("image", memberExtension.getImage().getName().toString());
@@ -73,16 +75,16 @@ public class SaveGame {
 	}
 	
 	private void addConsumables() {
-		consumables.put("medical", new ArrayList<HashMap<String, String>>());
-		consumables.put("food", new ArrayList<HashMap<String, String>>());
-		consumables.put("cure", new ArrayList<HashMap<String, String>>());
+		consumables.put("medical", new ArrayList<LinkedHashMap<String, String>>());
+		consumables.put("food", new ArrayList<LinkedHashMap<String, String>>());
+		consumables.put("cure", new ArrayList<LinkedHashMap<String, String>>());
 		for (Consumable item : GameState.getAllConsumable()) {
-			ArrayList<HashMap<String, String>> type = consumables.get(item.getItemType().toLowerCase());
-			HashMap<String, String> savableItem = new HashMap<String, String>();
+			ArrayList<LinkedHashMap<String, String>> type = consumables.get(item.getItemType().toLowerCase());
+			LinkedHashMap<String, String> savableItem = new LinkedHashMap<String, String>();
 			savableItem.put("name", item.getName());
-			savableItem.put("name", Integer.toString(item.getEffectiveness()));
-			savableItem.put("name", Integer.toString(item.getHeld()));
-			savableItem.put("name", Integer.toString(item.getPrice()));
+			savableItem.put("effectiveness", Integer.toString(item.getEffectiveness()));
+			savableItem.put("held", Integer.toString(item.getHeld()));
+			savableItem.put("price", Integer.toString(item.getPrice()));
 			type.add(savableItem);
 		}
 	}
