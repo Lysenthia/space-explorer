@@ -119,12 +119,15 @@ public class SaveGame {
 		output = parser.load(input);
 		input.close();
 		update(output);
-		System.out.println(output);
 	}
 	
 	private void update(LinkedHashMap<String, Collection<?>> output) throws IOException {
-		ArrayList<PlanetExtended> planetsList = fetchPlanets(output);
+		ArrayList<Planet> planetsList = fetchPlanets(output);
 		ArrayList<CrewMemberExtended> crewList = fetchCrew(output);
+		ArrayList<Consumable> consumablesList = fetchConsumables(output);
+		GameState.setAllConsumables(consumablesList);
+		crewList.forEach(member -> Ship.addCrewMember(member));
+		GameState.setPlanets(planetsList);
 	}
 	
 	/**
@@ -134,9 +137,9 @@ public class SaveGame {
 	 * @throws IOException if there is an error whilst parsing the planets
 	 */
 	@SuppressWarnings("unchecked")
-	private ArrayList<PlanetExtended> fetchPlanets(LinkedHashMap<String, Collection<?>> output) throws IOException {
+	private ArrayList<Planet> fetchPlanets(LinkedHashMap<String, Collection<?>> output) throws IOException {
 		Collection<?> untypedPlanets = output.get("planets");
-		ArrayList<PlanetExtended> planetsList = new ArrayList<PlanetExtended>();
+		ArrayList<Planet> planetsList = new ArrayList<Planet>();
 		for (Object untypedPlanet : untypedPlanets) {
 			if (!(untypedPlanet instanceof LinkedHashMap<?, ?>)) {
 				throw new IOException("Incorrect planet type");
@@ -195,25 +198,38 @@ public class SaveGame {
 	@SuppressWarnings("unchecked")
 	private ArrayList<Consumable> fetchConsumables(LinkedHashMap<String, Collection<?>> output) throws IOException {
 		ArrayList<Consumable> consumables = new ArrayList<Consumable>();
-		ArrayList<MedicalItem> medicalItems = new ArrayList<MedicalItem>();
-		ArrayList<FoodItem> foodItems = new ArrayList<FoodItem>();
-		ArrayList<CureItem> cureItems = new ArrayList<CureItem>();
 		Collection<?> untypedItems = output.get("items");
 		if (!(untypedItems instanceof HashMap<?, ?>)) {
 			throw new IOException("Incorrect items type");
 		}
 		HashMap<String, ArrayList<HashMap<String, String>>> typedItems = (HashMap<String, ArrayList<HashMap<String, String>>>) untypedItems;
-		for (HashMap<String, String> item : typedItems.get("medical")) {
-			if (item.get("name") == null || item.get("effectiveness") == null || 
-				item.get("price") == null || item.get("held") == null) {
+		for (String key : typedItems.keySet()) {
+			for (HashMap<String, String> item : typedItems.get("medical")) {
+				if (item.get("name") == null || item.get("effectiveness") == null || 
+					item.get("price") == null || item.get("held") == null) {
+						throw new IOException("Error parsing medical items");
+				}
+				String name = item.get("name");
+				int effectiveness = Integer.parseInt(item.get("effectiveness"));
+				int price = Integer.parseInt(item.get("price"));
+				int held = Integer.parseInt(item.get("held"));
+				if (effectiveness < 0 || effectiveness > 100 ||
+					price < 0 || held < 0) {
 					throw new IOException("Error parsing medical items");
 				}
-		}
-		for (HashMap<String, String> item : typedItems.get("cure")) {
-			//TODO
-		}
-		for (HashMap<String, String> item : typedItems.get("food")) {
-			//TODO
+				Consumable outItem;
+				if (key == "medical") {
+					outItem = new MedicalItem(name, price, effectiveness);
+				} else if (key == "cure") {
+					outItem = new CureItem(name, price, effectiveness);
+				} else if (key == "food") {
+					outItem = new FoodItem(name, price, effectiveness);
+				} else {
+					throw new IOException("Invalid item type");
+				}
+				outItem.increaseHeld(held);
+				consumables.add(outItem);
+			}
 		}
 		return consumables;
 	}

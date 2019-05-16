@@ -68,7 +68,6 @@ public class MainScreen {
 			try {
 				save.load();
 			} catch (IOException e) {
-				System.out.println(e);
 				String ObjButtons[] = {"Continue"};
 				JOptionPane.showOptionDialog(null,"There was an error while trying to load a save","Load Error",JOptionPane.PLAIN_MESSAGE,JOptionPane.QUESTION_MESSAGE,null,ObjButtons,ObjButtons[0]);
 			}
@@ -91,6 +90,9 @@ public class MainScreen {
 			finished = true;
 		} else if (Ship.getShields() <= 0) {
 			GameState.setEnding(PossibleEndings.SHIP_DESTROYED);
+			finished = true;
+		} else if (GameState.getCurrentDay() >= GameState.getEndDay()) {
+			GameState.setEnding(PossibleEndings.OUT_OF_TIME);
 			finished = true;
 		}
 		return finished;
@@ -189,7 +191,7 @@ public class MainScreen {
 		currentStatusPanel.add(lblCurrentPartsFound);
 		lblCurrentPartsFound.setBorder(new EmptyBorder(0, 50, 0, 50));
 		
-		JLabel lblCurrentDay = new JLabel("Current Day: 0");
+		JLabel lblCurrentDay = new JLabel(String.format("Current Day: %d", GameState.getCurrentDay()));
 		lblCurrentDay.setHorizontalAlignment(SwingConstants.CENTER);
 		currentStatusPanel.add(lblCurrentDay);
 		
@@ -197,11 +199,11 @@ public class MainScreen {
 		planetInfoPanel.add(endStatusPanel);
 		endStatusPanel.setLayout(new GridLayout(0, 2, 0, 0));
 		
-		JLabel lblPartsNeeded = new JLabel("Parts Needed: 2");
+		JLabel lblPartsNeeded = new JLabel(String.format("Parts Needed: %d", GameState.getPartsNeeded()));
 		lblPartsNeeded.setHorizontalAlignment(SwingConstants.CENTER);
 		endStatusPanel.add(lblPartsNeeded);
 		
-		JLabel lblEndDay = new JLabel("End Day: 3");
+		JLabel lblEndDay = new JLabel(String.format("End Day: %d", GameState.getEndDay()));
 		lblEndDay.setHorizontalAlignment(SwingConstants.CENTER);
 		endStatusPanel.add(lblEndDay);
 		
