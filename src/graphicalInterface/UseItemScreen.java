@@ -211,7 +211,7 @@ public class UseItemScreen {
 		frmUseItemScreen.pack();
 		for (int i = 0; i < lblImages.size(); i++) {
 			JLabel image = lblImages.get(i);
-			image.setIcon(new ImageIcon(((CrewMemberExtended)crew.get(i)).getImage().getContents(-1, image.getHeight())));
+			image.setIcon(new ImageIcon(((CrewMemberExtended)crew.get(i)).getImage().getContents(image.getWidth(), image.getHeight())));
 		}
 		
 		//Code to populate the panel with item in the inventory

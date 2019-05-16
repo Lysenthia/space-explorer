@@ -48,7 +48,12 @@ public class SaveGame {
 		DumperOptions options = new DumperOptions();
 		options.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
 		Yaml yaml = new Yaml(options);
-		FileWriter writer = new FileWriter(this.file.toString() + ".ses");
+		FileWriter writer;
+		if (this.file.getFileName().toString().toLowerCase().endsWith(".ses")) {
+			writer = new FileWriter(this.file.toString());
+		} else {
+			writer = new FileWriter(this.file.toString() + ".ses");
+		}
 		yaml.dump(data, writer);
 	}
 	
@@ -133,15 +138,14 @@ public class SaveGame {
 		Collection<?> untypedPlanets = output.get("planets");
 		ArrayList<PlanetExtended> planetsList = new ArrayList<PlanetExtended>();
 		for (Object untypedPlanet : untypedPlanets) {
-			if (untypedPlanet instanceof LinkedHashMap<?, ?>) {
-				LinkedHashMap<String, String> typedPlanet = (LinkedHashMap<String, String>) untypedPlanet;
-				if (typedPlanet.get("name") == null || typedPlanet.get("description") == null || typedPlanet.get("image") == null) {
-					throw new IOException("Error parsing planets");
-				}
-				planetsList.add(new PlanetExtended(typedPlanet.get("name"), typedPlanet.get("description"), typedPlanet.get("image")));
-			} else {
+			if (!(untypedPlanet instanceof LinkedHashMap<?, ?>)) {
 				throw new IOException("Incorrect planet type");
 			}
+			LinkedHashMap<String, String> typedPlanet = (LinkedHashMap<String, String>) untypedPlanet;
+			if (typedPlanet.get("name") == null || typedPlanet.get("description") == null || typedPlanet.get("image") == null) {
+				throw new IOException("Error parsing planets");
+			}
+			planetsList.add(new PlanetExtended(typedPlanet.get("name"), typedPlanet.get("description"), typedPlanet.get("image")));
 		}
 		return planetsList;
 	}
@@ -157,35 +161,60 @@ public class SaveGame {
 		Collection<?> untypedCrew = output.get("crew");
 		ArrayList<CrewMemberExtended> crewList = new ArrayList<CrewMemberExtended>();
 		for (Object untypedMember : untypedCrew) {
-			if (untypedMember instanceof LinkedHashMap<?, ?>) {
-				LinkedHashMap<String, String> typedMember = (LinkedHashMap<String, String>) untypedMember;
-				CrewClass memberClass = CrewClass.lookup(typedMember.get("class"));
-				if (typedMember.get("name") == null || typedMember.get("health") == null || 
-					typedMember.get("image") == null || typedMember.get("hunger") == null ||
-					typedMember.get("ap") == null || typedMember.get("tiredness") == null || 
-					typedMember.get("plague") == null || memberClass == null) {
-					throw new IOException("Error parsing crew members");
-				}
-				CrewMemberExtended member = new CrewMemberExtended(typedMember.get("name"), memberClass, crewImageLookup.get(typedMember.get("image")));
-				int health = Integer.parseInt(typedMember.get("health"));
-				int hunger = Integer.parseInt(typedMember.get("hunger"));
-				int tiredness = Integer.parseInt(typedMember.get("tiredness"));
-				int ap = Integer.parseInt(typedMember.get("ap"));
-				if (health > 100 || health <= 0 || 
-					hunger > 100 || hunger < 0 ||
-					tiredness > 100 || tiredness < 0 ||
-					ap > 2 || ap < 0) {
-					throw new IOException("Error parsing crew members");
-				}
-				member.setParameters(health, tiredness, hunger, ap);
-				if (Boolean.valueOf(typedMember.get("plague")) == true) {
-					member.giveSpacePlague();
-				}
-				crewList.add(member);
-			} else {
+			if (!(untypedMember instanceof LinkedHashMap<?, ?>)) {
 				throw new IOException("Incorrect crew type");
 			}
+			LinkedHashMap<String, String> typedMember = (LinkedHashMap<String, String>) untypedMember;
+			CrewClass memberClass = CrewClass.lookup(typedMember.get("class"));
+			if (typedMember.get("name") == null || typedMember.get("health") == null || 
+				typedMember.get("image") == null || typedMember.get("hunger") == null ||
+				typedMember.get("ap") == null || typedMember.get("tiredness") == null || 
+				typedMember.get("plague") == null || memberClass == null) {
+				throw new IOException("Error parsing crew members (null value)");
+			}
+			CrewMemberExtended member = new CrewMemberExtended(typedMember.get("name"), memberClass, crewImageLookup.get(typedMember.get("image")));
+			int health = Integer.parseInt(typedMember.get("health"));
+			int hunger = Integer.parseInt(typedMember.get("hunger"));
+			int tiredness = Integer.parseInt(typedMember.get("tiredness"));
+			int ap = Integer.parseInt(typedMember.get("ap"));
+			if (health > 100 || health <= 0 || 
+				hunger > 100 || hunger < 0 ||
+				tiredness > 100 || tiredness < 0 ||
+				ap > 2 || ap < 0) {
+				throw new IOException("Error parsing crew members (oob) ");
+			}
+			member.setParameters(health, tiredness, hunger, ap);
+			if (Boolean.valueOf(typedMember.get("plague")) == true) {
+				member.giveSpacePlague();
+			}
+			crewList.add(member);
 		}
 		return crewList;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private ArrayList<Consumable> fetchConsumables(LinkedHashMap<String, Collection<?>> output) throws IOException {
+		ArrayList<Consumable> consumables = new ArrayList<Consumable>();
+		ArrayList<MedicalItem> medicalItems = new ArrayList<MedicalItem>();
+		ArrayList<FoodItem> foodItems = new ArrayList<FoodItem>();
+		ArrayList<CureItem> cureItems = new ArrayList<CureItem>();
+		Collection<?> untypedItems = output.get("items");
+		if (!(untypedItems instanceof HashMap<?, ?>)) {
+			throw new IOException("Incorrect items type");
+		}
+		HashMap<String, ArrayList<HashMap<String, String>>> typedItems = (HashMap<String, ArrayList<HashMap<String, String>>>) untypedItems;
+		for (HashMap<String, String> item : typedItems.get("medical")) {
+			if (item.get("name") == null || item.get("effectiveness") == null || 
+				item.get("price") == null || item.get("held") == null) {
+					throw new IOException("Error parsing medical items");
+				}
+		}
+		for (HashMap<String, String> item : typedItems.get("cure")) {
+			//TODO
+		}
+		for (HashMap<String, String> item : typedItems.get("food")) {
+			//TODO
+		}
+		return consumables;
 	}
 }

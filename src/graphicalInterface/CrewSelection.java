@@ -310,7 +310,7 @@ public class CrewSelection {
 		});
 		
 		for (JLabel lbl : crewImageLabels) {
-			lbl.setIcon(new ImageIcon(CrewMemberImages.getDefaultImage().getContents(lblImage.getWidth(), -1)));
+			lbl.setIcon(new ImageIcon(CrewMemberImages.getDefaultImage().getContents(lblImage.getWidth(), lblImage.getHeight())));
 		}
 		
 		for (JComboBox<GUIImage> cb : crewImageCB) {
@@ -321,28 +321,28 @@ public class CrewSelection {
 		cbImageSelect.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				GUIImage selected = (GUIImage) cbImageSelect.getSelectedItem();
-				lblImage.setIcon(new ImageIcon(selected.getContents(lblImage.getWidth(), -1)));
+				lblImage.setIcon(new ImageIcon(selected.getContents(lblImage.getWidth(), lblImage.getHeight())));
 			}
 		});
 		
 		cbImageSelect2.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				GUIImage selected = (GUIImage) cbImageSelect2.getSelectedItem();
-				lblImage2.setIcon(new ImageIcon(selected.getContents(lblImage.getWidth(), -1)));
+				lblImage2.setIcon(new ImageIcon(selected.getContents(lblImage.getWidth(), lblImage.getHeight())));
 			}
 		});
 		
 		cbImageSelect3.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				GUIImage selected = (GUIImage) cbImageSelect3.getSelectedItem();
-				lblImage3.setIcon(new ImageIcon(selected.getContents(lblImage.getWidth(), -1)));
+				lblImage3.setIcon(new ImageIcon(selected.getContents(lblImage.getWidth(), lblImage.getHeight())));
 			}
 		});
 		
 		cbImageSelect4.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				GUIImage selected = (GUIImage) cbImageSelect4.getSelectedItem();
-				lblImage4.setIcon(new ImageIcon(selected.getContents(lblImage.getWidth(), -1)));
+				lblImage4.setIcon(new ImageIcon(selected.getContents(lblImage.getWidth(), lblImage.getHeight())));
 			}
 		});
 		tfNameEntry.addMouseListener(new MouseAdapter() {

@@ -65,6 +65,12 @@ public class GUIImage {
 	 * @return an instance of the actual image scaled to the given width and height
 	 */
 	public Image getContents(int width, int height) {
-		return contents.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+		if (width < height) {
+			return contents.getScaledInstance(width, -1, Image.SCALE_SMOOTH);
+		} else if (width > height) {
+			return contents.getScaledInstance(-1, height, Image.SCALE_SMOOTH);
+		} else {
+			return contents.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+		}
 	}
 }

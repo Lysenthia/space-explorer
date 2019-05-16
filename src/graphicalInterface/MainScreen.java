@@ -46,6 +46,7 @@ public class MainScreen {
 			try {
 				save.save();
 			} catch (IOException e) {
+				
 				String ObjButtons[] = {"Continue"};
 				JOptionPane.showOptionDialog(null,"There was an error while trying to save the game","Save Error",JOptionPane.PLAIN_MESSAGE,JOptionPane.QUESTION_MESSAGE,null,ObjButtons,ObjButtons[0]);
 			}
@@ -67,6 +68,7 @@ public class MainScreen {
 			try {
 				save.load();
 			} catch (IOException e) {
+				System.out.println(e);
 				String ObjButtons[] = {"Continue"};
 				JOptionPane.showOptionDialog(null,"There was an error while trying to load a save","Load Error",JOptionPane.PLAIN_MESSAGE,JOptionPane.QUESTION_MESSAGE,null,ObjButtons,ObjButtons[0]);
 			}
