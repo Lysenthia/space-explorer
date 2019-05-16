@@ -106,6 +106,7 @@ public class PlanetExtended extends Planet {
 			planets.add(new PlanetExtended(data.get("name"), data.get("description"), data.get("image")));
 		}	
 		fetchDefaultImage();
+		input.close();
 		return planets;
 	}
 }

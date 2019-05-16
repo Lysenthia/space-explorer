@@ -51,6 +51,7 @@ public class ConsumableReader {
 		for (LinkedHashMap<String, Object> item : workingList) {
 			consumables.add(new CureItem((String) item.get("name"), (int) item.get("price"), (int) item.get("effectiveness")));
 		}
+		input.close();
 		return consumables;
 		
 	}

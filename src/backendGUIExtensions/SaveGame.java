@@ -108,6 +108,7 @@ public class SaveGame {
 		Yaml parser = new Yaml();
 		InputStream input = new FileInputStream(this.file.toString());
 		output = parser.load(input);
+		input.close();
 		System.out.println(output);
 	}
 }
