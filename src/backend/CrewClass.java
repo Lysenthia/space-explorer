@@ -1,5 +1,7 @@
 package backend;
 
+import java.util.HashMap;
+
 /**
  * Potential classes for crew members
  * @author hoo42
@@ -46,6 +48,7 @@ public enum CrewClass {
 	 * A description of the class
 	 */
 	private final String classDescription;
+	private static final HashMap<String, CrewClass> lookupTable = new HashMap<String, CrewClass>(buildTable());
 	
 	/**
 	 * Construct a class archetype with a player visible name
@@ -78,5 +81,22 @@ public enum CrewClass {
 	 */
 	public String getDescription() {
 		return this.classDescription;
+	}
+	
+	
+	private static HashMap<String, CrewClass> buildTable() {
+		HashMap<String, CrewClass> table = new HashMap<String, CrewClass>();
+		for (CrewClass cClass : CrewClass.values()) {
+			table.put(cClass.name(), cClass);
+		}
+		return table;
+	}
+	
+	public static CrewClass lookup(String name) {
+		if (lookupTable.containsKey(name)) {
+			return lookupTable.get(name);
+		} else {
+			return null;
+		}
 	}
 }

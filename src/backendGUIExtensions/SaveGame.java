@@ -6,12 +6,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedHashMap;
 
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 
 import backend.Consumable;
+import backend.CrewClass;
 import backend.CrewMember;
 import backend.CureItem;
 import backend.FoodItem;
@@ -69,7 +71,7 @@ public class SaveGame {
 			CrewMemberExtended memberExtension = (CrewMemberExtended) member;
 			LinkedHashMap<String, String> savableMember = new LinkedHashMap<String, String>();
 			savableMember.put("name", memberExtension.getName());
-			savableMember.put("class", memberExtension.getMemberClass().toString());
+			savableMember.put("class", memberExtension.getMemberClass().name());
 			savableMember.put("image", memberExtension.getImage().getName().toString());
 			savableMember.put("health", Integer.toString(memberExtension.getHealth()));
 			savableMember.put("hunger", Integer.toString(memberExtension.getHunger()));
@@ -104,11 +106,52 @@ public class SaveGame {
 	}
 	
 	public void load() throws IOException {
-		LinkedHashMap<String, Object> output;
+		LinkedHashMap<String, Collection<?>> output;
 		Yaml parser = new Yaml();
 		InputStream input = new FileInputStream(this.file.toString());
 		output = parser.load(input);
 		input.close();
+		update(output);
 		System.out.println(output);
+	}
+	
+	private void update(LinkedHashMap<String, Collection<?>> output) throws IOException {
+		ArrayList<PlanetExtended> planetsList = fetchPlanets(output);
+	}
+	
+	private ArrayList<PlanetExtended> fetchPlanets(LinkedHashMap<String, Collection<?>> output) throws IOException {
+		Collection<?> untypedPlanets = output.get("planets");
+		ArrayList<PlanetExtended> planetsList = new ArrayList<PlanetExtended>();
+		for (Object untypedPlanet : untypedPlanets) {
+			if (untypedPlanet instanceof LinkedHashMap<?, ?>) {
+				@SuppressWarnings("unchecked")
+				LinkedHashMap<String, String> typedPlanet = (LinkedHashMap<String, String>) untypedPlanet;
+				if (typedPlanet.get("name") == null || typedPlanet.get("name") == null || typedPlanet.get("name") == null) {
+					throw new IOException("Error parsing planets");
+				}
+				planetsList.add(new PlanetExtended(typedPlanet.get("name"), typedPlanet.get("description"), typedPlanet.get("image")));
+			} else {
+				throw new IOException("Incorrect planet type");
+			}
+		}
+		return planetsList;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private ArrayList<CrewMemberExtended> fetchCrew(LinkedHashMap<String, Collection<?>> output) throws IOException {
+		Collection<?> untypedCrew = output.get("crew");
+		ArrayList<CrewMemberExtended> crewList = new ArrayList<CrewMemberExtended>();
+		for (Object untypedMember : untypedCrew) {
+			if (untypedMember instanceof LinkedHashMap<?, ?>) {
+				LinkedHashMap<String, String> typedMember = (LinkedHashMap<String, String>) untypedMember;
+				CrewClass memberClass = CrewClass.lookup(typedMember.get("class"));
+				if (memberClass == null) {
+					throw new IOException("Error parsing crew classes");
+				}
+			} else {
+				throw new IOException("Incorrect crew type");
+			}
+		}
+		return crewList;
 	}
 }
