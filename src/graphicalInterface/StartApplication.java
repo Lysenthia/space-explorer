@@ -8,7 +8,7 @@ import backend.GameState;
 import backend.Outpost;
 import backend.Planet;
 import backend.Ship;
-import backendGUIExtensions.CosnumableReader;
+import backendGUIExtensions.ConsumableReader;
 import backendGUIExtensions.CrewMemberImages;
 import backendGUIExtensions.GUIImage;
 import backendGUIExtensions.PlanetExtended;
@@ -46,7 +46,7 @@ public class StartApplication {
 			ErrorWindow.callScreen("Error fetching planet data", e);
 		}
 		try {
-			consumables = CosnumableReader.fetchConsumables();
+			consumables = ConsumableReader.fetchConsumables();
 			GameState.setAllConsumables(consumables);
 		} catch (IOException e) {
 			blockProcess = true;

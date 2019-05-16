@@ -17,7 +17,7 @@ import backend.*;
  * @author hoo42
  * @author rvo16
  */
-public class CosnumableReader {
+public class ConsumableReader {
 	/**
 	 * The path to the resources folder
 	 */
