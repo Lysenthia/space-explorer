@@ -26,7 +26,7 @@ class RandomEventTest {
 		MedicalItem item = new MedicalItem("Item", 5, 5);
 		CureItem item2 = new CureItem("Item2", 3, 4);
 		RandomEventOutput event;
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i < 50; i++) {
 			item.decreaseHeld(item.getHeld());
 			item2.decreaseHeld(item2.getHeld());
 			Ship.clearAll();
