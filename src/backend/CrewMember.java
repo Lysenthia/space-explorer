@@ -327,4 +327,11 @@ public class CrewMember {
 	public void activateMedicEffect() {
 		this.increaseHealth(10);
 	}
+	
+	public void setParameters(int health, int tiredness, int hunger, int ap) {
+		this.health = health;
+		this.tiredness = tiredness;
+		this.hunger = hunger;
+		this.actionPoints = ap;
+	}
 }

@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 import org.yaml.snakeyaml.DumperOptions;
@@ -77,6 +78,7 @@ public class SaveGame {
 			savableMember.put("hunger", Integer.toString(memberExtension.getHunger()));
 			savableMember.put("ap", Integer.toString(memberExtension.getActionPoints()));
 			savableMember.put("tiredness", Integer.toString(memberExtension.getTiredness()));
+			savableMember.put("plague", String.valueOf(memberExtension.hasSpacePlague()));
 			crew.add(savableMember);
 		}
 	}
@@ -117,16 +119,23 @@ public class SaveGame {
 	
 	private void update(LinkedHashMap<String, Collection<?>> output) throws IOException {
 		ArrayList<PlanetExtended> planetsList = fetchPlanets(output);
+		ArrayList<CrewMemberExtended> crewList = fetchCrew(output);
 	}
 	
+	/**
+	 * 
+	 * @param output the LinkedHashMap produced by loading the save file
+	 * @return the arraylist of planets in the game
+	 * @throws IOException if there is an error whilst parsing the planets
+	 */
+	@SuppressWarnings("unchecked")
 	private ArrayList<PlanetExtended> fetchPlanets(LinkedHashMap<String, Collection<?>> output) throws IOException {
 		Collection<?> untypedPlanets = output.get("planets");
 		ArrayList<PlanetExtended> planetsList = new ArrayList<PlanetExtended>();
 		for (Object untypedPlanet : untypedPlanets) {
 			if (untypedPlanet instanceof LinkedHashMap<?, ?>) {
-				@SuppressWarnings("unchecked")
 				LinkedHashMap<String, String> typedPlanet = (LinkedHashMap<String, String>) untypedPlanet;
-				if (typedPlanet.get("name") == null || typedPlanet.get("name") == null || typedPlanet.get("name") == null) {
+				if (typedPlanet.get("name") == null || typedPlanet.get("description") == null || typedPlanet.get("image") == null) {
 					throw new IOException("Error parsing planets");
 				}
 				planetsList.add(new PlanetExtended(typedPlanet.get("name"), typedPlanet.get("description"), typedPlanet.get("image")));
@@ -139,15 +148,40 @@ public class SaveGame {
 	
 	@SuppressWarnings("unchecked")
 	private ArrayList<CrewMemberExtended> fetchCrew(LinkedHashMap<String, Collection<?>> output) throws IOException {
+		ArrayList<GUIImage> crewImages = CrewMemberImages.getImages();
+		HashMap<String, GUIImage> crewImageLookup = new HashMap<String, GUIImage>();
+		for (GUIImage image : crewImages) {
+			crewImageLookup.put(image.getName().toString(), image);
+		}
+		crewImageLookup.put(null, CrewMemberImages.getDefaultImage());
 		Collection<?> untypedCrew = output.get("crew");
 		ArrayList<CrewMemberExtended> crewList = new ArrayList<CrewMemberExtended>();
 		for (Object untypedMember : untypedCrew) {
 			if (untypedMember instanceof LinkedHashMap<?, ?>) {
 				LinkedHashMap<String, String> typedMember = (LinkedHashMap<String, String>) untypedMember;
 				CrewClass memberClass = CrewClass.lookup(typedMember.get("class"));
-				if (memberClass == null) {
-					throw new IOException("Error parsing crew classes");
+				if (typedMember.get("name") == null || typedMember.get("health") == null || 
+					typedMember.get("image") == null || typedMember.get("hunger") == null ||
+					typedMember.get("ap") == null || typedMember.get("tiredness") == null || 
+					typedMember.get("plague") == null || memberClass == null) {
+					throw new IOException("Error parsing crew members");
 				}
+				CrewMemberExtended member = new CrewMemberExtended(typedMember.get("name"), memberClass, crewImageLookup.get(typedMember.get("image")));
+				int health = Integer.parseInt(typedMember.get("health"));
+				int hunger = Integer.parseInt(typedMember.get("hunger"));
+				int tiredness = Integer.parseInt(typedMember.get("tiredness"));
+				int ap = Integer.parseInt(typedMember.get("ap"));
+				if (health > 100 || health <= 0 || 
+					hunger > 100 || hunger < 0 ||
+					tiredness > 100 || tiredness < 0 ||
+					ap > 2 || ap < 0) {
+					throw new IOException("Error parsing crew members");
+				}
+				member.setParameters(health, tiredness, hunger, ap);
+				if (Boolean.valueOf(typedMember.get("plague")) == true) {
+					member.giveSpacePlague();
+				}
+				crewList.add(member);
 			} else {
 				throw new IOException("Incorrect crew type");
 			}
