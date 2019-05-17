@@ -93,7 +93,6 @@ public class UseItemScreen {
 		JPanel CrewMemberPanel = new JPanel();
 		springLayout.putConstraint(SpringLayout.NORTH, CrewMemberPanel, 1, SpringLayout.SOUTH, InfoPanel);
 		springLayout.putConstraint(SpringLayout.WEST, CrewMemberPanel, 10, SpringLayout.WEST, frmUseItemScreen.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, CrewMemberPanel, 251, SpringLayout.SOUTH, InfoPanel);
 		springLayout.putConstraint(SpringLayout.EAST, CrewMemberPanel, -10, SpringLayout.EAST, InfoPanel);
 		frmUseItemScreen.getContentPane().add(CrewMemberPanel);
 		SpringLayout sl_crewMember = new SpringLayout();
@@ -108,12 +107,13 @@ public class UseItemScreen {
 		MenuPanel.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		JPanel panel = new JPanel();
+		springLayout.putConstraint(SpringLayout.NORTH, panel, 312, SpringLayout.NORTH, frmUseItemScreen.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, panel, 0, SpringLayout.NORTH, MenuPanel);
+		springLayout.putConstraint(SpringLayout.SOUTH, CrewMemberPanel, -6, SpringLayout.NORTH, panel);
 		panel.setPreferredSize(new Dimension (800, 600));
 		panel.setBounds(0, 0, 800, 600);
-		springLayout.putConstraint(SpringLayout.NORTH, panel, 0, SpringLayout.SOUTH, CrewMemberPanel);
 		springLayout.putConstraint(SpringLayout.WEST, panel, 0, SpringLayout.WEST, frmUseItemScreen.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, panel, 0, SpringLayout.EAST, frmUseItemScreen.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, panel, 0, SpringLayout.NORTH, MenuPanel);
 		frmUseItemScreen.getContentPane().add(panel);
 		panel.setLayout(new GridLayout(0, 1, 0, 0));
 		
@@ -192,19 +192,28 @@ public class UseItemScreen {
 			health.setHorizontalAlignment(SwingConstants.CENTER);
 			temp.add(health);
 			
-			JLabel actionPoints = new JLabel("actionPoints");
-			sl_temp.putConstraint(SpringLayout.NORTH, actionPoints, 0, SpringLayout.SOUTH, health);
-			sl_temp.putConstraint(SpringLayout.WEST, actionPoints, 0, SpringLayout.WEST, temp);
-			sl_temp.putConstraint(SpringLayout.SOUTH, actionPoints, 20, SpringLayout.SOUTH, health);
-			sl_temp.putConstraint(SpringLayout.EAST, actionPoints, panelWidth, SpringLayout.WEST, temp);
-			actionPoints.setText(String.format("AP: %d", crew.get(i).getActionPoints()));
-			actionPoints.setHorizontalAlignment(SwingConstants.CENTER);
-			temp.add(actionPoints);
+			JLabel hunger = new JLabel("Health");
+			sl_temp.putConstraint(SpringLayout.NORTH, hunger, 0, SpringLayout.SOUTH, health);
+			sl_temp.putConstraint(SpringLayout.WEST, hunger, 0, SpringLayout.WEST, temp);
+			sl_temp.putConstraint(SpringLayout.SOUTH, hunger, 20, SpringLayout.SOUTH, health);
+			sl_temp.putConstraint(SpringLayout.EAST, hunger, panelWidth, SpringLayout.WEST, temp);
+			hunger.setText(String.format("Hunger: %d", crew.get(i).getHunger()));
+			hunger.setHorizontalAlignment(SwingConstants.CENTER);
+			temp.add(hunger);
+			
+			JLabel spacePlagueStatus = new JLabel("Space Plague Status");
+			sl_temp.putConstraint(SpringLayout.NORTH, spacePlagueStatus, 0, SpringLayout.SOUTH, hunger);
+			sl_temp.putConstraint(SpringLayout.WEST, spacePlagueStatus, 0, SpringLayout.WEST, temp);
+			sl_temp.putConstraint(SpringLayout.SOUTH, spacePlagueStatus, 20, SpringLayout.SOUTH, hunger);
+			sl_temp.putConstraint(SpringLayout.EAST, spacePlagueStatus, panelWidth, SpringLayout.WEST, temp);
+			spacePlagueStatus.setText(String.format("Has space plague: %s", crew.get(i).hasSpacePlague()));
+			spacePlagueStatus.setHorizontalAlignment(SwingConstants.CENTER);
+			temp.add(spacePlagueStatus);
 			
 			JRadioButton rdbtnSelected = new JRadioButton("");
-			sl_temp.putConstraint(SpringLayout.NORTH, rdbtnSelected, 0, SpringLayout.SOUTH, actionPoints);
+			sl_temp.putConstraint(SpringLayout.NORTH, rdbtnSelected, 0, SpringLayout.SOUTH, spacePlagueStatus);
 			sl_temp.putConstraint(SpringLayout.WEST, rdbtnSelected, 0, SpringLayout.WEST, temp);
-			sl_temp.putConstraint(SpringLayout.SOUTH, rdbtnSelected, 35, SpringLayout.SOUTH, actionPoints);
+			sl_temp.putConstraint(SpringLayout.SOUTH, rdbtnSelected, 35, SpringLayout.SOUTH, spacePlagueStatus);
 			sl_temp.putConstraint(SpringLayout.EAST, rdbtnSelected, panelWidth, SpringLayout.WEST, temp);
 			rdbtnSelected.setActionCommand(Integer.toString(i));
 			buttonGroup.add(rdbtnSelected);
