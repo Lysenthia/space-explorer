@@ -283,8 +283,12 @@ public class MainScreen {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				GameState.setEnding(PossibleEndings.QUIT);
-				EndingScreen.callScreen();
-				frame.dispose();
+				String ObjButtons[] = {"Yes", "No"};
+				int PromptResult = JOptionPane.showOptionDialog(null,"Are you sure you want to exit?","Warning",JOptionPane.DEFAULT_OPTION,JOptionPane.WARNING_MESSAGE,null,ObjButtons,ObjButtons[1]);
+		        if(PromptResult==JOptionPane.YES_OPTION) {
+		        	EndingScreen.callScreen();
+					frame.dispose();;
+			}
 			}
 		});
 		

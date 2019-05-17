@@ -103,11 +103,7 @@ public class EndingScreen {
 		JButton btnQuit = new JButton("Leave the game");
 		btnQuit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String ObjButtons[] = {"Yes", "No"};
-				int PromptResult = JOptionPane.showOptionDialog(null,"Are you sure you want to exit?","Warning",JOptionPane.DEFAULT_OPTION,JOptionPane.WARNING_MESSAGE,null,ObjButtons,ObjButtons[1]);
-		        if(PromptResult==JOptionPane.YES_OPTION) {
-		        	System.exit(0);
-		        }
+				System.exit(0);
 			}
 		});
 		buttonPanel.add(btnQuit);
