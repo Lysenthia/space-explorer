@@ -183,10 +183,19 @@ public class UseItemScreen {
 			name.setText(String.format("Name: %s", crew.get(i).getName()));
 			temp.add(name);
 			
+			JLabel health = new JLabel("Health");
+			sl_temp.putConstraint(SpringLayout.NORTH, health, 0, SpringLayout.SOUTH, name);
+			sl_temp.putConstraint(SpringLayout.WEST, health, 0, SpringLayout.WEST, temp);
+			sl_temp.putConstraint(SpringLayout.SOUTH, health, 20, SpringLayout.SOUTH, name);
+			sl_temp.putConstraint(SpringLayout.EAST, health, panelWidth, SpringLayout.WEST, temp);
+			health.setText(String.format("Health: %d", crew.get(i).getHealth()));
+			health.setHorizontalAlignment(SwingConstants.CENTER);
+			temp.add(health);
+			
 			JLabel actionPoints = new JLabel("actionPoints");
-			sl_temp.putConstraint(SpringLayout.NORTH, actionPoints, 0, SpringLayout.SOUTH, name);
+			sl_temp.putConstraint(SpringLayout.NORTH, actionPoints, 0, SpringLayout.SOUTH, health);
 			sl_temp.putConstraint(SpringLayout.WEST, actionPoints, 0, SpringLayout.WEST, temp);
-			sl_temp.putConstraint(SpringLayout.SOUTH, actionPoints, 20, SpringLayout.SOUTH, name);
+			sl_temp.putConstraint(SpringLayout.SOUTH, actionPoints, 20, SpringLayout.SOUTH, health);
 			sl_temp.putConstraint(SpringLayout.EAST, actionPoints, panelWidth, SpringLayout.WEST, temp);
 			actionPoints.setText(String.format("AP: %d", crew.get(i).getActionPoints()));
 			actionPoints.setHorizontalAlignment(SwingConstants.CENTER);
