@@ -142,8 +142,13 @@ public class UseItemScreen {
 		btnRest.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				String selected = buttonGroup.getSelection().getActionCommand();
+				CrewMember member = crew.get(Integer.parseInt(selected));
+				String selected2 = itemButtonGroup.getSelection().getActionCommand();
+				Consumable item = consumables.get(Integer.parseInt(selected2));
+				item.use(member);
 				//Dialog box to notify player of action
-				JOptionPane.showMessageDialog(frmUseItemScreen, String.format("This button just shows this message atm"));
+				JOptionPane.showMessageDialog(frmUseItemScreen, String.format("Crewmember, %s, has used %s", member.getName(), item.getName()));
 				UseItemScreen.callScreen();
 				frmUseItemScreen.dispose();
 			}
