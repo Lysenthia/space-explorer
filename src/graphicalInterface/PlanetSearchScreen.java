@@ -133,7 +133,7 @@ public class PlanetSearchScreen {
 		btnSearchConfirm.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MainScreen.callScreen();
+				PlanetSearchScreen.callScreen();
 				frame.dispose();
 			}
 		});

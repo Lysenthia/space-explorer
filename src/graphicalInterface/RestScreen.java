@@ -127,6 +127,7 @@ public class RestScreen {
 		
 		frmRestScreen.pack();		
 		
+		//Populate frame with crew
 		for (int i = 0; i < crew.size(); i++) {
 			int widthMinor = i * (frmRestScreen.getWidth() / crew.size());
 			int widthMajor = (i + 1) * (frmRestScreen.getWidth() / crew.size());

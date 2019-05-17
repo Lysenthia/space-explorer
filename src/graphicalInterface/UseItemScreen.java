@@ -137,9 +137,9 @@ public class UseItemScreen {
 			}
 		});
 		
-		JButton btnRest = new JButton("Use item");
-		MenuPanel.add(btnRest);
-		btnRest.addActionListener(new ActionListener() {
+		JButton btnUseItem = new JButton("Use item");
+		MenuPanel.add(btnUseItem);
+		btnUseItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				String selected = buttonGroup.getSelection().getActionCommand();
@@ -248,38 +248,42 @@ public class UseItemScreen {
 		}
 		
 		//Code to populate the panel with item in the inventory
-		for (int i = 0; i < consumables.size(); i++) {
-			Consumable item = consumables.get(i);
-			JPanel itemSubPanel = new JPanel();
-			itemSubPanel.setLayout(new GridLayout(1, 5, 0, 0));
-			itemsInternal.add(itemSubPanel);
+		if (consumables.size() == 0) {
+			btnUseItem.setEnabled(false);
+		}
+		else {
+			for (int i = 0; i < consumables.size(); i++) {
+				Consumable item = consumables.get(i);
+				JPanel itemSubPanel = new JPanel();
+				itemSubPanel.setLayout(new GridLayout(1, 5, 0, 0));
+				itemsInternal.add(itemSubPanel);
 			
-			JLabel lblName = new JLabel(String.format("<html><p style='text-align: center;'>%s</p></html>", item.getName()));
-			lblName.setHorizontalAlignment(SwingConstants.CENTER);
-			itemSubPanel.add(lblName);
+				JLabel lblName = new JLabel(String.format("<html><p style='text-align: center;'>%s</p></html>", item.getName()));
+				lblName.setHorizontalAlignment(SwingConstants.CENTER);
+				itemSubPanel.add(lblName);
 			
-			JLabel lblType = new JLabel(String.format("<html><p style='text-align: center;'>Type: %s</p></html>", item.getItemType()));
-			lblType.setHorizontalAlignment(SwingConstants.CENTER);
-			itemSubPanel.add(lblType);
+				JLabel lblType = new JLabel(String.format("<html><p style='text-align: center;'>Type: %s</p></html>", item.getItemType()));
+				lblType.setHorizontalAlignment(SwingConstants.CENTER);
+				itemSubPanel.add(lblType);
 			
-			JLabel lblEffectiveness = new JLabel(String.format("Effectiveness: %d", item.getPrice()));
-			lblEffectiveness.setHorizontalAlignment(SwingConstants.CENTER);
-			itemSubPanel.add(lblEffectiveness);
+				JLabel lblEffectiveness = new JLabel(String.format("Effectiveness: %d", item.getPrice()));
+				lblEffectiveness.setHorizontalAlignment(SwingConstants.CENTER);
+				itemSubPanel.add(lblEffectiveness);
 			
-			JLabel lblHeld = new JLabel(String.format("Held: %d", item.getHeld()));
-			lblHeld.setHorizontalAlignment(SwingConstants.CENTER);
-			itemSubPanel.add(lblHeld);
+				JLabel lblHeld = new JLabel(String.format("Held: %d", item.getHeld()));
+				lblHeld.setHorizontalAlignment(SwingConstants.CENTER);
+				itemSubPanel.add(lblHeld);
 			
-			JRadioButton rdbtnSelected = new JRadioButton("");
-			rdbtnSelected.setActionCommand(Integer.toString(i));
-			itemButtonGroup.add(rdbtnSelected);
-			rdbtnSelected.setHorizontalAlignment(SwingConstants.CENTER);
-			itemSubPanel.add(rdbtnSelected);
-			if (i == 0) {
-				rdbtnSelected.setSelected(true);
+				JRadioButton rdbtnSelected = new JRadioButton("");
+				rdbtnSelected.setActionCommand(Integer.toString(i));
+				itemButtonGroup.add(rdbtnSelected);
+				rdbtnSelected.setHorizontalAlignment(SwingConstants.CENTER);
+				itemSubPanel.add(rdbtnSelected);
+				if (i == 0) {
+					rdbtnSelected.setSelected(true);
 			}
 			
 			}
-		
+		}	
 	}
 }

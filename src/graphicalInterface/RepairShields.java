@@ -115,27 +115,28 @@ public class RepairShields {
 		springLayout.putConstraint(SpringLayout.EAST, panel_4, 800, SpringLayout.WEST, frmRepairShields.getContentPane());
 		panel_4.setLayout(new GridLayout(1, 0, 0, 0));
 				
-		JButton btnRest = new JButton("Repair shields");
-		btnRest.addActionListener(new ActionListener() {
+		JButton btnRepairShields = new JButton("Repair shields");
+		//Disable button by default
+		btnRepairShields.setEnabled(false);
+		//Enable button when shield health < 100
+		if (Ship.getShields() < 100) {
+			btnRepairShields.setEnabled(true);
+		}
+		btnRepairShields.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				String selected = buttonGroup.getSelection().getActionCommand();
 				CrewMember member = crew.get(Integer.parseInt(selected));
-				
 				if (Ship.getShields() < 100) {
 					member.repairShields();
 					//Dialog box to notify player of action
 					JOptionPane.showMessageDialog(frmRepairShields, String.format("Crewmember %s has repaired the ship's shields!" , member.getName()));
 				}
-				else {
-					//Dialog box to notify player of action
-					JOptionPane.showMessageDialog(frmRepairShields, String.format("Crewmember %s has no need to repair the ship's sheilds" , member.getName()));
-				}
 				RepairShields.callScreen();
 				frmRepairShields.dispose();
 			}
 		});
-		panel_4.add(btnRest);
+		panel_4.add(btnRepairShields);
 				
 		//Cancel button
 		JButton btnCancel = new JButton("Cancel");
