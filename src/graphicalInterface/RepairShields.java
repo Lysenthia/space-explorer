@@ -121,9 +121,16 @@ public class RepairShields {
 			public void actionPerformed(ActionEvent arg0) {
 				String selected = buttonGroup.getSelection().getActionCommand();
 				CrewMember member = crew.get(Integer.parseInt(selected));
-				member.repairShields();
-				//Dialog box to notify player of action
-				JOptionPane.showMessageDialog(frmRepairShields, String.format("Crewmember %s has repaired the ship's shields!" , member.getName()));
+				
+				if (Ship.getShields() < 100) {
+					member.repairShields();
+					//Dialog box to notify player of action
+					JOptionPane.showMessageDialog(frmRepairShields, String.format("Crewmember %s has repaired the ship's shields!" , member.getName()));
+				}
+				else {
+					//Dialog box to notify player of action
+					JOptionPane.showMessageDialog(frmRepairShields, String.format("Crewmember %s has no need to repair the ship's sheilds" , member.getName()));
+				}
 				RepairShields.callScreen();
 				frmRepairShields.dispose();
 			}

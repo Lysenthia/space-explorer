@@ -99,9 +99,16 @@ public class RestScreen {
 			public void actionPerformed(ActionEvent arg0) {	
 				String selected = buttonGroup.getSelection().getActionCommand();
 				CrewMember member = crew.get(Integer.parseInt(selected));
-				member.sleep();
-				//Dialog box to notify player of action
-				JOptionPane.showMessageDialog(frmRestScreen, String.format("Crewmember %s has rested and feels less tired!" , member.getName()));
+				
+				if (member.getTiredness() > 0) {
+					member.sleep();
+					//Dialog box to notify player of action
+					JOptionPane.showMessageDialog(frmRestScreen, String.format("Crewmember %s has rested and feels less tired!" , member.getName()));
+				}
+				else {
+					//Dialog box to notify player of action
+					JOptionPane.showMessageDialog(frmRestScreen, String.format("Crewmember %s is not tired and does not need to rest." , member.getName()));
+				}
 				RestScreen.callScreen();
 				frmRestScreen.dispose();
 			}
