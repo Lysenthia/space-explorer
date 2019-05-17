@@ -166,7 +166,6 @@ public class UseItemScreen {
 		MenuPanel.add(btnCancel);
 		
 		frmUseItemScreen.pack();		
-		
 		for (int i = 0; i < crew.size(); i++) {
 			int widthMinor = i * (frmUseItemScreen.getWidth() / crew.size());
 			int widthMajor = (i + 1) * (frmUseItemScreen.getWidth() / crew.size());

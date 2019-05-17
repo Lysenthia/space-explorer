@@ -157,6 +157,10 @@ public class PlanetSearchScreen {
 		searchResultsPanel.add(btnSearchConfirm);
 		
 		frame.pack();
+		if (crew.size() == 0) {
+			btnConfirm.setEnabled(false);
+		}
+		
 		for (int i = 0; i < crew.size(); i++) {
 			int widthMinor = i * (frame.getWidth() / crew.size());
 			int widthMajor = (i + 1) * (frame.getWidth() / crew.size());
