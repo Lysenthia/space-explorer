@@ -172,7 +172,7 @@ public class PlanetSearchScreen {
 			sl_crewMembersPanel.putConstraint(SpringLayout.SOUTH, panel, 400, SpringLayout.NORTH, crewMembersPanel);
 			sl_crewMembersPanel.putConstraint(SpringLayout.EAST, panel, widthMajor, SpringLayout.WEST, crewMembersPanel);
 			
-			JLabel lblImage = new JLabel("Image");
+			JLabel lblImage = new JLabel();
 			sl_panel.putConstraint(SpringLayout.NORTH, lblImage, 0, SpringLayout.NORTH, panel);
 			sl_panel.putConstraint(SpringLayout.WEST, lblImage, 0, SpringLayout.WEST, panel);
 			sl_panel.putConstraint(SpringLayout.SOUTH, lblImage, 256, SpringLayout.NORTH, panel);
