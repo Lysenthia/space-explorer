@@ -147,8 +147,18 @@ public class UseItemScreen {
 				String selected2 = itemButtonGroup.getSelection().getActionCommand();
 				Consumable item = consumables.get(Integer.parseInt(selected2));
 				item.use(member);
-				//Dialog box to notify player of action
-				JOptionPane.showMessageDialog(frmUseItemScreen, String.format("Crewmember, %s, has used %s", member.getName(), item.getName()));
+				
+				boolean used = item.use(member);
+				if (used) {
+					//Dialog box to notify player of action
+					JOptionPane.showMessageDialog(frmUseItemScreen, String.format("Crewmember, %s, has used %s", member.getName(), item.getName()));
+				}
+				else {
+					//Dialog box to notify player of action
+					JOptionPane.showMessageDialog(frmUseItemScreen, String.format("Crewmember, %s, has no need to use item %s", member.getName(), item.getName()));
+					
+				}
+				
 				UseItemScreen.callScreen();
 				frmUseItemScreen.dispose();
 			}
