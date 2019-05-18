@@ -23,6 +23,13 @@ import backend.Ship;
 import backendGUIExtensions.CrewMemberExtended;
 import java.awt.Font;
 
+/**
+ * GUI for the repair shields screen
+ * Allows the player to select a crew member to repair the ship's shields
+ * @author hoo42
+ * @author rvo16
+ *
+ */
 public class RepairShields {
 
 	private JFrame frmRepairShields;

@@ -20,6 +20,13 @@ import backend.GameState;
 import backend.PossibleEndings;
 import backend.Ship;
 
+/**
+ * GUI to display the ending screen of the game
+ * GUI displays ending screen message depending on type of end game state
+ * @author hoo42
+ * @author rvo16
+ *
+ */
 public class EndingScreen {
 
 	private JFrame frame;

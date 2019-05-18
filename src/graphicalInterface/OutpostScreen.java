@@ -27,6 +27,13 @@ import backend.Consumable;
 import backend.Outpost;
 import backend.Ship;
 
+/**
+ * GUI for Outpost Screen
+ * Allows the player to purchase items from the outpost using credits
+ * @author hoo42
+ * @author rvo16
+ *
+ */
 public class OutpostScreen {
 
 	private JFrame frame;

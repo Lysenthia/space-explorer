@@ -29,6 +29,13 @@ import backend.Ship;
 import backendGUIExtensions.CrewMemberExtended;
 import backendGUIExtensions.PlanetExtended;
 
+/**
+ * GUI for the pilot screen
+ * Allows the player to select pilots and travel to a new planet
+ * @author hoo42
+ * @author rvo16
+ *
+ */
 public class PilotScreen {
 
 	private JFrame frmPleaseSelect;

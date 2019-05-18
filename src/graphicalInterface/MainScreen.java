@@ -28,6 +28,14 @@ import backend.Ship;
 import backendGUIExtensions.PlanetExtended;
 import backendGUIExtensions.SaveGame;
 
+/**
+ * GUI for the Main Screen of the game
+ * Displays options; travel to new planet, search the planet, go to outpost, view crew members/ access inventory, save game, load game, transition to new day, quit.
+ * Displays state of current planet, number of parts found, current day number, parts needed to be found and end day
+ * @author hoo42
+ * @author rvo16
+ *
+ */
 public class MainScreen {
 
 	private JFrame frame;

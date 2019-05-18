@@ -26,6 +26,13 @@ import backend.PlanetSearchOutput;
 import backend.Ship;
 import backendGUIExtensions.CrewMemberExtended;
 
+/**
+ * GUI for the Planet Search Screen
+ * Displays the search results from searching the planet
+ * @author hoo42
+ * @author rvo16
+ *
+ */
 public class PlanetSearchScreen {
 
 	private JFrame frame;

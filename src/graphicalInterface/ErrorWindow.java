@@ -13,6 +13,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
+/**
+ * 
+ * @author hoo42
+ * @author rvo16
+ *
+ */
 public class ErrorWindow {
 
 	private JFrame frame;

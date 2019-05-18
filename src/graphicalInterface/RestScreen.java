@@ -22,6 +22,13 @@ import backend.CrewMember;
 import backend.Ship;
 import backendGUIExtensions.CrewMemberExtended;
 
+/**
+ * GUI for Rest Screen GUI
+ * Allows the player to select crew members to rest
+ * @author hoo42
+ * @author rvo16
+ *
+ */
 public class RestScreen {
 
 	private JFrame frmRestScreen;

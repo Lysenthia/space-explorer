@@ -31,6 +31,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+/**
+ * GUI for crew selection
+ * Allows player to create crew member and add them to the ship's crew
+ * @author hoo42
+ * @author rvo16
+ *
+ */
 public class CrewSelection {
 
 	private JFrame frmPleaseCustomiseYour;
