@@ -8,18 +8,22 @@ import java.util.Random;
  * @author rvo16
  */
 public enum PlanetFindableObjects {
+	
 	/**
 	 * Consumable
 	 */
 	ITEM,
+	
 	/**
 	 * Money
 	 */
 	MONEY,
+	
 	/**
 	 * A part for the ship
 	 */
 	PART,
+	
 	/**
 	 * Nothing
 	 */

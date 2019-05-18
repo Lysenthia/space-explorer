@@ -7,18 +7,22 @@ import java.util.Random;
  * @author rvo16
  */
 public enum RandomEventTypes {
+	
 	/**
 	 * Ship flies through a comically dense asteroid belt
 	 */
 	ASTEROID_BELT,
+	
 	/**
 	 * A member of the crew catches the space plague
 	 */
 	SPACE_PLAGUE,
+	
 	/**
 	 * A space pirate sneaks aboard, stealing items from the ship
 	 */
 	SPACE_PIRATES,
+	
 	/**
 	 * Nothing happens
 	 */

@@ -8,14 +8,17 @@ import java.util.ArrayList;
  * @author rvo16
  */
 public class Outpost {
+	
 	/**
 	 * The name of the outpost
 	 */
 	private String name;
+	
 	/**
 	 * The stock of the outpost (A list of consumables that the player may buy)
 	 */
 	private ArrayList<Consumable> stock;
+	
 	/**
 	 * The price multiplier of the outpost.
 	 * Prices should be multiplied by this when purchasing items

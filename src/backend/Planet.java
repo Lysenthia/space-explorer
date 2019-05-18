@@ -8,16 +8,19 @@ package backend;
  */
 
 public class Planet {
+	
 	/**
 	 * Whether or not a part has been found on this planet.
 	 * True if one has been found;
 	 * false otherwise
 	 */
 	private boolean partFound;
+	
 	/**
 	 * The name of the planet
 	 */
 	private String name;
+	
 	/**
 	 * A description of the planet, used to add extra detail to the game
 	 */

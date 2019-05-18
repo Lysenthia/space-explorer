@@ -7,23 +7,28 @@ package backend;
  * @author rvo16
  */
 public abstract class Consumable {
+	
 	/**
 	 * The name of the Consumable item
 	 */
 	protected String name;
+	
 	/**
 	 * The price of the Consumable item
 	 */
 	protected int price;
+	
 	/**
 	 * The number of this item held by the crew
 	 */
 	protected int held;
+	
 	/**
 	 * The effectiveness of the item.
 	 * Should be a positive integer between 1 and 100 inclusive
 	 */
 	protected int effectiveness;
+	
 	/**
 	 * The name of the type of item (i.e medical, cure, food)
 	 */

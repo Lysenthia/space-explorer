@@ -12,35 +12,42 @@ import java.util.Random;
  */
 
 public class CrewMember {
+	
 	/**
 	 * The name of the crew member
 	 */
 	private String name;
+	
 	/**
 	 * The number of action points the crew member currently has
 	 */
 	private int actionPoints;
+	
 	/**
 	 * The current health of the crew member.
 	 * Should be 1-100 if the crew member is alive.
 	 * If 0 or below, the crew member is dead
 	 */
 	private int health;
+	
 	/**
 	 * The current hunger of the crew member.
 	 * Should be 0-100, with 0 being not hungry and 100 being starving
 	 */
 	private int hunger;
+	
 	/**
 	 * The current tiredness of the crew member
 	 * Should be 0-100, with 0 being not sleepy and 100 being exhausted
 	 */
 	private int tiredness;
+	
 	/**
 	 * The class of the crew member
 	 * @see CrewClass
 	 */
 	private CrewClass memberClass;
+	
 	/**
 	 * Whether or not the crew member has the space plague.
 	 * True if they do; false otherwise
@@ -129,7 +136,6 @@ public class CrewMember {
 	}
 	
 	/**
-	 * 
 	 * @param amount the percentage to decrease the crew members health by
 	 * @return true if the crew members health is 0% or less;
 	 * 		   false otherwise

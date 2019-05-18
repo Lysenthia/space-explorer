@@ -7,28 +7,34 @@ import java.util.ArrayList;
  * @author rvo16
  */
 public final class Ship {
+	
 	/**
 	 * The name of the ship
 	 */
 	private static String name = "White Whale";
+	
 	/**
 	 * The crew members aboard the ship
 	 */
 	private static ArrayList<CrewMember> shipCrew = new ArrayList<CrewMember>();
+	
 	/**
 	 * The items that are currently held
 	 */
 	private static ArrayList<Consumable> inventory = new ArrayList<Consumable>();
+	
 	/**
 	 * The shields of the ship.
 	 * Should be 1-100.
 	 * If 0 or below, the ship is destroyed
 	 */
 	private static int shipShields = 100;
+	
 	/**
 	 * The number of credits held
 	 */
 	private static int money = 0;
+	
 	/**
 	 * The planet that the ship is orbiting
 	 */
@@ -79,6 +85,10 @@ public final class Ship {
 		return shipCrew;
 	}
 	
+	/**
+	 * Displays a list of crew members selected for the crew
+	 * @return the list of crew members on the crew
+	 */
 	public static ArrayList<CrewMember> getReadyCrew() {
 		ArrayList<CrewMember> readyCrew = new ArrayList<CrewMember>();
 		for (CrewMember member : Ship.getShipCrew()) {
@@ -103,6 +113,7 @@ public final class Ship {
 			return true;
 		}
 	}
+	
 	/**
 	 * Removes a crew member from the ship crew
 	 * @param member the member to be removed from the ship crew
