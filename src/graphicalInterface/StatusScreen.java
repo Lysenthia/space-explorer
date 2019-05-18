@@ -19,6 +19,14 @@ import backend.Ship;
 import backendGUIExtensions.CrewMemberExtended;
 import java.awt.Dimension;
 
+/**
+ * GUI for status screen
+ * Displays the stats of the crew members
+ * Gives options for using item, repair shields, and rest crew member
+ * @author hoo42
+ * @author rvo16
+ *
+ */
 public class StatusScreen {
 
 	private JFrame frame;

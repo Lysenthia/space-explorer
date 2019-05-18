@@ -13,6 +13,12 @@ import backendGUIExtensions.CrewMemberImages;
 import backendGUIExtensions.GUIImage;
 import backendGUIExtensions.PlanetExtended;
 
+/**
+ * Main call method to start game
+ * @author hoo42
+ * @author rvo16
+ *
+ */
 public class StartApplication {
 	
 	private static ArrayList<GUIImage> possibleCrewImages;

@@ -23,6 +23,14 @@ import backend.RandomEvent;
 import backend.RandomEventOutput;
 import backend.Ship;
 
+/**
+ * GUI for Transition Day Screen
+ * Displays list of crew members that have died
+ * Displays a random event that has occurred
+ * @author hoo42
+ * @author rvo16
+ *
+ */
 public class TransitionDayScreen {
 
 	private JFrame frame;

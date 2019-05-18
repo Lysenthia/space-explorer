@@ -27,6 +27,13 @@ import backend.CrewMember;
 import backend.Ship;
 import backendGUIExtensions.CrewMemberExtended;
 
+/**
+ * GUI for Use Item Screen
+ * Allows the player to use an inventory item on a crew member
+ * @author hoo42
+ * @author rvo16
+ *
+ */
 public class UseItemScreen {
 
 	private JFrame frmUseItemScreen;

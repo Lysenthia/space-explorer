@@ -25,6 +25,13 @@ import javax.swing.event.ChangeListener;
 import backend.GameState;
 import backend.Ship;
 
+/**
+ * GUI for startup Screen
+ * Displays game introduction and allows player to name ship and set the number of days they want to play
+ * @author hoo42
+ * @author rvo16
+ *
+ */
 public class StartupScreen {
 
 	private JFrame frmStartupScreen;
