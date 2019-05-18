@@ -132,7 +132,7 @@ public class EndingScreen {
 			break;
 		case VICTORY:
 			lblWinLose.setText("Congratulations, you win!");
-			lblDescription.setText(String.format("With the finding of the last part of her Alcubierre drive, the %s's crew were able to perform a patchwork fix, letting her crew escape back to more civilised systems where their ship could undergo permanent repairs</html></p>", Ship.getName()));
+			lblDescription.setText(String.format("<html><p style='text-align: center;'>With the finding of the last part of her Alcubierre drive, the %s's crew were able to perform a patchwork fix, letting her crew escape back to more civilised systems where their ship could undergo permanent repairs</html></p>", Ship.getName()));
 			break;
 		}
 	}
