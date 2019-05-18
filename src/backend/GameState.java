@@ -203,6 +203,10 @@ public class GameState {
 		currentDay = day;
 	}
 	
+	/**
+	 * Sets the current number of parts found
+	 * @param parts the number of parts found in the game
+	 */
 	public static void setPartsFound(int parts) {
 		partsFound = parts;
 	}

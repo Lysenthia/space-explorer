@@ -83,7 +83,10 @@ public enum CrewClass {
 		return this.classDescription;
 	}
 	
-	
+	/**
+	 * HashMap for crewClass
+	 * @return table of crew class
+	 */
 	private static HashMap<String, CrewClass> buildTable() {
 		HashMap<String, CrewClass> table = new HashMap<String, CrewClass>();
 		for (CrewClass cClass : CrewClass.values()) {
@@ -92,6 +95,12 @@ public enum CrewClass {
 		return table;
 	}
 	
+	/**
+	 * Method to lookup crew class
+	 * @param name of crew class
+	 * @return the name of class
+	 * 				null otherwise
+	 */
 	public static CrewClass lookup(String name) {
 		if (lookupTable.containsKey(name)) {
 			return lookupTable.get(name);

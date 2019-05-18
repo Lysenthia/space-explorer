@@ -320,14 +320,27 @@ public class CrewMember {
 		}
 	}
 	
+	/**
+	 * Decreases hunger level by 10 each day when cook archetype is in crew members
+	 */
 	public void activateCookEffect() {
 		this.decreaseHunger(10);
 	}
 	
+	/**
+	 * Increases health by 10 each day when medic archetype is in crew members
+	 */
 	public void activateMedicEffect() {
 		this.increaseHealth(10);
 	}
 	
+	/**
+	 * Set the values of health, tiredness, hunger and action points
+	 * @param health the current health of crew member
+	 * @param tiredness the current tiredness of crew member
+	 * @param hunger the current hunger of crew member
+	 * @param ap the current action point(s) of crew member
+	 */
 	public void setParameters(int health, int tiredness, int hunger, int ap) {
 		this.health = health;
 		this.tiredness = tiredness;
