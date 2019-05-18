@@ -7,6 +7,13 @@ import org.junit.jupiter.api.Test;
 import backend.*;
 import java.util.ArrayList;
 
+
+/**
+ * Junit tests for game state
+ * @author hoo42
+ * @author rvo16
+ *
+ */
 class GameStateTest {
 
 	@BeforeEach

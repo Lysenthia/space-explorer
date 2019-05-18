@@ -5,6 +5,12 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import backend.*;
 
+/**
+ * Junit tests for cure items
+ * @author hoo42
+ * @author rvo16
+ *
+ */
 class CureItemTest {
 
 	@Test

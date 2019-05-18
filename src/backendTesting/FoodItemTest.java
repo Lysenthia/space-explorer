@@ -6,6 +6,12 @@ import org.junit.jupiter.api.Test;
 
 import backend.*;
 
+/**
+ * Junit tests for food items
+ * @author hoo42
+ * @author rvo16
+ *
+ */
 class FoodItemTest {
 
 	@Test

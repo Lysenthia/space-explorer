@@ -18,14 +18,17 @@ import java.nio.file.Paths;
  * @author rvo16
  */
 public final class CrewMemberImages {
+	
 	/**
 	 * An ArrayList of the images that have been loaded
 	 */
 	private static ArrayList<GUIImage> images = new ArrayList<GUIImage>();
+	
 	/**
 	 * The default image for crew members
 	 */
 	private static GUIImage defaultImage;
+
 	/**
 	 * The path to the crew-img resource folder
 	 */

@@ -14,6 +14,12 @@ import backend.MedicalItem;
 import backend.Outpost;
 import backend.Ship;
 
+/**
+ * Junit tests for outpost
+ * @author hoo42
+ * @author rvo16
+ *
+ */
 class OutpostTest {
 	
 	ArrayList<Consumable> stock;

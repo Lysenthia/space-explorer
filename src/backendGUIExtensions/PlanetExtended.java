@@ -25,11 +25,13 @@ public class PlanetExtended extends Planet {
 	 * The path to an image of the planet
 	 */
 	private GUIImage image;
+	
 	/**
 	 * The path to the resource folder
 	 */
 	private static Path resourceFolder = Paths.get(System.getProperty("user.dir")+"/resources/");
 	private static GUIImage defaultImage;
+	
 	/**
 	 * Creates an instance of an extended planet with a name, description, and path to an image of the planet
 	 * @param name the name of the planet

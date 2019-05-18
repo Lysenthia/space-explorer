@@ -15,10 +15,12 @@ public class GUIImage {
 	 * The path to the image
 	 */
 	private Path location;
+	
 	/**
 	 * The filename of the image
 	 */
 	private Path name;
+	
 	/**
 	 * The actual contents of the image, which can be displayed
 	 */

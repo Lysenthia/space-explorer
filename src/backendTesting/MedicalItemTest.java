@@ -5,6 +5,12 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import backend.*;
 
+/**
+ * Junit tests for medical items
+ * @author hoo42
+ * @author rvo16
+ *
+ */
 class MedicalItemTest {
 
 	@Test

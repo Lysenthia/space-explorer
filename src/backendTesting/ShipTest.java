@@ -8,6 +8,12 @@ import org.junit.jupiter.api.Test;
 import backend.*;
 import java.util.ArrayList;
 
+/**
+ * Junit tests for ship
+ * @author hoo42
+ * @author rvo16
+ *
+ */
 class ShipTest {
 
 	@BeforeEach

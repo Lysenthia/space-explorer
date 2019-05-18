@@ -9,7 +9,12 @@ import org.junit.jupiter.api.Test;
 
 import backend.*;
 
-
+/**
+ * Junit tests for crew members
+ * @author hoo42
+ * @author rvo16
+ *
+ */
 class CrewMemberTest {
 	
 	private CrewMember alice;

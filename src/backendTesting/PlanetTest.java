@@ -6,6 +6,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import backend.*;
 
+/**
+ * Junit tests for planets
+ * @author hoo42
+ * @author rvo16
+ *
+ */
 class PlanetTest {
 	
 	private Planet kerbin;

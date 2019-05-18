@@ -23,6 +23,12 @@ import backend.MedicalItem;
 import backend.Planet;
 import backend.Ship;
 
+
+/**
+ * Allows player to save the current game state and load game saves
+ * @author hoo42
+ * @author rvo16
+ */
 public class SaveGame {
 	private Path file;
 	private ArrayList<LinkedHashMap<String, String>> planets = new ArrayList<LinkedHashMap<String, String>>();
@@ -30,11 +36,18 @@ public class SaveGame {
 	private LinkedHashMap<String, ArrayList<LinkedHashMap<String, String>>> consumables = new LinkedHashMap<String, ArrayList<LinkedHashMap<String, String>>>();
 	private LinkedHashMap<String, String> state = new LinkedHashMap<String, String>();
 
-	
+	/**
+	 * Saves the current game state as a file
+	 * @param file the file to be saved
+	 */
 	public SaveGame(Path file) {
 		this.file = file;
 	}
 	
+	/**
+	 * Throws exception if void game save
+	 * @throws IOException the exception  thrown
+	 */
 	public void save() throws IOException {
 		LinkedHashMap<String, Object> data = new LinkedHashMap<String, Object>();
 		addPlanets();
@@ -57,6 +70,9 @@ public class SaveGame {
 		yaml.dump(data, writer);
 	}
 	
+	/**
+	 * Creates saved state of planet classes from the game save
+	 */
 	private void addPlanets() {
 		Planet orbiting = Ship.getOrbiting();
 		for (Planet planet : GameState.getPlanets()) {
@@ -72,6 +88,9 @@ public class SaveGame {
 		}
 	}
 	
+	/**
+	 * Creates saved state of crew classes from game save
+	 */
 	private void addCrew() {
 		for (CrewMember member : Ship.getShipCrew()) {
 			CrewMemberExtended memberExtension = (CrewMemberExtended) member;
@@ -88,6 +107,9 @@ public class SaveGame {
 		}
 	}
 	
+	/**
+	 * Creates the inventory classes and saved state of inventory from game save
+	 */
 	private void addConsumables() {
 		consumables.put("medical", new ArrayList<LinkedHashMap<String, String>>());
 		consumables.put("food", new ArrayList<LinkedHashMap<String, String>>());
@@ -103,6 +125,9 @@ public class SaveGame {
 		}
 	}
 	
+	/**
+	 * Creates the game state classes from game save
+	 */
 	private void addGameState() {
 		state.put("curDay", Integer.toString(GameState.getCurrentDay()));
 		state.put("endDay", Integer.toString(GameState.getEndDay()));

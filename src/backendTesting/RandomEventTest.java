@@ -13,6 +13,12 @@ import backend.RandomEvent;
 import backend.RandomEventOutput;
 import backend.Ship;
 
+/**
+ * Junit tests for random events
+ * @author hoo42
+ * @author rvo16
+ *
+ */
 class RandomEventTest {
 
 	@BeforeEach

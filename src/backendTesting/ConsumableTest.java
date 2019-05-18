@@ -7,6 +7,12 @@ import org.junit.jupiter.api.Test;
 
 import backend.*
 ;
+
+/**
+ * Junit tests for consumables
+ * @author hoo42
+ * @author rvo16
+ */
 class ConsumableTest {
 	
 	private CureItem basic;
