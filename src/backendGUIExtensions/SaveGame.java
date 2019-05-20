@@ -295,7 +295,7 @@ public class SaveGame {
 		int priceMultiplier = Integer.parseInt(typedState.get("outpostMultiplier"));
 		if (endDay > 10 || endDay < 2 || partsHeld > (endDay * 2) / 3 ||
 			partsHeld < 0 || shields > 100 || shields <= 0 || money < 0 ||
-			priceMultiplier > 0) {
+			priceMultiplier <= 0) {
 			throw new IOException("Error parsing state (bad value)");
 		}
 		GameState.setCurrentDay(curDay);
