@@ -425,7 +425,10 @@ public class GameEnviroment {
 		
 	}
 	
-	
+	/**
+	 * Player action: Lets the player select a crew member and repair shields
+	 * @param input the Scanner shared between methods
+	 */
 	private static void repairShields(Scanner input) {
 		ArrayList<CrewMember> crew = Ship.getShipCrew();
 		ArrayList<String> messages = new ArrayList<String>();
