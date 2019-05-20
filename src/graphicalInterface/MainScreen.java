@@ -177,7 +177,7 @@ public class MainScreen {
 		JLabel lblPlanetName = new JLabel("<html><p>Currently Orbiting: {Planet}</p></html>");
 		lblPlanetName.setHorizontalAlignment(SwingConstants.CENTER);
 		orbitalStatusPanel.add(lblPlanetName);
-		lblPlanetName.setBorder(new EmptyBorder(0, 50, 0, 50));
+		lblPlanetName.setBorder(new EmptyBorder(0, 25, 0, 25));
 		
 		JLabel lblPlanetPartFound = new JLabel("Part found on planet goes here");
 		lblPlanetPartFound.setHorizontalAlignment(SwingConstants.CENTER);
@@ -185,7 +185,7 @@ public class MainScreen {
 		
 		JLabel planetDescription = new JLabel();
 		planetDescription.setHorizontalAlignment(SwingConstants.CENTER);
-		planetDescription.setBorder(new EmptyBorder(0, 50, 0, 50));
+		planetDescription.setBorder(new EmptyBorder(0, 25, 0, 25));
 		planetDescription.setText("The description of the planet will go here");
 		planetInfoPanel.add(planetDescription);
 		
@@ -193,26 +193,26 @@ public class MainScreen {
 		planetInfoPanel.add(currentStatusPanel);
 		currentStatusPanel.setLayout(new GridLayout(0, 2, 0, 0));
 		
-		JLabel lblCurrentPartsFound = new JLabel(String.format("Parts found: %d", GameState.getPartsFound()));
+		JLabel lblCurrentPartsFound = new JLabel(String.format("Parts: %d/%d", GameState.getPartsFound(), GameState.getPartsNeeded()));
 		lblCurrentPartsFound.setHorizontalAlignment(SwingConstants.CENTER);
 		currentStatusPanel.add(lblCurrentPartsFound);
 		lblCurrentPartsFound.setBorder(new EmptyBorder(0, 50, 0, 50));
 		
-		JLabel lblCurrentDay = new JLabel(String.format("Current Day: %d", GameState.getCurrentDay()));
+		JLabel lblCurrentDay = new JLabel(String.format("Day: %d/%d", GameState.getCurrentDay(), GameState.getPartsNeeded()));
 		lblCurrentDay.setHorizontalAlignment(SwingConstants.CENTER);
 		currentStatusPanel.add(lblCurrentDay);
 		
-		JPanel endStatusPanel = new JPanel();
-		planetInfoPanel.add(endStatusPanel);
-		endStatusPanel.setLayout(new GridLayout(0, 2, 0, 0));
+		JPanel shipStatusPanel = new JPanel();
+		planetInfoPanel.add(shipStatusPanel);
+		shipStatusPanel.setLayout(new GridLayout(0, 2, 0, 0));
 		
-		JLabel lblPartsNeeded = new JLabel(String.format("Parts Needed: %d", GameState.getPartsNeeded()));
-		lblPartsNeeded.setHorizontalAlignment(SwingConstants.CENTER);
-		endStatusPanel.add(lblPartsNeeded);
+		JLabel lblCredits = new JLabel(String.format("Credits Held: %d", Ship.getMoney()));
+		lblCredits.setHorizontalAlignment(SwingConstants.CENTER);
+		shipStatusPanel.add(lblCredits);
 		
-		JLabel lblEndDay = new JLabel(String.format("End Day: %d", GameState.getEndDay()));
-		lblEndDay.setHorizontalAlignment(SwingConstants.CENTER);
-		endStatusPanel.add(lblEndDay);
+		JLabel lblShields = new JLabel(String.format("Ship Shields: %d", Ship.getShields()));
+		lblShields.setHorizontalAlignment(SwingConstants.CENTER);
+		shipStatusPanel.add(lblShields);
 		
 		JPanel choicesPanel = new JPanel();
 		springLayout.putConstraint(SpringLayout.NORTH, choicesPanel, 397, SpringLayout.NORTH, frame.getContentPane());
