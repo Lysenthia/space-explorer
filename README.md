@@ -2,6 +2,7 @@
 A Java based space survival game
 #### How to play (GUI)
 1. Start the game by calling `java -jar game_gui.jar` in the terminal
+   - The folder from which this file is called must also contain the resources folder provided
 2. Select how many days the game should played over
 3. Name you ship
 4. Customise your crew members
@@ -20,7 +21,15 @@ A Java based space survival game
    - All but one crew member dies, and the player loses
    - The ships shields are drained, and the player loses
    - The player quits the game, and thus the player loses
-   
+
+##### Customising the game
+If you wish to, you may add new images to the resource folder to use in-game. Note: a file with a filename of default is required in both folders
+  - To add a new crew member image, place the image in resources/crew-img
+  - To add a new planet image, place the image in resources/planet-img
+You may also edit the planets and consumables used in the game
+  - The planets are located in resources/game-data/planets.yaml
+  - The consumables are located in resources/game-data/consumables.yaml
+
 #### How to play (CLI)
 1. Start the game by calling `java -jar game_cli.jar` in the terminal
 2. Enter the number of days to play for
