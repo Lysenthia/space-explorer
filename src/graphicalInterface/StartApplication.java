@@ -53,7 +53,7 @@ public class StartApplication {
 			blockProcess = true;
 			ErrorWindow.callScreen("Error fetching consumables data", e);
 		}
-		Outpost.setOutpost("Outpost 9", consumables, 1);
+		Outpost.setOutpost("Outpost 9", 1);
 		if (!blockProcess) {
 			possibleCrewImages = CrewMemberImages.getImages();
 			StartupScreen.callScreen();

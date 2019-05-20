@@ -1,9 +1,7 @@
 package backend;
-import java.util.ArrayList;
 
 /**
- * Stores information regarding an outpost at which the player can purchase items.
- * In most games there will be only one outpost, but in an altered game with multiple systems there could be several
+ * Stores information regarding the outpost at which the player can purchase items.
  * @author hoo42
  * @author rvo16
  */
@@ -13,11 +11,6 @@ public final class Outpost {
 	 * The name of the outpost
 	 */
 	private static String name;
-	
-	/**
-	 * The stock of the outpost (A list of consumables that the player may buy)
-	 */
-	private static ArrayList<Consumable> stock;
 	
 	/**
 	 * The price multiplier of the outpost.
@@ -33,12 +26,10 @@ public final class Outpost {
 	/**
 	 * Sets the state of the outpost
 	 * @param newName the name of the outpost
-	 * @param newStock the consumables purchasable at the outpost
 	 * @param newPriceMultiplier the price multiplier of the outpost
 	 */
-	public static void setOutpost(String newName, ArrayList<Consumable> newStock, int newPriceMultiplier) {
+	public static void setOutpost(String newName, int newPriceMultiplier) {
 		name = newName;
-		stock = new ArrayList<Consumable>(newStock);
 		priceMultiplier = newPriceMultiplier;
 	}
 	
@@ -51,41 +42,11 @@ public final class Outpost {
 	}
 	
 	/**
-	 * Returns an array list of the consumable stock
-	 * @return stock of item
+	 * Returns the price multiplier of the outpost
+	 * @return the price multiplier of the outpost
 	 */
-	public static ArrayList<Consumable> getStock() {
-		return stock;
-	}
-	
-	/**
-	 * Adds an item to consumable list
-	 * @param item the item to be added
-	 * @return true if stock consumable item is added
-	 * 			false otherwise
-	 */
-	public static boolean addStockItem(Consumable item) {
-		if (stock.contains(item)) {
-			return false;
-		} else {
-			stock.add(item);
-			return true;
-		}
-	}
-	
-	/**
-	 * Removes an item from consumable list
-	 * @param item the item to be removed
-	 * @return true if stock consumable item is removed
-	 * 			false otherwise
-	 */
-	public static boolean removeStockItem(Consumable item) {
-		if (stock.contains(item)) {
-			stock.remove(item);
-			return true;
-		} else {
-			return false;
-		}
+	public static int getPriceMultiplier() {
+		return priceMultiplier;
 	}
 	
 	/**

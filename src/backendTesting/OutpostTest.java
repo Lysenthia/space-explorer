@@ -30,48 +30,12 @@ class OutpostTest {
 		stock.add(new MedicalItem("Medical", 100, 100));
 		stock.add(new CureItem("Cure", 100, 100));
 		stock.add(new FoodItem("Medical", 100, 100));
-		Outpost.setOutpost("Outpost 9", stock, 1);
+		Outpost.setOutpost("Outpost 9", 1);
 	}
 
 	@Test
 	void testGetName() {
 		assertEquals(Outpost.getName(), "Outpost 9");
-	}
-
-	@Test
-	void testGetStock() {
-		assertEquals(Outpost.getStock(), stock);
-	}
-
-	@Test
-	void testAddStockItem() {
-		MedicalItem item = new MedicalItem("Improved Medical", 2, 2);
-		boolean added;
-		added = Outpost.addStockItem(item);
-		assertTrue(added);
-		assertEquals(Outpost.getStock().size(), stock.size() + 1);
-		assertTrue(Outpost.getStock().contains(item));
-		added = Outpost.addStockItem(item);
-		assertFalse(added);
-		assertEquals(Outpost.getStock().size(), stock.size() + 1);
-		assertTrue(Outpost.getStock().contains(item));
-	}
-
-	@Test
-	void testRemoveStockItem() {
-		MedicalItem item = new MedicalItem("Improved Medical", 2, 2);
-		boolean removed;
-		Outpost.addStockItem(item);
-		assertEquals(Outpost.getStock().size(), stock.size() + 1);
-		assertTrue(Outpost.getStock().contains(item));
-		removed = Outpost.removeStockItem(item);
-		assertTrue(removed);
-		assertEquals(Outpost.getStock().size(), stock.size());
-		assertFalse(Outpost.getStock().contains(item));
-		removed = Outpost.removeStockItem(item);
-		assertFalse(removed);
-		assertEquals(Outpost.getStock().size(), stock.size());
-		assertFalse(Outpost.getStock().contains(item));
 	}
 
 	@Test

@@ -136,7 +136,7 @@ public class GameEnviroment {
 		GameState.addConsumable(new FoodItem("Snapfrozen Curry", 70, 70));
 		GameState.addConsumable(new CureItem("Budget Space Plague Cure", 50, 50));
 		GameState.addConsumable(new CureItem("Space Plague Cure", 100, 100));
-		Outpost.setOutpost("Outpost 9", GameState.getAllConsumable(), 1);
+		Outpost.setOutpost("Outpost 9", 1);
 		ArrayList<Planet> planets = new ArrayList<Planet>();
 		planets.add(new Planet("Mercury", "The closest planet to Sol. Small and very hot."));
 		planets.add(new Planet("Venus", "Second from Sol. About the size of Earth, but suffered from runaway greenhouse effect."));
@@ -464,13 +464,13 @@ public class GameEnviroment {
 	 * 		   false otherwise
 	 */
 	private static boolean purchaseItem(Scanner input) {
-		int size = Outpost.getStock().size();
+		int size = GameState.getAllConsumable().size();
 		ArrayList<String> messages = new ArrayList<String>();
 		Consumable item;
 		int i = 0;
 		messages.add(String.format("What would you like to purchase? (Credits: %d)", Ship.getMoney()));
 		for (i = 0; i < size; i++) {
-			item = Outpost.getStock().get(i);
+			item = GameState.getAllConsumable().get(i);
 			messages.add(String.format("%d:\tName: %-30sCost: %-8dType: %-20s\tEffectivness: %-8dHeld: %d", i, item.getName(), item.getPrice(), item.getItemType(), item.getEffectiveness(), item.getHeld()));
 		}
 		messages.add(String.format("%d: Cancel", i));
@@ -481,7 +481,7 @@ public class GameEnviroment {
 		if (choice == size) {
 			return true;
 		}
-		item = Outpost.getStock().get(choice);
+		item = GameState.getAllConsumable().get(choice);
 		messages.clear();
 		messages.add(String.format("How many %s would you like to buy?\n(Price: %d Effectivness: %d Held: %d)", item.getName(), item.getPrice(), item.getEffectiveness(), item.getHeld()));
 		printList(messages);

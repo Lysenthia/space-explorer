@@ -20,6 +20,7 @@ import backend.CureItem;
 import backend.FoodItem;
 import backend.GameState;
 import backend.MedicalItem;
+import backend.Outpost;
 import backend.Planet;
 import backend.Ship;
 
@@ -135,6 +136,8 @@ public class SaveGame {
 		state.put("shields", Integer.toString(Ship.getShields()));
 		state.put("money", Integer.toString(Ship.getMoney()));
 		state.put("shipName", Ship.getName());
+		state.put("outpostName", Outpost.getName());
+		state.put("outpostMultiplier", Integer.toString(Outpost.getPriceMultiplier()));
 	}
 	
 	public void load() throws IOException {
@@ -279,7 +282,9 @@ public class SaveGame {
 			typedState.get("currentParts") == null ||
 			typedState.get("shields") == null ||
 			typedState.get("money") == null ||
-			typedState.get("shipName") == null) {
+			typedState.get("shipName") == null ||
+			typedState.get("outpostName") == null ||
+			typedState.get("outpostMultiplier") == null) {
 			throw new IOException("Error parsing state (null state)");
 		}
 		int endDay = Integer.parseInt(typedState.get("endDay"));
@@ -287,8 +292,10 @@ public class SaveGame {
 		int partsHeld = Integer.parseInt(typedState.get("currentParts"));
 		int shields = Integer.parseInt(typedState.get("shields"));
 		int money = Integer.parseInt(typedState.get("money"));
+		int priceMultiplier = Integer.parseInt(typedState.get("outpostMultiplier"));
 		if (endDay > 10 || endDay < 2 || partsHeld > (endDay * 2) / 3 ||
-			partsHeld < 0 || shields > 100 || shields <= 0 || money < 0) {
+			partsHeld < 0 || shields > 100 || shields <= 0 || money < 0 ||
+			priceMultiplier > 0) {
 			throw new IOException("Error parsing state (bad value)");
 		}
 		GameState.setCurrentDay(curDay);
@@ -297,5 +304,6 @@ public class SaveGame {
 		Ship.setMoney(money);
 		Ship.setShields(shields);
 		Ship.setName(typedState.get("shipName"));
+		Outpost.setOutpost(typedState.get("outpostName"), priceMultiplier);
 	}
 }

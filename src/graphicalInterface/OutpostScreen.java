@@ -24,6 +24,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import backend.Consumable;
+import backend.GameState;
 import backend.Outpost;
 import backend.Ship;
 
@@ -42,7 +43,7 @@ public class OutpostScreen {
 	private JLabel lblCredits;
 	private JButton btnPurchase;
 	private HashMap<JTextField, HashMap<String, Object>> itemData = new HashMap<JTextField, HashMap<String, Object>>();
-	private ArrayList<Consumable> consumables = Outpost.getStock();
+	private ArrayList<Consumable> consumables = GameState.getAllConsumable();
 
 	/**
 	 * Launch the application.
