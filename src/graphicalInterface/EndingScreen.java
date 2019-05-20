@@ -155,6 +155,7 @@ public class EndingScreen {
 		case VICTORY:
 			lblScore.setText(String.format("Your final score was: %d", score));
 			lblWinLose.setText("Congratulations, you win!");
+			lblWinLose.setFont(new Font("Tahoma", Font.PLAIN, 50));
 			lblDescription.setText(String.format("<html><p style='text-align: center;'>With the finding of the last part of her Alcubierre drive, the %s's crew were able to perform a patchwork fix, letting her crew escape back to more civilised systems where their ship could undergo permanent repairs</html></p>", Ship.getName()));
 			break;
 		}
