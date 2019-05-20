@@ -40,7 +40,7 @@ import java.awt.event.KeyEvent;
  */
 public class CrewSelection {
 
-	private JFrame frmPleaseCustomiseYour;
+	private JFrame frame;
 	private JTextField tfNameEntry;
 	private JTextField tfNameEntry2;
 	private JTextField tfNameEntry3;
@@ -61,7 +61,7 @@ public class CrewSelection {
 			public void run() {
 				try {
 					CrewSelection window = new CrewSelection();
-					window.frmPleaseCustomiseYour.setVisible(true);
+					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -83,22 +83,22 @@ public class CrewSelection {
 	private void initialize() {
 		
 		
-		frmPleaseCustomiseYour = new JFrame();
-		frmPleaseCustomiseYour.setTitle("Please customise your crew");
-		frmPleaseCustomiseYour.setPreferredSize(new Dimension(800, 600));
-		frmPleaseCustomiseYour.getContentPane().setPreferredSize(new Dimension(800, 600));
-		frmPleaseCustomiseYour.setResizable(false);
-		frmPleaseCustomiseYour.setBounds(100, 100, 800, 600);
-		frmPleaseCustomiseYour.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame = new JFrame();
+		frame.setTitle("Please customise your crew");
+		frame.setPreferredSize(new Dimension(800, 600));
+		frame.getContentPane().setPreferredSize(new Dimension(800, 600));
+		frame.setResizable(false);
+		frame.setBounds(100, 100, 800, 600);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		SpringLayout springLayout = new SpringLayout();
-		frmPleaseCustomiseYour.getContentPane().setLayout(springLayout);
+		frame.getContentPane().setLayout(springLayout);
 		
 		JPanel panelCrew = new JPanel();
-		springLayout.putConstraint(SpringLayout.NORTH, panelCrew, 0, SpringLayout.NORTH, frmPleaseCustomiseYour.getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, panelCrew, 0, SpringLayout.WEST, frmPleaseCustomiseYour.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, panelCrew, 400, SpringLayout.NORTH, frmPleaseCustomiseYour.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, panelCrew, 794, SpringLayout.WEST, frmPleaseCustomiseYour.getContentPane());
-		frmPleaseCustomiseYour.getContentPane().add(panelCrew);
+		springLayout.putConstraint(SpringLayout.NORTH, panelCrew, 0, SpringLayout.NORTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, panelCrew, 0, SpringLayout.WEST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, panelCrew, 400, SpringLayout.NORTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, panelCrew, 794, SpringLayout.WEST, frame.getContentPane());
+		frame.getContentPane().add(panelCrew);
 		panelCrew.setLayout(new GridLayout(0, 4, 0, 0));
 		
 		JPanel panelMember = new JPanel();
@@ -247,11 +247,11 @@ public class CrewSelection {
 		panelMember4Options.add(cbMemberClass4);
 		
 		JPanel panelOptions = new JPanel();
-		springLayout.putConstraint(SpringLayout.NORTH, panelOptions, 400, SpringLayout.NORTH, frmPleaseCustomiseYour.getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, panelOptions, 0, SpringLayout.WEST, frmPleaseCustomiseYour.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, panelOptions, 572, SpringLayout.NORTH, frmPleaseCustomiseYour.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, panelOptions, 794, SpringLayout.WEST, frmPleaseCustomiseYour.getContentPane());
-		frmPleaseCustomiseYour.getContentPane().add(panelOptions);
+		springLayout.putConstraint(SpringLayout.NORTH, panelOptions, 400, SpringLayout.NORTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, panelOptions, 0, SpringLayout.WEST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, panelOptions, 572, SpringLayout.NORTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, panelOptions, 794, SpringLayout.WEST, frame.getContentPane());
+		frame.getContentPane().add(panelOptions);
 		panelOptions.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JLabel lblCrewCount = new JLabel("How many crew members do you wish to have?");
@@ -290,7 +290,7 @@ public class CrewSelection {
 		crewImageCB.add(cbImageSelect3);
 		crewImageCB.add(cbImageSelect4);
 		
-		frmPleaseCustomiseYour.pack();
+		frame.pack();
 		
 		cbMemberClass.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
@@ -459,7 +459,7 @@ public class CrewSelection {
 				}
 				
 				MainScreen.callScreen();
-				frmPleaseCustomiseYour.dispose();
+				frame.dispose();
 			}
 		});
 	}

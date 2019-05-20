@@ -56,7 +56,7 @@ public class StartApplication {
 		Outpost.setOutpost("Outpost 9", 1);
 		if (!blockProcess) {
 			possibleCrewImages = CrewMemberImages.getImages();
-			StartupScreen.callScreen();
+			MainMenuScreen.callScreen();
 		}
 
 	}
