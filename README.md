@@ -34,23 +34,10 @@ A Java based space survival game
 Mercury : 
 https://commons.wikimedia.org/wiki/File:Mercury_in_color_-_Prockter07-edit1.jpg
 
-Venus:
-https://commons.wikimedia.org/wiki/File:Venus-real_color.jpg
-
-Earth:
-https://commons.wikimedia.org/wiki/File:The_Earth_seen_from_Apollo_17.jpg
-
-Mars:
-https://en.wikipedia.org/wiki/Mars#/media/File:OSIRIS_Mars_true_color.jpg
-
-Jupiter:
-https://en.wikipedia.org/wiki/Jupiter#/media/File:Jupiter_and_its_shrunken_Great_Red_Spot.jpg
-
-Saturn:
-https://en.wikipedia.org/wiki/Saturn#/media/File:Saturn_during_Equinox.jpg
-
-Uranus:
-https://en.wikipedia.org/wiki/Uranus#/media/File:Uranus2.jpg
-
-Neptune:
-https://en.wikipedia.org/wiki/Neptune#/media/File:Neptune_Full.jpg
+* Venus: https://commons.wikimedia.org/wiki/File:Venus-real_color.jpg
+* Earth: https://commons.wikimedia.org/wiki/File:The_Earth_seen_from_Apollo_17.jpg
+* Mars: https://en.wikipedia.org/wiki/Mars#/media/File:OSIRIS_Mars_true_color.jpg
+* Jupiter: https://en.wikipedia.org/wiki/Jupiter#/media/File:Jupiter_and_its_shrunken_Great_Red_Spot.jpg
+* Saturn: https://en.wikipedia.org/wiki/Saturn#/media/File:Saturn_during_Equinox.jpg
+* Uranus: https://en.wikipedia.org/wiki/Uranus#/media/File:Uranus2.jpg
+* Neptune: https://en.wikipedia.org/wiki/Neptune#/media/File:Neptune_Full.jpg
