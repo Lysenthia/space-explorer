@@ -14,13 +14,13 @@ public final class Score {
 	
 	/**
 	 * Returns the score the player gets at the end of the game
-	 * @return
+	 * @return the score the player got
 	 */
 	public static int getScore() {
 		int score = 0;
 		score += GameState.getPartsFound() * 30;
 		score -= (Ship.getInitialCrewSize() - Ship.getShipCrew().size()) * 50;
 		score = score * (10 / Ship.getInitialCrewSize());
-		return 0;
+		return score;
 	}
 }

@@ -226,4 +226,17 @@ class ShipTest {
 		assertEquals(Ship.getOrbiting(), kerbin);
 	}
 
+	@Test
+	void setShields() {
+		assertEquals(Ship.getShields(), 100);
+		Ship.setShields(50);
+		assertEquals(Ship.getShields(), 50);
+	}
+	
+	@Test
+	void setMoney() {
+		assertEquals(Ship.getMoney(), 0);
+		Ship.setMoney(1000);
+		assertEquals(Ship.getMoney(), 1000);
+	}
 }

@@ -37,6 +37,11 @@ class OutpostTest {
 	void testGetName() {
 		assertEquals(Outpost.getName(), "Outpost 9");
 	}
+	
+	@Test
+	void testGetPriceMultiplier() {
+		assertEquals(Outpost.getPriceMultiplier(), 1);
+	}
 
 	@Test
 	void testPurchaseItem() {
