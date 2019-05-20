@@ -31,9 +31,7 @@ A Java based space survival game
    * [SnakeYAML License](./resources/LICENSE.txt)
    
 #### Image sources
-Mercury : 
-https://commons.wikimedia.org/wiki/File:Mercury_in_color_-_Prockter07-edit1.jpg
-
+* Mercury : https://commons.wikimedia.org/wiki/File:Mercury_in_color_-_Prockter07-edit1.jpg
 * Venus: https://commons.wikimedia.org/wiki/File:Venus-real_color.jpg
 * Earth: https://commons.wikimedia.org/wiki/File:The_Earth_seen_from_Apollo_17.jpg
 * Mars: https://en.wikipedia.org/wiki/Mars#/media/File:OSIRIS_Mars_true_color.jpg
