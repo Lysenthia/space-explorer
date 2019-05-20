@@ -41,6 +41,11 @@ public final class Ship {
 	private static Planet orbiting;
 	
 	/**
+	 * The initial size of the crew at the start of the game
+	 */
+	private static int initialCrewSize = 0;
+	
+	/**
 	 * Intended to throw an error if someone attempts to make an instance of this class
 	 */
 	private Ship() {}
@@ -110,6 +115,7 @@ public final class Ship {
 			return false;
 		} else {
 			shipCrew.add(member);
+			initialCrewSize += 1;
 			return true;
 		}
 	}
@@ -242,11 +248,12 @@ public final class Ship {
 	 * Not for using during games, as it bypasses checks
 	 */
 	public static void clearAll() {
-		Ship.inventory.clear();
-		Ship.shipCrew.clear();
-		Ship.money = 0;
-		Ship.shipShields = 100;
-		Ship.orbiting = null;
+		initialCrewSize = 0;
+		inventory.clear();
+		shipCrew.clear();
+		money = 0;
+		shipShields = 100;
+		orbiting = null;
 	}
 	
 	/**
@@ -263,6 +270,14 @@ public final class Ship {
 	 */
 	public static void setMoney(int amount) {
 		money = amount;
+	}
+	
+	/**
+	 * Returns the initial size of the crew
+	 * @return the initial size of the crew
+	 */
+	public static int getInitialCrewSize() {
+		return initialCrewSize;
 	}
 	
 }

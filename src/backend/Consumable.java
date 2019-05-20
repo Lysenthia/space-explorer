@@ -101,8 +101,8 @@ public abstract class Consumable {
 	}
 	
 	/**
-	 * Gets the effectiveness of a consumable item
-	 * @return
+	 * Returns the effectiveness of a consumable item
+	 * @return the effectiveness of a consumable item
 	 */
 	public int getEffectiveness() {
 		return this.effectiveness;

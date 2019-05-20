@@ -4,14 +4,12 @@ import backend.*;
 import java.util.ArrayList;
 
 public class GameEnviroment {
+	
 	/**
 	 * The possible crew members that the player can select at the start of the game
 	 */
 	private static ArrayList<CrewMember> possibleCrew = new ArrayList<CrewMember>();
-	/**
-	 * The outpost that the player can visit
-	 */
-	private static Outpost outpost;
+
 	/**
 	 * True if the game has reached an ending; false otherwise
 	 */
@@ -138,7 +136,7 @@ public class GameEnviroment {
 		GameState.addConsumable(new FoodItem("Snapfrozen Curry", 70, 70));
 		GameState.addConsumable(new CureItem("Budget Space Plague Cure", 50, 50));
 		GameState.addConsumable(new CureItem("Space Plague Cure", 100, 100));
-		outpost = new Outpost("Outpost 9", GameState.getAllConsumable(), 1);
+		Outpost.setOutpost("Outpost 9", GameState.getAllConsumable(), 1);
 		ArrayList<Planet> planets = new ArrayList<Planet>();
 		planets.add(new Planet("Mercury", "The closest planet to Sol. Small and very hot."));
 		planets.add(new Planet("Venus", "Second from Sol. About the size of Earth, but suffered from runaway greenhouse effect."));
@@ -227,7 +225,7 @@ public class GameEnviroment {
 		actions.add("What would you like to do? ");
 		actions.add("0: Go to a new planet");
 		actions.add("1: Check on your crew and access your inventory");
-		actions.add(String.format("2: Go to %s", outpost.getName()));
+		actions.add(String.format("2: Go to %s", Outpost.getName()));
 		actions.add("3: Transition to a new day");
 		if (Ship.getOrbiting() != null) {
 			actions.add(String.format("4: Search %s for supplies", Ship.getOrbiting().getName()));
@@ -466,13 +464,13 @@ public class GameEnviroment {
 	 * 		   false otherwise
 	 */
 	private static boolean purchaseItem(Scanner input) {
-		int size = outpost.getStock().size();
+		int size = Outpost.getStock().size();
 		ArrayList<String> messages = new ArrayList<String>();
 		Consumable item;
 		int i = 0;
 		messages.add(String.format("What would you like to purchase? (Credits: %d)", Ship.getMoney()));
 		for (i = 0; i < size; i++) {
-			item = outpost.getStock().get(i);
+			item = Outpost.getStock().get(i);
 			messages.add(String.format("%d:\tName: %-30sCost: %-8dType: %-20s\tEffectivness: %-8dHeld: %d", i, item.getName(), item.getPrice(), item.getItemType(), item.getEffectiveness(), item.getHeld()));
 		}
 		messages.add(String.format("%d: Cancel", i));
@@ -483,7 +481,7 @@ public class GameEnviroment {
 		if (choice == size) {
 			return true;
 		}
-		item = outpost.getStock().get(choice);
+		item = Outpost.getStock().get(choice);
 		messages.clear();
 		messages.add(String.format("How many %s would you like to buy?\n(Price: %d Effectivness: %d Held: %d)", item.getName(), item.getPrice(), item.getEffectiveness(), item.getHeld()));
 		printList(messages);
@@ -492,7 +490,7 @@ public class GameEnviroment {
 		if (choice == 0) {
 			System.out.println("Did not buy anything");
 		} else {
-			boolean purchased = outpost.purchaseItem(item, choice);
+			boolean purchased = Outpost.purchaseItem(item, choice);
 			if (purchased) {
 				System.out.println(String.format("Purchased %d %s", choice, item.getName()));
 			} else {
@@ -507,7 +505,7 @@ public class GameEnviroment {
 	 * @param input the Scanner shared between methods
 	 */
 	private static void enterOutpost(Scanner input) {
-		System.out.println(String.format("Welcome to %s", outpost.getName()));
+		System.out.println(String.format("Welcome to %s", Outpost.getName()));
 		boolean done = false;
 		while(!done) {
 			done = purchaseItem(input);

@@ -24,14 +24,9 @@ public class StartApplication {
 	private static ArrayList<GUIImage> possibleCrewImages;
 	private static ArrayList<Consumable> consumables;
 	private static boolean blockProcess = false;
-	private static Outpost outpost;
 	
 	public static ArrayList<GUIImage> getPossibleCrewImages() {
 		return possibleCrewImages;
-	}
-	
-	public static Outpost getOutpost() {
-		return outpost;
 	}
 
 	public static void main(String[] args) {
@@ -58,7 +53,7 @@ public class StartApplication {
 			blockProcess = true;
 			ErrorWindow.callScreen("Error fetching consumables data", e);
 		}
-		outpost = new Outpost("Outpost 9", consumables, 1);
+		Outpost.setOutpost("Outpost 9", consumables, 1);
 		if (!blockProcess) {
 			possibleCrewImages = CrewMemberImages.getImages();
 			StartupScreen.callScreen();

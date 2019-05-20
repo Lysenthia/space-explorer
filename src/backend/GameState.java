@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * @author rvo16
  */
 
-public class GameState {
+public final class GameState {
 	/**
 	 * The current day the game is at
 	 */

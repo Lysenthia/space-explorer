@@ -42,8 +42,7 @@ public class OutpostScreen {
 	private JLabel lblCredits;
 	private JButton btnPurchase;
 	private HashMap<JTextField, HashMap<String, Object>> itemData = new HashMap<JTextField, HashMap<String, Object>>();
-	private Outpost outpost = StartApplication.getOutpost();
-	private ArrayList<Consumable> consumables = outpost.getStock();
+	private ArrayList<Consumable> consumables = Outpost.getStock();
 
 	/**
 	 * Launch the application.
@@ -90,7 +89,7 @@ public class OutpostScreen {
 		int prePurchase = Ship.getMoney();
 		for (JTextField field : itemData.keySet()) {
 			HashMap<String, Object> item = itemData.get(field);
-			outpost.purchaseItem((Consumable) item.get("item"), (int) item.get("wanted"));
+			Outpost.purchaseItem((Consumable) item.get("item"), (int) item.get("wanted"));
 			field.setText("0");
 			((JLabel) item.get("heldLbl")).setText(String.format("Held: %d", ((Consumable) item.get("item")).getHeld()));
 		}
@@ -123,7 +122,7 @@ public class OutpostScreen {
 		frame.getContentPane().add(DescriptionPanel);
 		DescriptionPanel.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		JLabel lblDesciption = new JLabel(String.format("Welcome to %s!", outpost.getName()));
+		JLabel lblDesciption = new JLabel(String.format("Welcome to %s!", Outpost.getName()));
 		lblDesciption.setFont(new Font("Dialog", Font.BOLD, 16));
 		lblDesciption.setHorizontalAlignment(SwingConstants.CENTER);
 		DescriptionPanel.add(lblDesciption);

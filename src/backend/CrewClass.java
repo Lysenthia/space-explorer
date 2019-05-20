@@ -48,6 +48,10 @@ public enum CrewClass {
 	 * A description of the class
 	 */
 	private final String classDescription;
+	
+	/**
+	 * A lookup table used to find a crew class based on a string
+	 */
 	private static final HashMap<String, CrewClass> lookupTable = new HashMap<String, CrewClass>(buildTable());
 	
 	/**
@@ -84,8 +88,8 @@ public enum CrewClass {
 	}
 	
 	/**
-	 * HashMap for crewClass
-	 * @return table of crew class
+	 * Returns the lookup table based on the name of a crew class and the crew class
+	 * @return the lookup table
 	 */
 	private static HashMap<String, CrewClass> buildTable() {
 		HashMap<String, CrewClass> table = new HashMap<String, CrewClass>();
@@ -96,10 +100,9 @@ public enum CrewClass {
 	}
 	
 	/**
-	 * Method to lookup crew class
+	 * Looks up the given string in the lookup table and returns the corresponding class if it exists; otherwise returns null
 	 * @param name of crew class
-	 * @return the name of class
-	 * 				null otherwise
+	 * @return the crew class; null otherwise
 	 */
 	public static CrewClass lookup(String name) {
 		if (lookupTable.containsKey(name)) {

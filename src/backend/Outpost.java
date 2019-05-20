@@ -7,50 +7,55 @@ import java.util.ArrayList;
  * @author hoo42
  * @author rvo16
  */
-public class Outpost {
+public final class Outpost {
 	
 	/**
 	 * The name of the outpost
 	 */
-	private String name;
+	private static String name;
 	
 	/**
 	 * The stock of the outpost (A list of consumables that the player may buy)
 	 */
-	private ArrayList<Consumable> stock;
+	private static ArrayList<Consumable> stock;
 	
 	/**
 	 * The price multiplier of the outpost.
 	 * Prices should be multiplied by this when purchasing items
 	 */
-	private int priceMultiplier;
+	private static int priceMultiplier;
 	
 	/**
-	 * Constructs an instance of an outpost with a name, stock, and price multiplier
-	 * @param name the name of the outpost
-	 * @param stock the consumables purchasable at the outpost
-	 * @param priceMultiplier the price multiplier of the outpost
+	 * Intended to throw an error if someone attempts to make an instance of this class
 	 */
-	public Outpost(String name, ArrayList<Consumable> stock, int priceMultiplier) {
-		this.name = name;
-		this.stock = new ArrayList<Consumable>(stock);
-		this.priceMultiplier = priceMultiplier;
+	private Outpost() {}
+	
+	/**
+	 * Sets the state of the outpost
+	 * @param newName the name of the outpost
+	 * @param newStock the consumables purchasable at the outpost
+	 * @param newPriceMultiplier the price multiplier of the outpost
+	 */
+	public static void setOutpost(String newName, ArrayList<Consumable> newStock, int newPriceMultiplier) {
+		name = newName;
+		stock = new ArrayList<Consumable>(newStock);
+		priceMultiplier = newPriceMultiplier;
 	}
 	
 	/**
 	 * Returns the name of the outpost
 	 * @return the name of the outpost
 	 */
-	public String getName() {
-		return this.name;
+	public static String getName() {
+		return name;
 	}
 	
 	/**
 	 * Returns an array list of the consumable stock
 	 * @return stock of item
 	 */
-	public ArrayList<Consumable> getStock() {
-		return this.stock;
+	public static ArrayList<Consumable> getStock() {
+		return stock;
 	}
 	
 	/**
@@ -59,11 +64,11 @@ public class Outpost {
 	 * @return true if stock consumable item is added
 	 * 			false otherwise
 	 */
-	public boolean addStockItem(Consumable item) {
-		if (this.stock.contains(item)) {
+	public static boolean addStockItem(Consumable item) {
+		if (stock.contains(item)) {
 			return false;
 		} else {
-			this.stock.add(item);
+			stock.add(item);
 			return true;
 		}
 	}
@@ -74,9 +79,9 @@ public class Outpost {
 	 * @return true if stock consumable item is removed
 	 * 			false otherwise
 	 */
-	public boolean removeStockItem(Consumable item) {
-		if (this.stock.contains(item)) {
-			this.stock.remove(item);
+	public static boolean removeStockItem(Consumable item) {
+		if (stock.contains(item)) {
+			stock.remove(item);
 			return true;
 		} else {
 			return false;
@@ -90,8 +95,8 @@ public class Outpost {
 	 * @return true if item can be purchased;
 	 * 			false otherwise
 	 */
-	public boolean purchaseItem(Consumable item, int amount) {
-		int price = item.getPrice() * amount * this.priceMultiplier;
+	public static boolean purchaseItem(Consumable item, int amount) {
+		int price = item.getPrice() * amount * priceMultiplier;
 		if (Ship.getMoney() >= price) {
 			item.increaseHeld(amount);
 			Ship.decreaseMoney(price);

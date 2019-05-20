@@ -1,5 +1,10 @@
 package backend;
 
+/**
+ * Potential endings that the player might reach
+ * @author hoo42
+ * @author rvo16
+ */
 public enum PossibleEndings {
 	
 	/**
