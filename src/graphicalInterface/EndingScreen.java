@@ -20,6 +20,7 @@ import backend.GameState;
 import backend.PossibleEndings;
 import backend.Score;
 import backend.Ship;
+import javax.swing.border.EmptyBorder;
 
 /**
  * GUI to display the ending screen of the game
@@ -109,6 +110,7 @@ public class EndingScreen {
 		descriptionPanel.setLayout(new GridLayout(1, 0, 0, 0));
 		
 		JLabel lblDescription = new JLabel("Description goes here");
+		lblDescription.setBorder(new EmptyBorder(0, 20, 0, 20));
 		lblDescription.setHorizontalAlignment(SwingConstants.CENTER);
 		descriptionPanel.add(lblDescription);
 		
