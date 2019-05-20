@@ -25,6 +25,21 @@ A Java based space survival game
 1. Start the game by calling `java -jar game_cli.jar` in the terminal
 2. Enter the number of days to play for
 3. Select the crew members that you want by entering the corresponding numbers in a single line
+4. The game now begins in orbit around the sun. Entering the corresponding numbers in a single line, you may now:
+  - Go to a new planet
+  - Check on your crew and access your inventory
+  - Go to Outpost
+  - Transition to a new day
+  - Quit game
+5.
+  - If you are orbiting a planet, you may search it for items, money and ship parts
+6. The game has 5 endings:
+   - All needed parts are found, and the player wins
+   - The final day is reached, and the player loses
+   - The entire crew is killed, and the player loses
+   - All but one crew member dies, and the player loses
+   - The ships shields are drained, and the player loses
+   - The player quits the game, and thus the player loses
 
 #### Requirements
 * [SnakeYAML](https://bitbucket.org/asomov/snakeyaml)  (Bundled)
