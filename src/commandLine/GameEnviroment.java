@@ -425,6 +425,36 @@ public class GameEnviroment {
 		
 	}
 	
+	
+	private static void repairShields(Scanner input) {
+		ArrayList<CrewMember> crew = Ship.getShipCrew();
+		ArrayList<String> messages = new ArrayList<String>();
+		messages.add("\nPlease select crew member to repair shields? ");
+		messages.add(String.format("Ship Shields: %d", Ship.getShields()));
+		for (int i = 0; i < crew.size(); i++) {
+			CrewMember member = crew.get(i);
+			messages.add(String.format("%s: Crew Member: %-15s Action points: %-5d", i, member.getName(), member.getActionPoints()));
+		}
+		messages.add(String.format("%d: Cancel", crew.size()));
+		printList(messages);
+		int choice = choose(input, messages, 0, crew.size());
+		if (choice == crew.size()) {
+			return;
+		} else {
+			CrewMember member = crew.get(choice);
+			if (member.getActionPoints() > 0 && member.getActionPoints() <=2  && Ship.getShields() < 100) {
+				member.repairShields();
+				System.out.println(String.format("Crew member %s has repaired the ships shields", member.getName()));	
+		}
+			else {
+				System.out.println(String.format("Crew member %s does not need to do this.", member.getName()));
+			}
+		}
+		
+	}
+	
+	
+	
 	/**
 	 * Player selected action: Lets the player view their crew and inventory
 	 * @param input the Scanner shared between methods
@@ -440,7 +470,8 @@ public class GameEnviroment {
 		messages.add("\nWhat would you like to do? ");
 		messages.add("0: Use a item.");
 		messages.add("1: Rest a crew member (Reduce tiredness)");
-		messages.add("2: Cancel");
+		messages.add("2: Repair Shields");
+		messages.add("3: Cancel");
 		printList(messages);
 		messages.add("Please enter an integer between 0 and 2 inclusive: ");
 		int choice = choose(input, messages, 0, 2);
@@ -452,6 +483,8 @@ public class GameEnviroment {
 			restCrewMember(input);
 			break;
 		case 2:
+			repairShields(input);
+		case 3:
 			break;
 		}
 		System.out.println();
