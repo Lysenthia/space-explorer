@@ -68,7 +68,7 @@ public class UseItemScreen {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		ArrayList<CrewMember> crew = Ship.getReadyCrew();
+		ArrayList<CrewMember> crew = Ship.getShipCrew();
 		ArrayList<JLabel> lblImages = new ArrayList<JLabel>();
 		ArrayList<Consumable> consumables = Ship.getInventory();
 		int itemsPanelSize = 45 * consumables.size();
@@ -153,7 +153,6 @@ public class UseItemScreen {
 				CrewMember member = crew.get(Integer.parseInt(selected));
 				String selected2 = itemButtonGroup.getSelection().getActionCommand();
 				Consumable item = consumables.get(Integer.parseInt(selected2));
-				item.use(member);
 				
 				boolean used = item.use(member);
 				if (used) {
@@ -165,7 +164,6 @@ public class UseItemScreen {
 					JOptionPane.showMessageDialog(frmUseItemScreen, String.format("Crewmember, %s, has no need to use item %s", member.getName(), item.getName()));
 					
 				}
-				
 				UseItemScreen.callScreen();
 				frmUseItemScreen.dispose();
 			}
