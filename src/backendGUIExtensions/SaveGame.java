@@ -36,6 +36,14 @@ public class SaveGame {
 	private ArrayList<LinkedHashMap<String, String>> crew = new ArrayList<LinkedHashMap<String, String>>();
 	private LinkedHashMap<String, ArrayList<LinkedHashMap<String, String>>> consumables = new LinkedHashMap<String, ArrayList<LinkedHashMap<String, String>>>();
 	private LinkedHashMap<String, String> state = new LinkedHashMap<String, String>();
+	private int endDay;
+	private int curDay;
+	private int partsHeld;
+	private int shields;
+	private int money;
+	private int priceMultiplier;
+	private String shipName;
+	private String outpostName;
 
 	/**
 	 * Saves the current game state as a file
@@ -158,6 +166,13 @@ public class SaveGame {
 		GameState.setAllConsumables(consumablesList);
 		crewList.forEach(member -> Ship.addCrewMember(member));
 		GameState.setPlanets(planetsList);
+		GameState.setCurrentDay(curDay);
+		GameState.setEndDay(endDay);
+		GameState.setPartsFound(partsHeld);
+		Ship.setMoney(money);
+		Ship.setShields(shields);
+		Ship.setName(shipName);
+		Outpost.setOutpost(outpostName, priceMultiplier);
 	}
 	
 	/**
@@ -287,23 +302,18 @@ public class SaveGame {
 			typedState.get("outpostMultiplier") == null) {
 			throw new IOException("Error parsing state (null state)");
 		}
-		int endDay = Integer.parseInt(typedState.get("endDay"));
-		int curDay = Integer.parseInt(typedState.get("curDay"));
-		int partsHeld = Integer.parseInt(typedState.get("currentParts"));
-		int shields = Integer.parseInt(typedState.get("shields"));
-		int money = Integer.parseInt(typedState.get("money"));
-		int priceMultiplier = Integer.parseInt(typedState.get("outpostMultiplier"));
+		endDay = Integer.parseInt(typedState.get("endDay"));
+		curDay = Integer.parseInt(typedState.get("curDay"));
+		partsHeld = Integer.parseInt(typedState.get("currentParts"));
+		shields = Integer.parseInt(typedState.get("shields"));
+		money = Integer.parseInt(typedState.get("money"));
+		priceMultiplier = Integer.parseInt(typedState.get("outpostMultiplier"));
+		outpostName = typedState.get("outpostName");
+		shipName = typedState.get("shipName");
 		if (endDay > 10 || endDay < 2 || partsHeld > (endDay * 2) / 3 ||
 			partsHeld < 0 || shields > 100 || shields <= 0 || money < 0 ||
 			priceMultiplier <= 0) {
 			throw new IOException("Error parsing state (bad value)");
 		}
-		GameState.setCurrentDay(curDay);
-		GameState.setEndDay(endDay);
-		GameState.setPartsFound(partsHeld);
-		Ship.setMoney(money);
-		Ship.setShields(shields);
-		Ship.setName(typedState.get("shipName"));
-		Outpost.setOutpost(typedState.get("outpostName"), priceMultiplier);
 	}
 }
