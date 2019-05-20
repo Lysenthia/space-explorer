@@ -16,7 +16,7 @@ public final class Score {
 	 * Returns the score the player gets at the end of the game
 	 * @return
 	 */
-	public int getScore() {
+	public static int getScore() {
 		int score = 0;
 		score += GameState.getPartsFound() * 30;
 		score -= (Ship.getInitialCrewSize() - Ship.getShipCrew().size()) * 50;

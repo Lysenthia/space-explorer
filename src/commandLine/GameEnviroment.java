@@ -667,23 +667,31 @@ public class GameEnviroment {
 		}
 	}
 	
+	private static int getScore() {
+		return Score.getScore();
+	}
+	
 	/**
 	 * Ends the game
 	 */
 	private static void invokeEnding() {
+		int score = getScore();
 		switch (GameState.getEnding()) {
 		case CREW_DEAD:
 			System.out.println(String.format("With the death of all the %s's crew, she is left floating through space, a desolate reminder of the perils of space travel...", Ship.getName()));
 			System.out.println("GAMEOVER");
+			System.out.println(String.format("Your final score was: %d", score));
 			break;
 		case LOST_IN_SPACE:
 			CrewMember lastCrew = Ship.getShipCrew().get(0);
 			System.out.println(String.format("With the death of all the %s's crew but %s, %s's future is uncertain, whether they will be rescued by another ship, starve to death, or choke and freeze as the ships life support system fails...", Ship.getName(), lastCrew.getName(), lastCrew.getName()));
 			System.out.println("GAMEOVER");
+			System.out.println(String.format("Your final score was: %d", score));
 			break;
 		case OUT_OF_TIME:
 			System.out.println(String.format("With the crew unable to repair her Alcubierre drive in time, the %s's negative mass generator failed, causing her and her crew to vanish, never to be seen again...", Ship.getName()));
 			System.out.println("GAMEOVER");
+			System.out.println(String.format("Your final score was: %d", score));
 			break;
 		case QUIT:
 			System.out.println(String.format("In the face of impossible odds, the %s's crew promptly gave up, and decided it would be easier to jump out of the airlock into the vacuum of space", Ship.getName()));
@@ -691,10 +699,12 @@ public class GameEnviroment {
 		case SHIP_DESTROYED:
 			System.out.println(String.format("With the failure of the %s's shields system, her structural integrity failed, causing the ship to break up and expose her entire crew to the harsh void of space, killing all of them...", Ship.getName()));
 			System.out.println("GAMEOVER");
+			System.out.println(String.format("Your final score was: %d", score));
 			break;
 		case VICTORY:
 			System.out.println(String.format("With the finding of the last part of her Alcubierre drive, the %s's crew were able to perform a patchwork fix, letting her crew escape back to more civilised systems where their ship could undergo permanent repairs", Ship.getName()));
 			System.out.println("A WINNER IS YOU");
+			System.out.println(String.format("Your final score was: %d", score));
 			break;
 		}
 	}
