@@ -31,31 +31,70 @@ import backend.Ship;
  * @author rvo16
  */
 public class SaveGame {
+	/**
+	 * Path to the save file
+	 */
 	private Path file;
+	/**
+	 * The planets to write to the save
+	 */
 	private ArrayList<LinkedHashMap<String, String>> planets = new ArrayList<LinkedHashMap<String, String>>();
+	/**
+	 * The crew to write to the save
+	 */
 	private ArrayList<LinkedHashMap<String, String>> crew = new ArrayList<LinkedHashMap<String, String>>();
+	/**
+	 * The consumables to write to the save
+	 */
 	private LinkedHashMap<String, ArrayList<LinkedHashMap<String, String>>> consumables = new LinkedHashMap<String, ArrayList<LinkedHashMap<String, String>>>();
+	/**
+	 * The game state and ship state to write to the save
+	 */
 	private LinkedHashMap<String, String> state = new LinkedHashMap<String, String>();
+	/**
+	 * The loaded end day
+	 */
 	private int endDay;
+	/**
+	 * The loaded current day
+	 */
 	private int curDay;
+	/**
+	 * The loaded parts held
+	 */
 	private int partsHeld;
+	/**
+	 * The loaded ship shields
+	 */
 	private int shields;
+	/**
+	 * The loaded credits held
+	 */
 	private int money;
+	/**
+	 * The loaded outpost price multiplier
+	 */
 	private int priceMultiplier;
+	/**
+	 * The loaded ship name
+	 */
 	private String shipName;
+	/**
+	 * The loaded outpost name
+	 */
 	private String outpostName;
 
 	/**
-	 * Saves the current game state as a file
-	 * @param file the file to be saved
+	 * Constructs an instance of a save file
+	 * @param file the path to the save file
 	 */
 	public SaveGame(Path file) {
 		this.file = file;
 	}
 	
 	/**
-	 * Throws exception if void game save
-	 * @throws IOException the exception  thrown
+	 * Saves the current game to the save file
+	 * @throws IOException if an error is encountered while writing the save
 	 */
 	public void save() throws IOException {
 		LinkedHashMap<String, Object> data = new LinkedHashMap<String, Object>();
@@ -80,7 +119,7 @@ public class SaveGame {
 	}
 	
 	/**
-	 * Creates saved state of planet classes from the game save
+	 * Adds the planets in the game to the list of planets to write
 	 */
 	private void addPlanets() {
 		Planet orbiting = Ship.getOrbiting();
@@ -98,7 +137,7 @@ public class SaveGame {
 	}
 	
 	/**
-	 * Creates saved state of crew classes from game save
+	 * Adds the crew in the game to the list of crew to write
 	 */
 	private void addCrew() {
 		for (CrewMember member : Ship.getShipCrew()) {
@@ -117,7 +156,7 @@ public class SaveGame {
 	}
 	
 	/**
-	 * Creates the inventory classes and saved state of inventory from game save
+	 * Adds the consumables in the game to the list of consumables to write
 	 */
 	private void addConsumables() {
 		consumables.put("medical", new ArrayList<LinkedHashMap<String, String>>());
@@ -135,7 +174,7 @@ public class SaveGame {
 	}
 	
 	/**
-	 * Creates the game state classes from game save
+	 * Adds the current game state and ship state to the state to write
 	 */
 	private void addGameState() {
 		state.put("curDay", Integer.toString(GameState.getCurrentDay()));
@@ -148,6 +187,10 @@ public class SaveGame {
 		state.put("outpostMultiplier", Integer.toString(Outpost.getPriceMultiplier()));
 	}
 	
+	/**
+	 * Loads a save from the save file
+	 * @throws IOException if an error is encountered whilst loading the save
+	 */
 	public void load() throws IOException {
 		LinkedHashMap<String, Object> output;
 		Yaml parser = new Yaml();
@@ -157,6 +200,11 @@ public class SaveGame {
 		update(output);
 	}
 	
+	/**
+	 * Updates the current game to match the loaded save game
+	 * @param output the output of the YAML reader
+	 * @throws IOException if an error is encountered whilst reading the output
+	 */
 	private void update(LinkedHashMap<String, Object> output) throws IOException {
 		ArrayList<Planet> planetsList = fetchPlanets(output);
 		ArrayList<CrewMemberExtended> crewList = fetchCrew(output);
@@ -176,9 +224,9 @@ public class SaveGame {
 	}
 	
 	/**
-	 * 
-	 * @param output the LinkedHashMap produced by loading the save file
-	 * @return the arraylist of planets in the game
+	 * Fetches the planets from the save file
+	 * @param output the output of the YAML reader
+	 * @return the array list of planets found
 	 * @throws IOException if there is an error whilst parsing the planets
 	 */
 	@SuppressWarnings("unchecked")
@@ -203,6 +251,12 @@ public class SaveGame {
 		return planetsList;
 	}
 	
+	/**
+	 * Fetches the crew from the save file
+	 * @param output the output of the YAML reader
+	 * @return the array list of crew found
+	 * @throws IOException if there is an error whilst parsing the crew
+	 */
 	@SuppressWarnings("unchecked")
 	private ArrayList<CrewMemberExtended> fetchCrew(LinkedHashMap<String, Object> output) throws IOException {
 		ArrayList<GUIImage> crewImages = CrewMemberImages.getImages();
@@ -245,6 +299,12 @@ public class SaveGame {
 		return crewList;
 	}
 	
+	/**
+	 * Fetches the consumables from the save file
+	 * @param output the output of the YAML reader
+	 * @return the array list of consumables found
+	 * @throws IOException if there is an error whilst parsing the consumables
+	 */
 	@SuppressWarnings("unchecked")
 	private ArrayList<Consumable> fetchConsumables(LinkedHashMap<String, Object> output) throws IOException {
 		ArrayList<Consumable> consumables = new ArrayList<Consumable>();
@@ -285,6 +345,11 @@ public class SaveGame {
 		return consumables;
 	}
 	
+	/**
+	 * Fetches the game state from the save file
+	 * @param output the output of the YAML reader
+	 * @throws IOException if there is an error whilst parsing the game state
+	 */
 	@SuppressWarnings("unchecked")
 	private void fetchState(LinkedHashMap<String, Object> output) throws IOException {
 		Object untypedState = output.get("state");
