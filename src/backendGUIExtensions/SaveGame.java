@@ -83,6 +83,11 @@ public class SaveGame {
 	 * The loaded outpost name
 	 */
 	private String outpostName;
+	
+	/**
+	 * The loaded initial crew size
+	 */
+	private int initialCrewSize;
 
 	/**
 	 * Constructs an instance of a save file
@@ -185,6 +190,7 @@ public class SaveGame {
 		state.put("shipName", Ship.getName());
 		state.put("outpostName", Outpost.getName());
 		state.put("outpostMultiplier", Integer.toString(Outpost.getPriceMultiplier()));
+		state.put("crewSize", Integer.toString(Ship.getInitialCrewSize()));
 	}
 	
 	/**
@@ -210,6 +216,9 @@ public class SaveGame {
 		ArrayList<CrewMemberExtended> crewList = fetchCrew(output);
 		ArrayList<Consumable> consumablesList = fetchConsumables(output);
 		fetchState(output);
+		if (planetsList.size() < endDay) {
+			throw new IOException("Error (too few planets)");
+		}
 		Ship.clearAll();
 		GameState.setAllConsumables(consumablesList);
 		crewList.forEach(member -> Ship.addCrewMember(member));
@@ -221,6 +230,7 @@ public class SaveGame {
 		Ship.setShields(shields);
 		Ship.setName(shipName);
 		Outpost.setOutpost(outpostName, priceMultiplier);
+		Ship.forceInitialCrewSize(initialCrewSize);
 	}
 	
 	/**
@@ -288,13 +298,16 @@ public class SaveGame {
 				hunger > 100 || hunger < 0 ||
 				tiredness > 100 || tiredness < 0 ||
 				ap > 2 || ap < 0) {
-				throw new IOException("Error parsing crew members (oob) ");
+				throw new IOException("Error parsing crew members (Out of bounds)");
 			}
 			member.setParameters(health, tiredness, hunger, ap);
 			if (Boolean.valueOf(typedMember.get("plague")) == true) {
 				member.giveSpacePlague();
 			}
 			crewList.add(member);
+		}
+		if (crewList.size() > 4) {
+			throw new IOException("Error parsing crew members (too many members)");
 		}
 		return crewList;
 	}
@@ -364,7 +377,8 @@ public class SaveGame {
 			typedState.get("money") == null ||
 			typedState.get("shipName") == null ||
 			typedState.get("outpostName") == null ||
-			typedState.get("outpostMultiplier") == null) {
+			typedState.get("outpostMultiplier") == null ||
+			typedState.get("crewSize") == null) {
 			throw new IOException("Error parsing state (null state)");
 		}
 		endDay = Integer.parseInt(typedState.get("endDay"));
@@ -375,9 +389,10 @@ public class SaveGame {
 		priceMultiplier = Integer.parseInt(typedState.get("outpostMultiplier"));
 		outpostName = typedState.get("outpostName");
 		shipName = typedState.get("shipName");
+		initialCrewSize = Integer.parseInt(typedState.get("crewSize"));
 		if (endDay > 10 || endDay < 2 || partsHeld > (endDay * 2) / 3 ||
 			partsHeld < 0 || shields > 100 || shields <= 0 || money < 0 ||
-			priceMultiplier <= 0) {
+			priceMultiplier <= 0 || initialCrewSize < 2) {
 			throw new IOException("Error parsing state (bad value)");
 		}
 	}

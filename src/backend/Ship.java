@@ -280,4 +280,12 @@ public final class Ship {
 		return initialCrewSize;
 	}
 	
+	/**
+	 * Forces the initial crew size to a given size
+	 * @param size the size to force the initial crew size to
+	 */
+	public static void forceInitialCrewSize(int size) {
+		initialCrewSize = size;
+	}
+	
 }
