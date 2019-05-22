@@ -74,7 +74,7 @@ public class PilotScreen {
 	 */
 	private void initialize() {
 		ArrayList<JCheckBox> selectedCrew = new ArrayList<JCheckBox>();
-		ArrayList<Planet> planetsList = GameState.getPlanets();
+		ArrayList<Planet> planetsList = new ArrayList<Planet>(GameState.getPlanets());
 		planetsList.remove((PlanetExtended)Ship.getOrbiting());
 		ButtonGroup radioButtons = new ButtonGroup();
 		ArrayList<JLabel> lblImages = new ArrayList<JLabel>();
