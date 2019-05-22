@@ -91,7 +91,7 @@ public class TransitionDayScreen {
 		springLayout.putConstraint(SpringLayout.WEST, randomEventPanel, 0, SpringLayout.WEST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.SOUTH, randomEventPanel, 300, SpringLayout.SOUTH, deadCrewPanel);
 		
-		JLabel lblDeadCrewFluff = new JLabel("<html><p style='text-align: center;'>Due to the effects of the space plague, the following crew have died:</p></html>");
+		JLabel lblDeadCrewFluff = new JLabel("<html><p style='text-align: center;'>Due to poor health, the following crew have died:</p></html>");
 		lblDeadCrewFluff.setBorder(new EmptyBorder(0, 10, 0, 10));
 		lblDeadCrewFluff.setHorizontalAlignment(SwingConstants.CENTER);
 		deadCrewPanel.add(lblDeadCrewFluff);
