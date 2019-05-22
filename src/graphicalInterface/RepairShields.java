@@ -161,6 +161,8 @@ public class RepairShields {
 			int widthMinor = i * (frmRepairShields.getWidth() / crew.size());
 			int widthMajor = (i + 1) * (frmRepairShields.getWidth() / crew.size());
 			int panelWidth = frmRepairShields.getWidth() / crew.size();
+			
+			CrewMember member = crew.get(i);
 			JPanel temp = new JPanel();
 			sl_crewMember.putConstraint(SpringLayout.NORTH, temp, 0, SpringLayout.NORTH, CrewMemberPanel);
 			sl_crewMember.putConstraint(SpringLayout.WEST, temp, widthMinor, SpringLayout.WEST, CrewMemberPanel);
@@ -188,10 +190,18 @@ public class RepairShields {
 			name.setText(String.format("Name: %s", crew.get(i).getName()));
 			temp.add(name);
 			
+			JLabel lblClass = new JLabel(String.format("Class: %s", member.getMemberClass()));
+			sl_temp.putConstraint(SpringLayout.NORTH, lblClass, 0, SpringLayout.SOUTH, name);
+			sl_temp.putConstraint(SpringLayout.WEST, lblClass, 0, SpringLayout.WEST, temp);
+			sl_temp.putConstraint(SpringLayout.SOUTH, lblClass, 20, SpringLayout.SOUTH, name);
+			sl_temp.putConstraint(SpringLayout.EAST, lblClass, panelWidth, SpringLayout.WEST, temp);
+			lblClass.setHorizontalAlignment(SwingConstants.CENTER);
+			temp.add(lblClass);
+			
 			JLabel actionPoints = new JLabel("actionPoints");
-			sl_temp.putConstraint(SpringLayout.NORTH, actionPoints, 0, SpringLayout.SOUTH, name);
+			sl_temp.putConstraint(SpringLayout.NORTH, actionPoints, 0, SpringLayout.SOUTH, lblClass);
 			sl_temp.putConstraint(SpringLayout.WEST, actionPoints, 0, SpringLayout.WEST, temp);
-			sl_temp.putConstraint(SpringLayout.SOUTH, actionPoints, 20, SpringLayout.SOUTH, name);
+			sl_temp.putConstraint(SpringLayout.SOUTH, actionPoints, 20, SpringLayout.SOUTH, lblClass);
 			sl_temp.putConstraint(SpringLayout.EAST, actionPoints, panelWidth, SpringLayout.WEST, temp);
 			actionPoints.setText(String.format("AP: %d", crew.get(i).getActionPoints()));
 			actionPoints.setHorizontalAlignment(SwingConstants.CENTER);

@@ -140,6 +140,8 @@ public class StatusScreen {
 			int widthMinor = i * (frame.getWidth() / crew.size());
 			int widthMajor = (i + 1) * (frame.getWidth() / crew.size());
 			int panelWidth = frame.getWidth() / crew.size();
+			
+			CrewMember member = crew.get(i);
 			JPanel temp = new JPanel();
 			sl_crewMember.putConstraint(SpringLayout.NORTH, temp, 0, SpringLayout.NORTH, CrewMemberPanel);
 			sl_crewMember.putConstraint(SpringLayout.WEST, temp, widthMinor, SpringLayout.WEST, CrewMemberPanel);
@@ -211,6 +213,14 @@ public class StatusScreen {
 			SpacePlagueStatus.setText(String.format("Has Space Plague: %b", crew.get(i).hasSpacePlague()));
 			SpacePlagueStatus.setHorizontalAlignment(SwingConstants.CENTER);
 			temp.add(SpacePlagueStatus);
+			
+			JLabel lblClass = new JLabel(String.format("Class: %s", member.getMemberClass()));
+			sl_temp.putConstraint(SpringLayout.NORTH, lblClass, 0, SpringLayout.SOUTH, SpacePlagueStatus);
+			sl_temp.putConstraint(SpringLayout.WEST, lblClass, 0, SpringLayout.WEST, temp);
+			sl_temp.putConstraint(SpringLayout.SOUTH, lblClass, 20, SpringLayout.SOUTH, SpacePlagueStatus);
+			sl_temp.putConstraint(SpringLayout.EAST, lblClass, panelWidth, SpringLayout.WEST, temp);
+			lblClass.setHorizontalAlignment(SwingConstants.CENTER);
+			temp.add(lblClass);
 			
 		}
 		frame.pack();
