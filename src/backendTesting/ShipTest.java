@@ -227,16 +227,26 @@ class ShipTest {
 	}
 
 	@Test
-	void setShields() {
+	void testSetShields() {
 		assertEquals(Ship.getShields(), 100);
 		Ship.setShields(50);
 		assertEquals(Ship.getShields(), 50);
 	}
 	
 	@Test
-	void setMoney() {
+	void testSetMoney() {
 		assertEquals(Ship.getMoney(), 0);
 		Ship.setMoney(1000);
 		assertEquals(Ship.getMoney(), 1000);
+	}
+	
+	@Test
+	void testInitialCrewSize() {
+		assertEquals(Ship.getInitialCrewSize(), 0);
+		CrewMember alice = new CrewMember("Alice", CrewClass.SCOUT);
+		Ship.addCrewMember(alice);
+		assertEquals(Ship.getInitialCrewSize(), 1);
+		Ship.forceInitialCrewSize(0);
+		assertEquals(Ship.getInitialCrewSize(), 0);
 	}
 }
