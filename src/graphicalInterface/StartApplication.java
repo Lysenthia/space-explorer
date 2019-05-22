@@ -30,7 +30,7 @@ public class StartApplication {
 	}
 
 	public static void main(String[] args) {
-		Ship.addMoney(500);
+		Ship.addMoney(150);
 		try {
 			CrewMemberImages.fetchImages();
 		} catch (IOException e) {
