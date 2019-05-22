@@ -68,6 +68,9 @@ public class OutpostScreen {
 		initialize();
 	}
 
+	/**
+	 * Updates the cost label with the current cost and disables the purchase button if required
+	 */
 	private void updateCost() {
 		cost = sumCosts();
 		lblCost.setText(String.format("Current Cost: %d", cost));
@@ -78,6 +81,10 @@ public class OutpostScreen {
 		}
 	}
 	
+	/**
+	 * Returns the sum of the cost of all items that the player wishes to purchase
+	 * @return the sum of the cost of all items that the player wishes to purchase
+	 */
 	private int sumCosts() {
 		int sum = 0;
 		for (JTextField field : itemData.keySet()) {
@@ -86,7 +93,10 @@ public class OutpostScreen {
 		return sum;
 	}
 
-	protected void purchaseItems() {
+	/**
+	 * Purchases the selected items
+	 */
+	private void purchaseItems() {
 		int prePurchase = Ship.getMoney();
 		for (JTextField field : itemData.keySet()) {
 			HashMap<String, Object> item = itemData.get(field);

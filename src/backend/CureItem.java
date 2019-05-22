@@ -13,7 +13,7 @@ public class CureItem extends Consumable {
 	 * Creates an instance of the cureItem class with the name, price and effectiveness
 	 * @param name sets the name of the cureItem
 	 * @param price sets the price of the cureItem
-	 * @param effectivness sets the effectiveness of the cureItem
+	 * @param effectiveness sets the effectiveness of the cureItem
 	 */
 	public CureItem(String name, int price, int effectiveness) {
 		super(name, price, effectiveness, "Cure");

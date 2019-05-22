@@ -24,7 +24,6 @@ public class RandomEvent {
 	
 	/**
 	 * A crew member catches the space plague
-	 * @param rng random number generator
 	 * @return crew member that caught the space plague
 	 */
 	private static CrewMember spacePlague() {
@@ -40,7 +39,6 @@ public class RandomEvent {
 	 * Space pirates sneak aboard the ship, stealing 2 items
 	 * They have a 50% chance of being caught by a crew member, and if so only 1 item is stolen
 	 * If the pirates are caught by a crew member of the GUARD archetype, no items are stolen
-	 * @param rng random number generator
 	 * @return crew member that caught the space pirates (null if they were not caught)
 	 */
 	private static CrewMember spacePirate() {

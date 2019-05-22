@@ -42,6 +42,12 @@ public class PilotScreen {
 	private int selectedCount = 0;
 	private ArrayList<CrewMember> crew = Ship.getReadyCrew();
 	
+	/**
+	 * Makes the call to Ship.pilot()
+	 * @param p1 the first pilot
+	 * @param p2 the second pilot
+	 * @param planet the planet to pilot the ship to
+	 */
 	private void pilotShip(CrewMember p1, CrewMember p2, Planet planet) {
 		Ship.pilot(p1, p2, planet);
 	}

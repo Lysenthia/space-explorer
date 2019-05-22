@@ -12,7 +12,7 @@ public class MedicalItem extends Consumable {
 	 * Creates an instance of the medical item with name, price and effectiveness
 	 * @param name the name of the medical item
 	 * @param price the price of the medical item
-	 * @param effectivness the effectiveness of the medical item
+	 * @param effectiveness the effectiveness of the medical item
 	 */
 	public MedicalItem(String name, int price, int effectiveness) {
 		super(name, price, effectiveness, "Medical");

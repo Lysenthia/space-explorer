@@ -21,6 +21,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import backendGUIExtensions.SaveGame;
 
+/**
+ * The initial screen displayed when the game is started
+ * @author hoo42
+ * @author rvo16
+ *
+ */
 public class MainMenuScreen {
 
 	private JFrame frame;

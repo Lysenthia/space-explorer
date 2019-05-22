@@ -36,7 +36,7 @@ public class PlanetExtended extends Planet {
 	 * Creates an instance of an extended planet with a name, description, and path to an image of the planet
 	 * @param name the name of the planet
 	 * @param description a description of the planet
-	 * @param a GUIImage of the planet
+	 * @param image a GUIImage of the planet
 	 */
 	public PlanetExtended(String name, String description, GUIImage image) {
 		super(name, description);

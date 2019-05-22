@@ -8,6 +8,10 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
-	<classpathentry kind="lib" path="src/snakeyaml-1.23.jar"/>
+	<classpathentry kind="lib" path="src/snakeyaml-1.23.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="https://static.javadoc.io/org.yaml/snakeyaml/1.23/org/yaml/snakeyaml/Yaml.html?is-external=true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

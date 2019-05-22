@@ -26,6 +26,7 @@ A Java based space survival game
 If you wish to, you may add new images to the resource folder to use in-game. Note: a file with a filename of default is required in both folders
   - To add a new crew member image, place the image in resources/crew-img
   - To add a new planet image, place the image in resources/planet-img
+  
 You may also edit the planets and consumables used in the game
   - The planets are located in resources/game-data/planets.yaml
   - The consumables are located in resources/game-data/consumables.yaml

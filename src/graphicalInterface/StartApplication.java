@@ -21,10 +21,23 @@ import backendGUIExtensions.PlanetExtended;
  */
 public class StartApplication {
 	
+	/**
+	 * An array list of all the loaded crew images
+	 */
 	private static ArrayList<GUIImage> possibleCrewImages;
+	/**
+	 * An array list of all the found consumables
+	 */
 	private static ArrayList<Consumable> consumables;
+	/**
+	 * True if an error was encountered whilst reading the game files; false otherwise
+	 */
 	private static boolean blockProcess = false;
 	
+	/**
+	 * Returns the list of all loaded crew images
+	 * @return the list of all loaded crew images
+	 */
 	public static ArrayList<GUIImage> getPossibleCrewImages() {
 		return possibleCrewImages;
 	}

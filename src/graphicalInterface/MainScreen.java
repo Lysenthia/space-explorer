@@ -42,6 +42,9 @@ public class MainScreen {
 	private String orbiting = "<html><p>Currently Orbiting: %s</p></html>";
 	private ArrayList<CrewMember> readyCrew = Ship.getReadyCrew();
 
+	/**
+	 * Allows the generation of a save file 
+	 */
 	private static void saveGame() {
 		FileNameExtensionFilter filter = new FileNameExtensionFilter(
 		        "Save files", "ses");
@@ -64,6 +67,9 @@ public class MainScreen {
 		}
 	}
 	
+	/**
+	 * Loads data from a save file
+	 */
 	private static void loadGame() {
 		FileNameExtensionFilter filter = new FileNameExtensionFilter(
 		        "Save files", "ses");
@@ -86,6 +92,10 @@ public class MainScreen {
 		}
 	}
 	
+	/**
+	 * Checks if the game is finished and selects an appropriate ending
+	 * @return true if the game is over; false otherwise
+	 */
 	private static boolean gameFinished() {
 		boolean finished = false;
 		 if (GameState.getPartsFound() == GameState.getPartsNeeded()) {

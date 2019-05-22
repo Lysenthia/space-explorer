@@ -3,6 +3,11 @@ import java.util.Scanner;
 import backend.*;
 import java.util.ArrayList;
 
+/**
+ * Allows the game to be played through a command line
+ * @author hoo42
+ * @author rvo16
+ */
 public class GameEnviroment {
 	
 	/**
@@ -285,8 +290,8 @@ public class GameEnviroment {
 	}
 
 	/**
-	 * Prints a given ArrayList of planets with numbering and whether or not a part has been found on that planet
-	 * @param planetsToPrint the ArrayList of planets to print
+	 * Generates an array list of messages about planets
+	 * @param planets the planets to generate messages for
 	 */
 	private static ArrayList<String> getFormattedPlanets(ArrayList<Planet> planets) {
 		ArrayList<String> formattedPlanets = new ArrayList<String>();

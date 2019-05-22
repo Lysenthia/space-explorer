@@ -14,7 +14,7 @@ import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
 /**
- * 
+ * The error screen displayed if a fatal error has been encountered
  * @author hoo42
  * @author rvo16
  *
