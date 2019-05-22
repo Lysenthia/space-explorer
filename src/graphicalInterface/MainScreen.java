@@ -198,7 +198,7 @@ public class MainScreen {
 		currentStatusPanel.add(lblCurrentPartsFound);
 		lblCurrentPartsFound.setBorder(new EmptyBorder(0, 50, 0, 50));
 		
-		JLabel lblCurrentDay = new JLabel(String.format("Day: %d/%d", GameState.getCurrentDay(), GameState.getPartsNeeded()));
+		JLabel lblCurrentDay = new JLabel(String.format("Day: %d/%d", GameState.getCurrentDay(), GameState.getEndDay()));
 		lblCurrentDay.setHorizontalAlignment(SwingConstants.CENTER);
 		currentStatusPanel.add(lblCurrentDay);
 		
