@@ -52,7 +52,7 @@ public class ErrorWindow {
 	private void initialize(String error, Exception trace) {
 		frame = new JFrame();
 		frame.setAlwaysOnTop(true);
-		frame.setResizable(false);
+		//frame.setResizable(false);
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new GridLayout(0, 1, 0, 0));
@@ -65,7 +65,7 @@ public class ErrorWindow {
 		messagePanel.add(basicMessagePanel, "name_39051669503860");
 		basicMessagePanel.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		JLabel lblBasicMessage = new JLabel(error);
+		JLabel lblBasicMessage = new JLabel(String.format("<html>%s</html>", error));
 		basicMessagePanel.add(lblBasicMessage);
 		lblBasicMessage.setHorizontalAlignment(SwingConstants.CENTER);
 		

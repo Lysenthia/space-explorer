@@ -21,7 +21,7 @@ public class ConsumableReader {
 	/**
 	 * The path to the resources folder
 	 */
-	private static Path resourceFolder = Paths.get(System.getProperty("user.dir")+"/resources/");
+	private static Path resourceFolder = Paths.get(PathFinder.getCurrentPath()+"/resources/");
 
 	/**
 	 * Parses and returns the consumables.yaml file, returning an ArrayList of the consumables found within

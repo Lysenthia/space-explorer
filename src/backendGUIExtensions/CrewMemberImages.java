@@ -1,16 +1,15 @@
 package backendGUIExtensions;
 
-import java.util.ArrayList;
-import java.util.stream.Stream;
-
-import javax.imageio.ImageIO;
-
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.stream.Stream;
+
+import javax.imageio.ImageIO;
 
 /**
  * Allows for the fetching of images for crew member
@@ -32,7 +31,7 @@ public final class CrewMemberImages {
 	/**
 	 * The path to the crew-img resource folder
 	 */
-	private static Path resourceFolder = Paths.get(System.getProperty("user.dir")+"/resources/crew-img/");
+	private static Path resourceFolder = Paths.get(PathFinder.getCurrentPath()+"/resources/crew-img/");
 
 	/**
 	 * Returns the ArrayList of GUIImages that have been loaded

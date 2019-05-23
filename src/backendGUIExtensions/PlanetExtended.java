@@ -29,7 +29,7 @@ public class PlanetExtended extends Planet {
 	/**
 	 * The path to the resource folder
 	 */
-	private static Path resourceFolder = Paths.get(System.getProperty("user.dir")+"/resources/");
+	private static Path resourceFolder = Paths.get(PathFinder.getCurrentPath()+"/resources/");
 	private static GUIImage defaultImage;
 	
 	/**
