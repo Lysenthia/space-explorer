@@ -61,10 +61,13 @@ You may also edit the planets and consumables used in the game
    * [SnakeYAML License](./resources/LICENSE.txt)
 
 #### Opening Space Explorers in Eclipse
-1. 
+1. Create a new empty Java project into the Eclipse workspace (File -> New -> Java Project)
+2. Go to: File -> Open projects from file system
+3. Click on "Directory"
+4. Navigate to where you saved the Space Explorers file
+5. Select Space Explorers and file and click "OK"
+6. Click Finish
 
-
-   
 #### Building the game
 The game can be built using the makefile
 - In order to build the command line version of the game, run `make cli`
