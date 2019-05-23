@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="create_run_jar" name="Create Runnable Jar for Project seng201project">
+    <!--this file was created by Eclipse Runnable JAR Export Wizard-->
+    <!--ANT 1.7 is required                                        -->
+    <!--define folder properties-->
+    <property name="dir.buildfile" value="."/>
+    <property name="dir.workspace" value="."/>
+    <property name="dir.jarfile" value="."/>
+    <property name="name" value="rvo16_hoo42_SpaceExplorerGUI.jar"/>
+    <property name="main" value="graphicalInterface.StartApplication"/>
+    <target name="create_run_jar">
+        <jar destfile="${dir.jarfile}/${name}" filesetmanifest="mergewithoutmain">
+            <manifest>
+                <attribute name="Main-Class" value="${main}"/>
+                <attribute name="Class-Path" value="."/>
+            </manifest>
+            <fileset dir="${dir.jarfile}/bin"/>
+            <zipfileset excludes="META-INF/*.SF" src="${dir.jarfile}/src/snakeyaml-1.23.jar"/>
+        </jar>
+    </target>
+</project>

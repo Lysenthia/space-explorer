@@ -55,6 +55,12 @@ You may also edit the planets and consumables used in the game
 * [SnakeYAML](https://bitbucket.org/asomov/snakeyaml)  (Bundled)
    * [SnakeYAML License](./resources/LICENSE.txt)
    
+#### Building the game
+The game can be built using the makefile
+- In order to build the command line version of the game, run `make cli`
+- In order to build the GUI version of the game, run `make gui`
+
+   
 #### Image sources
 * Mercury : https://commons.wikimedia.org/wiki/File:Mercury_in_color_-_Prockter07-edit1.jpg
 * Venus: https://commons.wikimedia.org/wiki/File:Venus-real_color.jpg
