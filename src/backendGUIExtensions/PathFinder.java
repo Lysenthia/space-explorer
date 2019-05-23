@@ -7,8 +7,8 @@ import java.nio.file.Paths;
 
 /**
  * Gets the current directory that the game is being run from
- * Mainly intended for use from a jar file, as this forces the resources folder
- * to be added to the bin when testing from eclipse
+ * Mainly intended for use from a jar file, as this forces the resources
+ * to be added into a source folder in eclipse
  * @author hoo42
  *
  */
