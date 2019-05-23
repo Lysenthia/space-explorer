@@ -59,6 +59,7 @@ You may also edit the planets and consumables used in the game
 The game can be built using the makefile
 - In order to build the command line version of the game, run `make cli`
 - In order to build the GUI version of the game, run `make gui`
+- You can see the possible usage for the makefile by running `make help`
 
    
 #### Image sources
