@@ -9,6 +9,16 @@
     <property name="name" value="rvo16_hoo42_SpaceExplorerGUI.jar"/>
     <property name="main" value="graphicalInterface.StartApplication"/>
     <target name="create_run_jar">
+        <mkdir dir="bin" />
+        <copy todir="bin">
+            <fileset dir="eclipse-resources"/>
+        </copy>
+        <javac srcdir="src" destdir="bin">
+                <exclude name="**/backendTesting/**"/>
+                <classpath>
+                    <pathelement path="${dir.jarfile}/src/snakeyaml-1.23.jar"/>
+                </classpath>
+        </javac>
         <jar destfile="${dir.jarfile}/${name}" filesetmanifest="mergewithoutmain">
             <manifest>
                 <attribute name="Main-Class" value="${main}"/>

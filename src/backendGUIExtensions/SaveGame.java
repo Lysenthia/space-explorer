@@ -216,7 +216,7 @@ public class SaveGame {
 		ArrayList<CrewMemberExtended> crewList = fetchCrew(output);
 		ArrayList<Consumable> consumablesList = fetchConsumables(output);
 		fetchState(output);
-		if (planetsList.size() < endDay) {
+		if (planetsList.size() < (int) ((endDay * 2) / 3)) {
 			throw new IOException("Error (too few planets)");
 		}
 		Ship.clearAll();
