@@ -43,7 +43,7 @@ public class StartApplication {
 	}
 
 	public static void main(String[] args) {
-		Ship.addMoney(150);
+		Ship.addMoney(100);
 		try {
 			CrewMemberImages.fetchImages();
 		} catch (IOException e) {
