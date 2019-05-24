@@ -4,7 +4,7 @@ A Java based space survival game
 #### How to play (GUI)
 1. Ensure Java 11 is installed on the machine
 2. Open zip folder in terminal window
-3. Start the game by calling `java -jar game_gui.jar` in the terminal
+3. Start the game by calling `java -jar rvo16_hoo42_SpaceExplorersGUI.jar` in the terminal
    - The folder from which this file is called must also contain the resources folder provided
 4. Select how many days the game should played over
 5. Name you ship
@@ -37,7 +37,7 @@ You may also edit the planets and consumables used in the game
 #### How to play (CLI)
 1. Ensure Java 11 is installed on the machine
 2. Open zip folder in terminal window
-3. Start the game by calling `java -jar game_cli.jar` in the terminal
+3. Start the game by calling `rvo16_hoo42_SpaceExplorersCLI.jar` in the terminal
 4. Enter the number of days to play for
 5. Select the crew members that you want by entering the corresponding numbers in a single line
 6. The game now begins in orbit around the sun. Entering the corresponding numbers in a single line, you may now:
@@ -62,8 +62,9 @@ You may also edit the planets and consumables used in the game
 
 #### Opening Space Explorers in Eclipse
 1. Create a new empty Java project into the Eclipse workspace (File -> New -> Java Project)
+(If creating a new Eclipse WorkSpace for eclipse, do not create java-module)
 2. Go to: File -> Open projects from file system
-3. Click on "Directory"
+3. Click on "Directory" tab in the top right
 4. Navigate to where you saved the Space Explorers file
 5. Select Space Explorers and file and click "OK"
 6. Click Finish
